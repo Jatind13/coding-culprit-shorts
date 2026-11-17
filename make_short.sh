@@ -20,7 +20,7 @@ node tools/capture.mjs sheet review/all.jpg 0.5 10 | tail -1
 node tools/capture.mjs video "$OUT/$ID.mp4" 2>&1 | tr '\r' '\n' | tail -1
 # cover = a frame inside the catch shot (second to last line) 1.5 s in
 CT=$($PY -c "import json;L=json.load(open('data/lines.json'))['lines'];print(round(L[-2]['start']+1.5,2))")
-node tools/capture.mjs frames review/cover "$CT" | tail -1; cp review/cover/*.jpg "$OUT/$ID-cover.jpg"; cp review/all.jpg "$OUT/$ID-review-sheet.jpg"; cp script.json "$OUT/$ID-script.json"
+node tools/capture.mjs frames review/cover "$CT" | tail -1; cp review/cover/*.jpg "$OUT/$ID-cover.jpg"; cp review/all.jpg "$OUT/$ID-review-sheet.jpg"; cp script.json "$OUT/$ID-script.json"; python3 "$HERE/scripts/post.py" "$ID" "$OUT/$ID-post.txt"
 $PY - <<PY2
 import subprocess,re
 o="$OUT/$ID.mp4"
