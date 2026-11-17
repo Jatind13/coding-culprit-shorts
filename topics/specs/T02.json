@@ -1,0 +1,599 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Cache stampede",
+ "sources": [
+  "Wikipedia, 'Cache stampede' (secondary source): a cascading failure when a cached item expires under heavy load and many concurrent processes try to regenerate it at once; example: a page taking 3 seconds to render at 10 requests per second means 30 processes recomputing at once when the cached page expires; the extra load can exhaust shared resources such as databases, cause congestion collapse and keep the cache empty; mitigations: (1) locking: one process gets the lock and recomputes, the others wait, get not-found or serve a stale item, at the cost of an extra write and a more complex implementation; (2) external recomputation; (3) probabilistic early expiration, which costs extra cache memory for the stored recompute time. https://en.wikipedia.org/wiki/Cache_stampede",
+  "Not claimed: Wikipedia does not discuss TTL jitter or request coalescing, so the video does not mention them. The 3 s / 10 req/s / 30 rebuilds numbers are Wikipedia's own example, shown as such."
+ ],
+ "lines": [
+  {
+   "text": "Your most popular page is cached, so the database barely gets touched, until that cache entry expires.",
+   "caps": "*POPULAR PAGE | CACHED *UNTIL IT EXPIRES"
+  },
+  {
+   "text": "Now every request misses at the same moment, and each one goes to the database to rebuild it.",
+   "caps": "*EVERY REQUEST MISSES | ALL *HIT THE DATABASE"
+  },
+  {
+   "text": "A classic example: three seconds to build, ten requests per second, so thirty rebuilds at once.",
+   "caps": "*3 SECONDS TO BUILD | *10 REQUESTS PER SECOND | *30 REBUILDS"
+  },
+  {
+   "text": "All that load can overwhelm the database, which keeps the cache empty, and the whole thing collapses.",
+   "caps": "DATABASE *OVERLOADED | CACHE STAYS *EMPTY | IT *COLLAPSES"
+  },
+  {
+   "text": "The first fix is a lock, so only one request rebuilds, and the others wait or get a stale copy.",
+   "caps": "*LOCK THE KEY | ONE *REBUILDS | OTHERS *WAIT"
+  },
+  {
+   "text": "Another is early refresh, where a request randomly rebuilds the entry slightly before it expires.",
+   "caps": "*REFRESH EARLY | A BIT *BEFORE EXPIRY"
+  },
+  {
+   "text": "But here's the catch: locks add an extra write and more complexity, and early refresh costs extra cache memory.",
+   "caps": "BUT THERE IS A *CATCH | LOCKS ADD *COMPLEXITY | EARLY REFRESH COSTS *MEMORY"
+  },
+  {
+   "text": "So for a hot key, never let everyone rebuild together, let one request do the work.",
+   "caps": "FOR A *HOT KEY | NEVER *REBUILD TOGETHER | LET *ONE DO THE WORK"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "ONE POPULAR KEY",
+   "color": "violet",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.1,
+     "label": "users",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 700
+    },
+    {
+     "t": "node",
+     "at": "cached",
+     "label": "cache",
+     "kind": "cache",
+     "color": "violet",
+     "x": 540,
+     "y": 700
+    },
+    {
+     "t": "node",
+     "at": "database",
+     "label": "database",
+     "kind": "db",
+     "color": "amber",
+     "x": 890,
+     "y": 700
+    },
+    {
+     "t": "wire",
+     "at": "cached",
+     "pts": [
+      [
+       280,
+       700
+      ],
+      [
+       450,
+       700
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "dot",
+     "at": "cached",
+     "pts": [
+      [
+       280,
+       700
+      ],
+      [
+       450,
+       700
+      ]
+     ],
+     "color": "mint",
+     "loop": true,
+     "dur": 0.8,
+     "hide": "expires"
+    },
+    {
+     "t": "badge",
+     "at": "barely",
+     "text": "cache hit",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 960,
+     "hide": "expires"
+    },
+    {
+     "t": "badge",
+     "at": "expires",
+     "text": "EXPIRED",
+     "color": "coral",
+     "size": 52,
+     "x": 540,
+     "y": 960
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "THE SAME MOMENT",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": [
+      "every",
+      0.0
+     ],
+     "text": "GET",
+     "color": "coral",
+     "x": 130,
+     "y": 520,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": [
+      "every",
+      0.15
+     ],
+     "text": "GET",
+     "color": "coral",
+     "x": 335,
+     "y": 520,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": [
+      "every",
+      0.3
+     ],
+     "text": "GET",
+     "color": "coral",
+     "x": 540,
+     "y": 520,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": [
+      "every",
+      0.44999999999999996
+     ],
+     "text": "GET",
+     "color": "coral",
+     "x": 745,
+     "y": 520,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": [
+      "every",
+      0.6
+     ],
+     "text": "GET",
+     "color": "coral",
+     "x": 950,
+     "y": 520,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "misses",
+     "text": "ALL MISS",
+     "color": "coral",
+     "size": 44,
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "goes",
+     "label": "database",
+     "kind": "db",
+     "color": "amber",
+     "x": 540,
+     "y": 900
+    },
+    {
+     "t": "wire",
+     "at": "goes",
+     "pts": [
+      [
+       130,
+       560
+      ],
+      [
+       540,
+       830
+      ]
+     ],
+     "color": "coral",
+     "dash": [
+      10,
+      10
+     ]
+    },
+    {
+     "t": "wire",
+     "at": "goes",
+     "pts": [
+      [
+       335,
+       560
+      ],
+      [
+       540,
+       830
+      ]
+     ],
+     "color": "coral",
+     "dash": [
+      10,
+      10
+     ]
+    },
+    {
+     "t": "wire",
+     "at": "goes",
+     "pts": [
+      [
+       745,
+       560
+      ],
+      [
+       540,
+       830
+      ]
+     ],
+     "color": "coral",
+     "dash": [
+      10,
+      10
+     ]
+    },
+    {
+     "t": "wire",
+     "at": "goes",
+     "pts": [
+      [
+       950,
+       560
+      ],
+      [
+       540,
+       830
+      ]
+     ],
+     "color": "coral",
+     "dash": [
+      10,
+      10
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "rebuild",
+     "text": "ALL REBUILD IT",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 1100
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "THE MATH",
+   "color": "amber",
+   "items": [
+    {
+     "t": "chip",
+     "at": "three",
+     "text": "3 s to build",
+     "color": "amber",
+     "x": 540,
+     "y": 500,
+     "size": 40
+    },
+    {
+     "t": "chip",
+     "at": "ten",
+     "text": "10 requests / s",
+     "color": "amber",
+     "x": 540,
+     "y": 650,
+     "size": 40
+    },
+    {
+     "t": "stamp",
+     "at": "thirty",
+     "text": "30 REBUILDS",
+     "color": "coral",
+     "size": 70,
+     "x": 540,
+     "y": 880
+    },
+    {
+     "t": "note",
+     "at": 0.3,
+     "text": "Wikipedia's example",
+     "color": "dim",
+     "x": 540,
+     "y": 1040,
+     "size": 40
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "THE COLLAPSE",
+   "color": "coral",
+   "items": [
+    {
+     "t": "meter",
+     "at": "load",
+     "x": 80,
+     "y": 540,
+     "w": 920,
+     "label": "database load",
+     "value": "OVERLOADED",
+     "show": 0.8,
+     "color": "coral",
+     "to": 1.0,
+     "dur": 1.6,
+     "from": 0.2
+    },
+    {
+     "t": "badge",
+     "at": "overwhelm",
+     "text": "DATABASE OVERWHELMED",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 650
+    },
+    {
+     "t": "chip",
+     "at": "empty",
+     "text": "cache: empty",
+     "color": "coral",
+     "x": 540,
+     "y": 760,
+     "size": 40
+    },
+    {
+     "t": "stamp",
+     "at": "collapses",
+     "text": "COLLAPSE",
+     "color": "coral",
+     "size": 72,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "FIX 1 \u00b7 A LOCK",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": "first",
+     "text": "request 1",
+     "color": "mint",
+     "x": 250,
+     "y": 560,
+     "size": 36
+    },
+    {
+     "t": "wire",
+     "at": "rebuilds",
+     "pts": [
+      [
+       390,
+       560
+      ],
+      [
+       520,
+       560
+      ]
+     ],
+     "color": "mint"
+    },
+    {
+     "t": "chip",
+     "at": "rebuilds",
+     "text": "rebuilds cache",
+     "color": "mint",
+     "x": 750,
+     "y": 560,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "others",
+     "text": "request 2",
+     "color": "violet",
+     "x": 250,
+     "y": 730,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": [
+      "others",
+      0.3
+     ],
+     "text": "request 3",
+     "color": "violet",
+     "x": 250,
+     "y": 860,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "stale",
+     "text": "wait or stale copy",
+     "color": "violet",
+     "x": 740,
+     "y": 795,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "LOCK THE KEY",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 1040
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "FIX 2 \u00b7 REFRESH EARLY",
+   "color": "mint",
+   "items": [
+    {
+     "t": "meter",
+     "at": 0.3,
+     "x": 80,
+     "y": 560,
+     "w": 920,
+     "label": "cache entry life",
+     "color": "mint",
+     "to": 0.15,
+     "dur": 3.2,
+     "from": 1.0
+    },
+    {
+     "t": "chip",
+     "at": "randomly",
+     "text": "random rebuild",
+     "color": "violet",
+     "x": 540,
+     "y": 780,
+     "size": 40
+    },
+    {
+     "t": "badge",
+     "at": "before",
+     "text": "BEFORE IT EXPIRES",
+     "color": "amber",
+     "size": 44,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "BUT THERE IS A CATCH",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "locks",
+     "color": "violet",
+     "x": 250,
+     "y": 560,
+     "size": 40
+    },
+    {
+     "t": "badge",
+     "at": "write",
+     "text": "EXTRA WRITE",
+     "color": "coral",
+     "size": 40,
+     "x": 720,
+     "y": 560
+    },
+    {
+     "t": "badge",
+     "at": "complexity",
+     "text": "COMPLEXITY",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 700
+    },
+    {
+     "t": "chip",
+     "at": "early",
+     "text": "early refresh",
+     "color": "violet",
+     "x": 290,
+     "y": 860,
+     "size": 40
+    },
+    {
+     "t": "badge",
+     "at": "memory",
+     "text": "EXTRA MEMORY",
+     "color": "coral",
+     "size": 40,
+     "x": 760,
+     "y": 860
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "THE RULE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": "hot",
+     "text": "HOT KEY",
+     "color": "amber",
+     "size": 50,
+     "x": 540,
+     "y": 540
+    },
+    {
+     "t": "badge",
+     "at": "never",
+     "text": "NEVER REBUILD TOGETHER",
+     "color": "coral",
+     "size": 44,
+     "x": 540,
+     "y": 700
+    },
+    {
+     "t": "stamp",
+     "at": "one",
+     "text": "ONE REBUILDS",
+     "color": "mint",
+     "size": 72,
+     "x": 540,
+     "y": 900
+    }
+   ]
+  }
+ ]
+}

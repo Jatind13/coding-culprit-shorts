@@ -1,0 +1,7 @@
+build/
+out/
+data/
+__pycache__/
+*.mp4
+*.wav
+.DS_Store

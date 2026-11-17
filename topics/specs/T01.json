@@ -1,0 +1,451 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Why 0.1 + 0.2 is not 0.3",
+ "sources": [
+  "0.30000000000000004.com ('Floating Point Math'): floating-point numbers are stored in binary; 0.1 and 0.2 'are repeating decimals in the base-2 system the computer uses', so 0.1 + 0.2 gives 0.30000000000000004; lists decimal types (Java BigDecimal, Python decimal, C# decimal) and exact fractions as options; approximate values 'can only be compared up to a given tolerance'. https://0.30000000000000004.com/",
+  "MDN, Number.EPSILON: 0.1 + 0.2 === 0.3 is false; do not use === with floats; compare with Math.abs(x - y) < Number.EPSILON, which suits values around magnitude 1; for larger values (e.g. around 2000) a tolerance scaled like 2000 * Number.EPSILON is needed. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/EPSILON",
+  "Not stated by either source: 'use whole cents for money' is a common practice (integers are exact), not a quote; the source only lists decimal types. The '~0.1 / ~0.2' chips illustrate approximation, no digits claimed."
+ ],
+ "lines": [
+  {
+   "text": "Add zero point one and zero point two in JavaScript, and you would expect zero point three.",
+   "caps": "*ADD 0.1 AND 0.2 | EXPECT *0.3"
+  },
+  {
+   "text": "You get zero point three, then fifteen zeros, then a four.",
+   "caps": "0.3 | *15 ZEROS | THEN A *4"
+  },
+  {
+   "text": "The reason is that computers store numbers in binary, where zero point one repeats forever.",
+   "caps": "STORED IN *BINARY | 0.1 *REPEATS FOREVER"
+  },
+  {
+   "text": "So the stored values are only approximate, and the tiny error shows up when you add.",
+   "caps": "ONLY *APPROXIMATE | THE *ERROR SHOWS UP"
+  },
+  {
+   "text": "That is why checking whether the sum equals zero point three is false.",
+   "caps": "*EQUALS CHECK | IS *FALSE"
+  },
+  {
+   "text": "Instead, compare with a small tolerance, such as JavaScript's Number dot epsilon.",
+   "caps": "COMPARE WITH A *TOLERANCE | NUMBER.*EPSILON"
+  },
+  {
+   "text": "But here's the catch: that epsilon only suits numbers around one, so larger values need a bigger tolerance.",
+   "caps": "BUT THERE IS A *CATCH | SUITS NUMBERS AROUND *ONE | *BIGGER TOLERANCE"
+  },
+  {
+   "text": "So never compare floats with equals, and for money, use whole cents or a decimal type.",
+   "caps": "NEVER COMPARE *FLOATS | MONEY: WHOLE *CENTS | OR A *DECIMAL TYPE"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "THE SIMPLEST SUM",
+   "color": "white",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "typeFrom": "add",
+     "typeTo": "two",
+     "x": 80,
+     "y": 430,
+     "w": 920,
+     "h": 260,
+     "lines": [
+      {
+       "t": "> 0.1 + 0.2",
+       "c": "white"
+      },
+      {
+       "t": "= 0.3 ?",
+       "c": "amber"
+      }
+     ]
+    },
+    {
+     "t": "chip",
+     "at": "JavaScript",
+     "text": "JavaScript",
+     "color": "violet",
+     "x": 540,
+     "y": 770,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "expect",
+     "text": "expected: 0.3",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "WHAT YOU ACTUALLY GET",
+   "color": "coral",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "typeFrom": 0.2,
+     "typeTo": 1.0,
+     "x": 80,
+     "y": 430,
+     "w": 920,
+     "h": 260,
+     "lines": [
+      {
+       "t": "> 0.1 + 0.2",
+       "c": "white"
+      },
+      {
+       "t": "0.30000000000000004",
+       "c": "coral"
+      }
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "fifteen",
+     "text": "15 zeros",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    },
+    {
+     "t": "badge",
+     "at": "four",
+     "text": "then a 4",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 1020
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "STORED IN BINARY",
+   "color": "violet",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.2,
+     "text": "0.1",
+     "color": "amber",
+     "x": 190,
+     "y": 600,
+     "size": 38
+    },
+    {
+     "t": "wire",
+     "at": "binary",
+     "pts": [
+      [
+       300,
+       600
+      ],
+      [
+       470,
+       600
+      ]
+     ],
+     "color": "violet"
+    },
+    {
+     "t": "dot",
+     "at": "binary",
+     "pts": [
+      [
+       300,
+       600
+      ],
+      [
+       470,
+       600
+      ]
+     ],
+     "color": "mint",
+     "dur": 0.8
+    },
+    {
+     "t": "chip",
+     "at": "binary",
+     "text": "0.0001100110011...",
+     "color": "violet",
+     "x": 740,
+     "y": 600,
+     "size": 30
+    },
+    {
+     "t": "badge",
+     "at": "repeats",
+     "text": "REPEATS FOREVER",
+     "color": "coral",
+     "size": 44,
+     "x": 540,
+     "y": 800
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "ONLY APPROXIMATE",
+   "color": "amber",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.2,
+     "text": "~0.1",
+     "color": "amber",
+     "x": 170,
+     "y": 620,
+     "size": 38
+    },
+    {
+     "t": "text",
+     "at": "approximate",
+     "text": "+",
+     "size": 64,
+     "color": "white",
+     "x": 320,
+     "y": 620
+    },
+    {
+     "t": "chip",
+     "at": "approximate",
+     "text": "~0.2",
+     "color": "amber",
+     "x": 470,
+     "y": 620,
+     "size": 38
+    },
+    {
+     "t": "text",
+     "at": "error",
+     "text": "=",
+     "size": 64,
+     "color": "white",
+     "x": 620,
+     "y": 620
+    },
+    {
+     "t": "chip",
+     "at": "error",
+     "text": "not 0.3",
+     "color": "coral",
+     "x": 830,
+     "y": 620,
+     "size": 38
+    },
+    {
+     "t": "badge",
+     "at": "shows",
+     "text": "TINY ERROR ADDS UP",
+     "color": "coral",
+     "size": 42,
+     "x": 540,
+     "y": 840
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "SO THE CHECK FAILS",
+   "color": "coral",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "typeFrom": 0.1,
+     "typeTo": "false",
+     "x": 80,
+     "y": 430,
+     "w": 920,
+     "h": 260,
+     "lines": [
+      {
+       "t": "> 0.1 + 0.2 === 0.3",
+       "c": "white"
+      },
+      {
+       "t": "false",
+       "c": "coral"
+      }
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "sum",
+     "text": "STRICT EQUALITY",
+     "color": "violet",
+     "size": 40,
+     "x": 540,
+     "y": 800
+    },
+    {
+     "t": "stamp",
+     "at": "false",
+     "text": "FALSE",
+     "color": "coral",
+     "size": 80,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "USE A TOLERANCE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.2,
+     "typeFrom": "compare",
+     "typeTo": "epsilon",
+     "x": 80,
+     "y": 430,
+     "w": 920,
+     "h": 260,
+     "lines": [
+      {
+       "t": "Math.abs(a - b)",
+       "c": "white"
+      },
+      {
+       "t": "< Number.EPSILON",
+       "c": "mint"
+      }
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "tolerance",
+     "text": "SMALL TOLERANCE",
+     "color": "violet",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "BUT THERE IS A CATCH",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "Number.EPSILON",
+     "color": "violet",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "suits",
+     "text": "near 1",
+     "color": "mint",
+     "x": 250,
+     "y": 560,
+     "size": 40
+    },
+    {
+     "t": "check",
+     "at": "one",
+     "x": 520,
+     "y": 560,
+     "color": "mint"
+    },
+    {
+     "t": "chip",
+     "at": "larger",
+     "text": "near 2000",
+     "color": "coral",
+     "x": 290,
+     "y": 760,
+     "size": 40
+    },
+    {
+     "t": "cross",
+     "at": [
+      "larger",
+      0.3
+     ],
+     "x": 560,
+     "y": 760,
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "bigger",
+     "text": "SCALE THE TOLERANCE",
+     "color": "amber",
+     "size": 40,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "THE RULE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": "never",
+     "text": "NEVER == ON FLOATS",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 540
+    },
+    {
+     "t": "chip",
+     "at": "money",
+     "text": "money",
+     "color": "amber",
+     "x": 540,
+     "y": 620,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "cents",
+     "text": "WHOLE CENTS",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 720
+    },
+    {
+     "t": "badge",
+     "at": "decimal",
+     "text": "OR A DECIMAL TYPE",
+     "color": "violet",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    }
+   ]
+  }
+ ]
+}

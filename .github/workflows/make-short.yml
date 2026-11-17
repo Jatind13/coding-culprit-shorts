@@ -1,0 +1,44 @@
+name: Make a short
+on:
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "Topic id, e.g. T03 (needs topics/specs/T03.json)"
+        required: true
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11", cache: pip }
+      - name: System packages
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Python packages
+        run: pip install -r requirements.txt
+      - name: Cache voice and Whisper models
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.faceless-shorts
+            ~/.cache/huggingface
+          key: models-v1
+      - name: Download models (first run only)
+        run: |
+          python scripts/voice.py --download
+          python -c "from faster_whisper import WhisperModel; WhisperModel('small.en', device='cpu', compute_type='int8')"
+      - name: Render
+        env:
+          CI: "true"
+        run: ./make_short.sh "${{ inputs.topic }}"
+      - name: Upload for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.topic }}
+          path: |
+            out/${{ inputs.topic }}/*
+            build/${{ inputs.topic }}/review/check.txt
