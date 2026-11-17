@@ -89,6 +89,15 @@
      "size": 46,
      "x": 540,
      "y": 860
+    },
+    {
+     "t": "chip",
+     "at": 1.7,
+     "text": "just two decimals",
+     "color": "mint",
+     "x": 540,
+     "y": 970,
+     "size": 36
     }
    ]
   },
@@ -341,6 +350,15 @@
      "size": 46,
      "x": 540,
      "y": 860
+    },
+    {
+     "t": "chip",
+     "at": 3.6,
+     "text": "EPSILON = 2.2e-16",
+     "color": "amber",
+     "x": 540,
+     "y": 970,
+     "size": 36
     }
    ]
   },
