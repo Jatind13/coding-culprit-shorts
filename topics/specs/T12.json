@@ -1,0 +1,715 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Backoff and jitter",
+ "sources": [
+  "AWS Architecture Blog, 'Exponential Backoff And Jitter' (official, fetched 2026-11-17): without jitter, backed-off clients still produce clusters of calls; jitter is trying to improve the performance of a system by adding randomness; the randomness spreads the retry spikes into an approximately constant rate of calls. Not claimed: which jitter variant is best, because the article's comparison is nuanced. https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/",
+  "Illustration, not a quoted case: the thousand clients and the 1, 2, 4, 8 second waits are example numbers, labelled on screen. Capping retries is engineering advice."
+ ],
+ "lines": [
+  {
+   "text": "A thousand clients lose their connection to your server, and all of them retry at the same moment.",
+   "caps": "*1000 CLIENTS | ALL RETRY *TOGETHER"
+  },
+  {
+   "text": "The server just came back, and the retry wave knocks it right over again.",
+   "caps": "SERVER *RECOVERS | RETRY WAVE *KNOCKS IT OVER"
+  },
+  {
+   "text": "Exponential backoff helps: each retry waits twice as long as the last, so one second, two, four, eight.",
+   "caps": "*EXPONENTIAL BACKOFF | *DOUBLE THE WAIT | 1, 2, 4, *8"
+  },
+  {
+   "text": "That spreads the retries out over time, instead of hammering the server every second.",
+   "caps": "SPREADS *OVER TIME | NOT EVERY *SECOND"
+  },
+  {
+   "text": "Each client now retries one, two, four, and eight seconds after its own failure.",
+   "caps": "*1, 2, 4, 8 | AFTER ITS *OWN FAILURE"
+  },
+  {
+   "text": "But here's the catch: if every client started at the same moment, they still retry together, in clusters.",
+   "caps": "BUT THERE IS A *CATCH | SAME START | *STILL CLUSTERS"
+  },
+  {
+   "text": "The fix is jitter, which means adding randomness to each wait, and that spreads the spikes into a roughly constant rate.",
+   "caps": "*JITTER | ADD *RANDOMNESS | *CONSTANT RATE"
+  },
+  {
+   "text": "So double the wait each time, add randomness, and always cap the number of retries.",
+   "caps": "*DOUBLE | *RANDOMIZE | *CAP THE RETRIES"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "1000 CLIENTS RETRY",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.5,
+     "text": "1,000 CLIENTS",
+     "color": "cyan",
+     "size": 44,
+     "x": 540,
+     "y": 440
+    },
+    {
+     "t": "chip",
+     "at": "connection",
+     "text": "connection lost",
+     "color": "coral",
+     "x": 540,
+     "y": 560,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "server",
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 770
+    },
+    {
+     "t": "dot",
+     "at": "retry",
+     "pts": [
+      [
+       200,
+       630
+      ],
+      [
+       470,
+       730
+      ]
+     ],
+     "color": "coral",
+     "loop": true,
+     "dur": 0.9
+    },
+    {
+     "t": "dot",
+     "at": "retry",
+     "pts": [
+      [
+       540,
+       630
+      ],
+      [
+       540,
+       690
+      ]
+     ],
+     "color": "coral",
+     "loop": true,
+     "dur": 0.7
+    },
+    {
+     "t": "dot",
+     "at": "retry",
+     "pts": [
+      [
+       880,
+       630
+      ],
+      [
+       610,
+       730
+      ]
+     ],
+     "color": "coral",
+     "loop": true,
+     "dur": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "moment",
+     "text": "ALL AT ONCE",
+     "color": "coral",
+     "size": 44,
+     "x": 540,
+     "y": 1000
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "THE RETRY WAVE",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "server back up",
+     "color": "mint",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "meter",
+     "at": "retry",
+     "label": "server load",
+     "color": "coral",
+     "x": 140,
+     "y": 640,
+     "w": 800,
+     "from": 0.1,
+     "to": 1.0,
+     "dur": 1.2,
+     "value": "overload",
+     "show": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "knocks",
+     "text": "KNOCKED OVER AGAIN",
+     "color": "coral",
+     "size": 42,
+     "x": 540,
+     "y": 810
+    },
+    {
+     "t": "cross",
+     "at": "over",
+     "x": 880,
+     "y": 810,
+     "color": "coral"
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "EXPONENTIAL BACKOFF",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "backoff",
+     "color": "violet",
+     "x": 540,
+     "y": 440,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "twice",
+     "text": "DOUBLE EACH WAIT",
+     "color": "amber",
+     "size": 42,
+     "x": 540,
+     "y": 520
+    },
+    {
+     "t": "row",
+     "at": "one",
+     "label": "retry 1",
+     "value": "wait 1 s",
+     "color": "mint",
+     "x": 200,
+     "y": 650,
+     "gap": 300
+    },
+    {
+     "t": "row",
+     "at": "two",
+     "label": "retry 2",
+     "value": "wait 2 s",
+     "color": "mint",
+     "x": 200,
+     "y": 730,
+     "gap": 300
+    },
+    {
+     "t": "row",
+     "at": "four",
+     "label": "retry 3",
+     "value": "wait 4 s",
+     "color": "mint",
+     "x": 200,
+     "y": 810,
+     "gap": 300
+    },
+    {
+     "t": "row",
+     "at": "eight",
+     "label": "retry 4",
+     "value": "wait 8 s",
+     "color": "mint",
+     "x": 200,
+     "y": 890,
+     "gap": 300
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "SPREAD OVER TIME",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "backoff",
+     "color": "mint",
+     "x": 540,
+     "y": 520,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": 0.9,
+     "text": "R",
+     "color": "mint",
+     "x": 140,
+     "y": 640,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 1.4,
+     "text": "R",
+     "color": "mint",
+     "x": 240,
+     "y": 640,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 1.9,
+     "text": "R",
+     "color": "mint",
+     "x": 440,
+     "y": 640,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 2.4,
+     "text": "R",
+     "color": "mint",
+     "x": 840,
+     "y": 640,
+     "s": 0.9
+    },
+    {
+     "t": "chip",
+     "at": "hammering",
+     "text": "every second",
+     "color": "coral",
+     "x": 540,
+     "y": 770,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": 3.4,
+     "text": "R",
+     "color": "coral",
+     "x": 150,
+     "y": 890,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 3.6999999999999997,
+     "text": "R",
+     "color": "coral",
+     "x": 300,
+     "y": 890,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.0,
+     "text": "R",
+     "color": "coral",
+     "x": 450,
+     "y": 890,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.3,
+     "text": "R",
+     "color": "coral",
+     "x": 600,
+     "y": 890,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.6,
+     "text": "R",
+     "color": "coral",
+     "x": 750,
+     "y": 890,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.9,
+     "text": "R",
+     "color": "coral",
+     "x": 900,
+     "y": 890,
+     "s": 0.9
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "THE WAITS",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "each client",
+     "color": "cyan",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "meter",
+     "at": "one",
+     "label": "retry 1",
+     "color": "mint",
+     "x": 140,
+     "y": 600,
+     "w": 800,
+     "from": 0,
+     "to": 0.125,
+     "dur": 0.4,
+     "value": "1 s",
+     "show": 0.05
+    },
+    {
+     "t": "meter",
+     "at": "two",
+     "label": "retry 2",
+     "color": "mint",
+     "x": 140,
+     "y": 700,
+     "w": 800,
+     "from": 0,
+     "to": 0.25,
+     "dur": 0.5,
+     "value": "2 s",
+     "show": 0.05
+    },
+    {
+     "t": "meter",
+     "at": "four",
+     "label": "retry 3",
+     "color": "mint",
+     "x": 140,
+     "y": 800,
+     "w": 800,
+     "from": 0,
+     "to": 0.5,
+     "dur": 0.6,
+     "value": "4 s",
+     "show": 0.05
+    },
+    {
+     "t": "meter",
+     "at": "eight",
+     "label": "retry 4",
+     "color": "mint",
+     "x": 140,
+     "y": 900,
+     "w": 800,
+     "from": 0,
+     "to": 1.0,
+     "dur": 0.8,
+     "value": "8 s",
+     "show": 0.05
+    },
+    {
+     "t": "chip",
+     "at": "after",
+     "text": "after its own failure",
+     "color": "amber",
+     "x": 540,
+     "y": 1030,
+     "size": 34
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "STILL IN CLUSTERS",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "all start together",
+     "color": "cyan",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "started",
+     "text": "t = 0",
+     "color": "amber",
+     "x": 540,
+     "y": 570,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": 4.3,
+     "text": "R",
+     "color": "coral",
+     "x": 160,
+     "y": 800,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.3999999999999995,
+     "text": "R",
+     "color": "coral",
+     "x": 260,
+     "y": 800,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.5,
+     "text": "R",
+     "color": "coral",
+     "x": 210,
+     "y": 880,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.7,
+     "text": "R",
+     "color": "coral",
+     "x": 490,
+     "y": 800,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.8,
+     "text": "R",
+     "color": "coral",
+     "x": 590,
+     "y": 800,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.9,
+     "text": "R",
+     "color": "coral",
+     "x": 540,
+     "y": 880,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 5.1,
+     "text": "R",
+     "color": "coral",
+     "x": 820,
+     "y": 800,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 5.199999999999999,
+     "text": "R",
+     "color": "coral",
+     "x": 920,
+     "y": 800,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 5.3,
+     "text": "R",
+     "color": "coral",
+     "x": 870,
+     "y": 880,
+     "s": 0.9
+    },
+    {
+     "t": "chip",
+     "at": "clusters",
+     "text": "clusters",
+     "color": "coral",
+     "x": 540,
+     "y": 1010,
+     "size": 38
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "ADD JITTER",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.4,
+     "text": "JITTER",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 450
+    },
+    {
+     "t": "chip",
+     "at": "randomness",
+     "text": "adding randomness",
+     "color": "amber",
+     "x": 540,
+     "y": 580,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": 4.6,
+     "text": "R",
+     "color": "mint",
+     "x": 130,
+     "y": 760,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.75,
+     "text": "R",
+     "color": "mint",
+     "x": 270,
+     "y": 760,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.8999999999999995,
+     "text": "R",
+     "color": "mint",
+     "x": 390,
+     "y": 760,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 5.05,
+     "text": "R",
+     "color": "mint",
+     "x": 520,
+     "y": 760,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 5.199999999999999,
+     "text": "R",
+     "color": "mint",
+     "x": 650,
+     "y": 760,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 5.35,
+     "text": "R",
+     "color": "mint",
+     "x": 800,
+     "y": 760,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 5.5,
+     "text": "R",
+     "color": "mint",
+     "x": 930,
+     "y": 760,
+     "s": 0.9
+    },
+    {
+     "t": "chip",
+     "at": "constant",
+     "text": "constant rate",
+     "color": "mint",
+     "x": 540,
+     "y": 900,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "rate",
+     "text": "SPIKES -> FLAT",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 1030
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "THE RECIPE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "DOUBLE THE WAIT",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 480
+    },
+    {
+     "t": "badge",
+     "at": "add",
+     "text": "ADD RANDOMNESS",
+     "color": "amber",
+     "size": 44,
+     "x": 540,
+     "y": 620
+    },
+    {
+     "t": "badge",
+     "at": "cap",
+     "text": "CAP THE RETRIES",
+     "color": "cyan",
+     "size": 44,
+     "x": 540,
+     "y": 760
+    },
+    {
+     "t": "chip",
+     "at": "retries",
+     "text": "max retries",
+     "color": "amber",
+     "x": 540,
+     "y": 900,
+     "size": 36
+    }
+   ]
+  }
+ ]
+}

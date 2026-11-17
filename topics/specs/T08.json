@@ -1,0 +1,492 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "N+1 queries",
+ "sources": [
+  "Django documentation, QuerySet API reference, select_related and prefetch_related (official, fetched 2026-11-17): without select_related, reading e.blog hits the database again to get the related Blog object; select_related joins the named foreign-key relationships in the same query, at the cost of a more complex initial query; it is limited to single-valued relationships (foreign key, one-to-one); prefetch_related does a separate lookup per relationship and joins in Python, allowing many-to-many and many-to-one, in one extra batch query each; Pizza example: a query on the Toppings table for every Pizza, reduced to two queries with prefetch_related. https://docs.djangoproject.com/en/stable/ref/models/querysets/#select-related",
+  "Illustration, not a quoted case: 'a hundred entries' and '101 queries' are example numbers (1 list query + 1 per row), labelled on screen."
+ ],
+ "lines": [
+  {
+   "text": "One page load, and your database logs a hundred and one queries. That's the N plus one problem.",
+   "caps": "*101 QUERIES | ONE PAGE LOAD | *N PLUS ONE"
+  },
+  {
+   "text": "It starts with one query to fetch a list, say a hundred blog entries.",
+   "caps": "*ONE QUERY | A LIST OF *100 ENTRIES"
+  },
+  {
+   "text": "Then, in a loop, your code reads a related field on each entry, like its blog or its author.",
+   "caps": "THEN A *LOOP | READ A *RELATED FIELD"
+  },
+  {
+   "text": "With lazy loading, each of those reads quietly fires its own query, so a hundred entries means a hundred more.",
+   "caps": "LAZY LOADING | *EACH ROW | *ITS OWN QUERY"
+  },
+  {
+   "text": "That's one plus a hundred queries, when two would have done the job.",
+   "caps": "*1 + 100 QUERIES | WHEN *TWO | WOULD DO"
+  },
+  {
+   "text": "The fix is eager loading. In Django, select related joins the foreign key in the same query.",
+   "caps": "*EAGER LOADING | *SELECT RELATED | *JOIN IT"
+  },
+  {
+   "text": "But here's the catch: that only works for single-valued relationships, so many to many needs prefetch related, an extra query.",
+   "caps": "BUT THERE IS A *CATCH | *SINGLE-VALUED ONLY | MANY-TO-MANY: *PREFETCH"
+  },
+  {
+   "text": "So watch your query count in development, because the code looks innocent and the problem only shows up with real data.",
+   "caps": "WATCH THE *QUERY COUNT | CODE LOOKS *INNOCENT | REAL DATA *EXPOSES IT"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "101 QUERIES",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "1 page load",
+     "color": "cyan",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "database",
+     "label": "database",
+     "kind": "db",
+     "color": "amber",
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "badge",
+     "at": "queries",
+     "text": "101 QUERIES",
+     "color": "coral",
+     "size": 54,
+     "x": 540,
+     "y": 860
+    },
+    {
+     "t": "badge",
+     "at": "plus",
+     "text": "THE N+1 PROBLEM",
+     "color": "coral",
+     "size": 44,
+     "x": 540,
+     "y": 990
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "ONE QUERY, A LIST",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "typeFrom": 0.2,
+     "typeTo": "fetch",
+     "x": 80,
+     "y": 430,
+     "w": 920,
+     "h": 260,
+     "lines": [
+      {
+       "t": "SELECT * FROM entries;",
+       "c": "white"
+      },
+      {
+       "t": "-> 100 rows",
+       "c": "mint"
+      }
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "one",
+     "text": "1 QUERY",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 800
+    },
+    {
+     "t": "chip",
+     "at": "hundred",
+     "text": "100 blog entries",
+     "color": "amber",
+     "x": 540,
+     "y": 930,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "THE LOOP",
+   "color": "violet",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "typeFrom": 0.3,
+     "typeTo": "field",
+     "x": 80,
+     "y": 430,
+     "w": 920,
+     "h": 260,
+     "lines": [
+      {
+       "t": "for entry in entries:",
+       "c": "white"
+      },
+      {
+       "t": "    entry.author",
+       "c": "amber"
+      }
+     ]
+    },
+    {
+     "t": "chip",
+     "at": "related",
+     "text": "related field",
+     "color": "cyan",
+     "x": 540,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "blog",
+     "text": "blog",
+     "color": "amber",
+     "x": 300,
+     "y": 930,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "author",
+     "text": "author",
+     "color": "amber",
+     "x": 780,
+     "y": 930,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "LAZY LOADING",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "lazy loading",
+     "color": "violet",
+     "x": 540,
+     "y": 440,
+     "size": 36
+    },
+    {
+     "t": "row",
+     "at": 2.4,
+     "label": "entry 1",
+     "value": "+1 query",
+     "color": "coral",
+     "x": 140,
+     "y": 560,
+     "gap": 300
+    },
+    {
+     "t": "row",
+     "at": 3.2,
+     "label": "entry 2",
+     "value": "+1 query",
+     "color": "coral",
+     "x": 140,
+     "y": 640,
+     "gap": 300
+    },
+    {
+     "t": "row",
+     "at": 4.0,
+     "label": "entry 3",
+     "value": "+1 query",
+     "color": "coral",
+     "x": 140,
+     "y": 720,
+     "gap": 300
+    },
+    {
+     "t": "text",
+     "at": 5.1,
+     "text": "...",
+     "color": "dim",
+     "x": 540,
+     "y": 800,
+     "size": 44
+    },
+    {
+     "t": "badge",
+     "at": "means",
+     "text": "= 100 MORE QUERIES",
+     "color": "coral",
+     "size": 44,
+     "x": 540,
+     "y": 930
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "1 + 100 QUERIES",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "1 + 100 = 101",
+     "color": "coral",
+     "size": 54,
+     "x": 540,
+     "y": 560
+    },
+    {
+     "t": "badge",
+     "at": "two",
+     "text": "WHEN 2 WOULD DO",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 740
+    },
+    {
+     "t": "check",
+     "at": "job",
+     "x": 860,
+     "y": 740,
+     "color": "mint"
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "EAGER LOADING",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.4,
+     "text": "EAGER LOADING",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 450
+    },
+    {
+     "t": "chip",
+     "at": "Django",
+     "text": "Django",
+     "color": "violet",
+     "x": 540,
+     "y": 550,
+     "size": 36
+    },
+    {
+     "t": "terminal",
+     "at": "select",
+     "typeFrom": "select",
+     "typeTo": "related",
+     "x": 80,
+     "y": 630,
+     "w": 920,
+     "h": 260,
+     "lines": [
+      {
+       "t": "Entry.objects",
+       "c": "white"
+      },
+      {
+       "t": ".select_related('author')",
+       "c": "mint"
+      }
+     ]
+    },
+    {
+     "t": "chip",
+     "at": "foreign",
+     "text": "foreign key",
+     "color": "amber",
+     "x": 540,
+     "y": 960,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "same",
+     "text": "SAME QUERY",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 1070
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "SINGLE-VALUED ONLY",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "select_related",
+     "color": "mint",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "text",
+     "at": "works",
+     "text": "works for...",
+     "color": "dim",
+     "x": 540,
+     "y": 525,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "single",
+     "text": "SINGLE-VALUED ONLY",
+     "color": "coral",
+     "size": 42,
+     "x": 540,
+     "y": 610
+    },
+    {
+     "t": "chip",
+     "at": "relationships",
+     "text": "foreign key",
+     "color": "mint",
+     "x": 290,
+     "y": 740,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": [
+      "relationships",
+      0.2
+     ],
+     "text": "one-to-one",
+     "color": "mint",
+     "x": 790,
+     "y": 740,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "many",
+     "text": "many-to-many",
+     "color": "coral",
+     "x": 540,
+     "y": 880,
+     "size": 36
+    },
+    {
+     "t": "cross",
+     "at": "needs",
+     "x": 820,
+     "y": 880,
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "prefetch",
+     "text": "prefetch_related",
+     "color": "violet",
+     "size": 42,
+     "x": 540,
+     "y": 1000
+    },
+    {
+     "t": "chip",
+     "at": "extra",
+     "text": "+1 query",
+     "color": "amber",
+     "x": 540,
+     "y": 1110,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "WATCH THE QUERY COUNT",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.4,
+     "text": "WATCH QUERY COUNT",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 470
+    },
+    {
+     "t": "chip",
+     "at": "development",
+     "text": "dev: few rows, fast",
+     "color": "cyan",
+     "x": 540,
+     "y": 620,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "innocent",
+     "text": "looks innocent",
+     "color": "amber",
+     "x": 540,
+     "y": 760,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "only",
+     "text": "prod: many rows",
+     "color": "coral",
+     "x": 540,
+     "y": 900,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "real",
+     "text": "REAL DATA EXPOSES IT",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 1030
+    }
+   ]
+  }
+ ]
+}

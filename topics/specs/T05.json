@@ -1,0 +1,540 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "JWT vs session",
+ "sources": [
+  "OWASP Session Management Cheat Sheet (fetched 2026-11-17): a session ID is assigned at session creation; the meaning and business logic associated with the session ID must be stored on the server side; the app must invalidate the session at least on the server side on logout; deleting a cookie alone does not invalidate a stolen copy of the session ID. https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html",
+  "RFC 7519, JSON Web Token (fetched 2026-11-17): a JWT is a compact, URL-safe means of representing claims; it is a sequence of base64url parts separated by periods (header, claims set, signature in the signed form); the optional 'exp' claim is the time on or after which the JWT MUST NOT be accepted; the RFC says nothing about revoking a token before exp. https://www.rfc-editor.org/rfc/rfc7519",
+  "Engineering judgment, not from the sources: signature-only verification needs no server lookup; short-lived access tokens limit the damage of a stolen one."
+ ],
+ "lines": [
+  {
+   "text": "After you log in, the server has to remember who you are, and there are two common ways to do that.",
+   "caps": "*LOGGED IN | SERVER MUST *REMEMBER YOU | *TWO WAYS"
+  },
+  {
+   "text": "With a session cookie, the server stores your session, and your browser just carries an ID.",
+   "caps": "SESSION *COOKIE | SERVER *STORES IT | BROWSER CARRIES *AN ID"
+  },
+  {
+   "text": "The ID alone means nothing, since the real data stays on the server, which can delete it any time.",
+   "caps": "ID *MEANS NOTHING | DATA STAYS *ON SERVER | DELETE *ANY TIME"
+  },
+  {
+   "text": "With a JWT, you carry the proof yourself: a signed token with a header, the claims, and a signature.",
+   "caps": "*JWT | YOU CARRY *THE PROOF | HEADER, *CLAIMS, SIGNATURE"
+  },
+  {
+   "text": "The server just checks the signature, so it doesn't have to look up a session at all.",
+   "caps": "CHECK THE *SIGNATURE | NO *LOOKUP"
+  },
+  {
+   "text": "But here's the catch: the JWT spec has an expiry claim called exp, but says nothing about revoking a token early.",
+   "caps": "BUT THERE IS A *CATCH | HAS *EXPIRY | NO *REVOKE"
+  },
+  {
+   "text": "So a stolen token keeps working until it expires, which is why short expiry times matter.",
+   "caps": "STOLEN TOKEN *STILL WORKS | UNTIL *EXPIRY | KEEP IT *SHORT"
+  },
+  {
+   "text": "So if you need instant logout, use server sessions, or keep JWTs short and plan for revocation.",
+   "caps": "NEED *INSTANT LOGOUT? | USE *SESSIONS | OR *SHORT JWTS"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "WHO ARE YOU?",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.4,
+     "text": "LOGGED IN",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "node",
+     "at": 0.9,
+     "label": "you",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 650
+    },
+    {
+     "t": "node",
+     "at": "server",
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 890,
+     "y": 650
+    },
+    {
+     "t": "wire",
+     "at": "server",
+     "pts": [
+      [
+       290,
+       650
+      ],
+      [
+       790,
+       650
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "chip",
+     "at": "remember",
+     "text": "who are you?",
+     "color": "amber",
+     "x": 540,
+     "y": 830,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "two",
+     "text": "SESSION COOKIE",
+     "color": "cyan",
+     "size": 40,
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": "badge",
+     "at": "ways",
+     "text": "JWT",
+     "color": "violet",
+     "size": 40,
+     "x": 540,
+     "y": 1070
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "SESSION COOKIE",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "browser",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 620
+    },
+    {
+     "t": "node",
+     "at": 1.5,
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 890,
+     "y": 620
+    },
+    {
+     "t": "wire",
+     "at": 1.5,
+     "pts": [
+      [
+       290,
+       620
+      ],
+      [
+       790,
+       620
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "record",
+     "at": "stores",
+     "label": "id 9f2c",
+     "color": "amber",
+     "x": 890,
+     "y": 810
+    },
+    {
+     "t": "dot",
+     "at": "browser",
+     "pts": [
+      [
+       290,
+       620
+      ],
+      [
+       790,
+       620
+      ]
+     ],
+     "color": "mint",
+     "loop": true,
+     "dur": 1.0
+    },
+    {
+     "t": "chip",
+     "at": "carries",
+     "text": "Cookie: id=9f2c",
+     "color": "cyan",
+     "x": 300,
+     "y": 810,
+     "size": 30
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "THE ID MEANS NOTHING",
+   "color": "violet",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "9f2c",
+     "color": "cyan",
+     "x": 540,
+     "y": 440,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "nothing",
+     "text": "MEANS NOTHING",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 540
+    },
+    {
+     "t": "card",
+     "at": 2.4,
+     "title": "server memory",
+     "color": "violet",
+     "x": 120,
+     "y": 640,
+     "w": 840,
+     "h": 260
+    },
+    {
+     "t": "row",
+     "at": "data",
+     "label": "9f2c",
+     "value": "user 42",
+     "color": "amber",
+     "x": 160,
+     "y": 760,
+     "gap": 280,
+     "swaps": [
+      {
+       "at": "delete",
+       "value": "deleted",
+       "color": "coral"
+      }
+     ]
+    },
+    {
+     "t": "row",
+     "at": 3.4,
+     "label": "e51a",
+     "value": "user 7",
+     "color": "amber",
+     "x": 160,
+     "y": 840,
+     "gap": 280
+    },
+    {
+     "t": "badge",
+     "at": "delete",
+     "text": "DELETE IT ANY TIME",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 1030
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "SIGNED TOKEN",
+   "color": "violet",
+   "items": [
+    {
+     "t": "text",
+     "at": 0.6,
+     "text": "eyJhbGciOi.eyJzdWIiOi.SflKxwRJSM",
+     "color": "amber",
+     "x": 540,
+     "y": 480,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "proof",
+     "text": "YOU CARRY THE PROOF",
+     "color": "mint",
+     "size": 40,
+     "x": 540,
+     "y": 600
+    },
+    {
+     "t": "badge",
+     "at": "signed",
+     "text": "SIGNED",
+     "color": "violet",
+     "size": 42,
+     "x": 540,
+     "y": 940
+    },
+    {
+     "t": "chip",
+     "at": "header",
+     "text": "header",
+     "color": "cyan",
+     "x": 200,
+     "y": 760,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "claims",
+     "text": "claims",
+     "color": "amber",
+     "x": 540,
+     "y": 760,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "signature",
+     "text": "signature",
+     "color": "violet",
+     "x": 860,
+     "y": 760,
+     "size": 34
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "NO LOOKUP",
+   "color": "mint",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 620
+    },
+    {
+     "t": "chip",
+     "at": "signature",
+     "text": "check signature",
+     "color": "mint",
+     "x": 540,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "check",
+     "at": 1.9,
+     "x": 800,
+     "y": 800,
+     "color": "mint"
+    },
+    {
+     "t": "chip",
+     "at": "look",
+     "text": "session lookup",
+     "color": "coral",
+     "x": 540,
+     "y": 920,
+     "size": 36
+    },
+    {
+     "t": "cross",
+     "at": "all",
+     "x": 830,
+     "y": 920,
+     "color": "coral"
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "THE CATCH: NO REVOKE",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "RFC 7519",
+     "color": "cyan",
+     "x": 540,
+     "y": 440,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "jwt",
+     "text": "JWT spec",
+     "color": "violet",
+     "x": 540,
+     "y": 540,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "expiry",
+     "text": "has: exp (expiry)",
+     "color": "amber",
+     "size": 40,
+     "x": 540,
+     "y": 670
+    },
+    {
+     "t": "badge",
+     "at": "nothing",
+     "text": "SAYS NOTHING ABOUT",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 800
+    },
+    {
+     "t": "chip",
+     "at": "revoking",
+     "text": "revoking early",
+     "color": "coral",
+     "x": 540,
+     "y": 930,
+     "size": 36
+    },
+    {
+     "t": "cross",
+     "at": 7.0,
+     "x": 860,
+     "y": 930,
+     "color": "coral"
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "STOLEN TOKEN",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "stolen token",
+     "color": "coral",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "meter",
+     "at": "working",
+     "label": "still works",
+     "color": "coral",
+     "x": 140,
+     "y": 640,
+     "w": 800,
+     "from": 0,
+     "to": 1,
+     "dur": 3.2,
+     "value": "until exp",
+     "show": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "expires",
+     "text": "EXPIRES",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 790
+    },
+    {
+     "t": "badge",
+     "at": "short",
+     "text": "KEEP IT SHORT",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 940
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "WHAT TO USE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.4,
+     "text": "NEED INSTANT LOGOUT?",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 480
+    },
+    {
+     "t": "badge",
+     "at": "server",
+     "text": "SERVER SESSIONS",
+     "color": "cyan",
+     "size": 42,
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "text",
+     "at": "or",
+     "text": "or",
+     "color": "dim",
+     "x": 540,
+     "y": 750,
+     "size": 44
+    },
+    {
+     "t": "badge",
+     "at": "short",
+     "text": "SHORT JWT",
+     "color": "violet",
+     "size": 42,
+     "x": 540,
+     "y": 860
+    },
+    {
+     "t": "chip",
+     "at": "revocation",
+     "text": "+ plan for revocation",
+     "color": "mint",
+     "x": 540,
+     "y": 990,
+     "size": 34
+    }
+   ]
+  }
+ ]
+}

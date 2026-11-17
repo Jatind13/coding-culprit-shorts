@@ -46,7 +46,7 @@
    "id": "T03",
    "week_day": 2,
    "slot": 1,
-   "status": "queued",
+   "status": "spec_ready",
    "title": "Idempotency keys: how a retry doesn't charge you twice",
    "kind": "interview",
    "hook": "Network times out, client retries, customer charged twice",
@@ -54,13 +54,14 @@
    "verdict": "Client sends a unique key; server stores the first result and replays it",
    "demand_evidence": "Nucamp 'Top 25 Backend Interview Questions 2026' #1 and #4 (idempotency)",
    "source_to_verify": "https://docs.stripe.com/api/idempotent_requests",
-   "source_verified": false
+   "source_verified": true,
+   "source_note": "Primary/secondary source pages fetched 2026-11-17; every claim traced in specs/T03.json \"sources\". Owner reviews facts before publishing."
   },
   {
    "id": "T04",
    "week_day": 2,
    "slot": 2,
-   "status": "queued",
+   "status": "spec_ready",
    "title": "Why is my SQL query slow? (indexes)",
    "kind": "interview",
    "hook": "Same query: scans a million rows vs jumps straight to one",
@@ -68,13 +69,14 @@
    "verdict": "Index columns you filter and join on; check with EXPLAIN",
    "demand_evidence": "Nucamp 'Top 25 Backend Interview Questions 2026' #5 (slow SQL)",
    "source_to_verify": "https://www.postgresql.org/docs/current/indexes-intro.html ; https://use-the-index-luke.com/",
-   "source_verified": false
+   "source_verified": true,
+   "source_note": "Primary/secondary source pages fetched 2026-11-17; every claim traced in specs/T04.json \"sources\". Owner reviews facts before publishing."
   },
   {
    "id": "T05",
    "week_day": 3,
    "slot": 1,
-   "status": "queued",
+   "status": "spec_ready",
    "title": "JWT vs session cookie: where does login state live?",
    "kind": "interview",
    "hook": "Server remembers you vs you carry a signed token",
@@ -82,13 +84,14 @@
    "verdict": "Short expiry plus refresh, or server sessions when you need instant logout",
    "demand_evidence": "Nucamp 'Top 25 Backend Interview Questions 2026' #12 (auth/JWT)",
    "source_to_verify": "https://www.rfc-editor.org/rfc/rfc7519 ; OWASP Session Management Cheat Sheet",
-   "source_verified": false
+   "source_verified": true,
+   "source_note": "Primary/secondary source pages fetched 2026-11-17; every claim traced in specs/T05.json \"sources\". Owner reviews facts before publishing."
   },
   {
    "id": "T06",
    "week_day": 3,
    "slot": 2,
-   "status": "queued",
+   "status": "spec_ready",
    "title": "CAP theorem in plain English",
    "kind": "interview",
    "hook": "Network splits: do you answer possibly stale, or refuse?",
@@ -96,13 +99,14 @@
    "verdict": "Choose per feature (payments vs likes), not per company",
    "demand_evidence": "Nucamp 'Top 25 Backend Interview Questions 2026' #6 and #24; DesignGurus 'most frequently asked system design questions' (consistency)",
    "source_to_verify": "https://en.wikipedia.org/wiki/CAP_theorem",
-   "source_verified": false
+   "source_verified": true,
+   "source_note": "Primary/secondary source pages fetched 2026-11-17; every claim traced in specs/T06.json \"sources\". Owner reviews facts before publishing."
   },
   {
    "id": "T07",
    "week_day": 4,
    "slot": 1,
-   "status": "queued",
+   "status": "spec_ready",
    "title": "Sync API vs message queue: when to wait and when not to",
    "kind": "interview",
    "hook": "User waits 30 s for an email vs gets instant OK and email arrives later",
@@ -110,13 +114,14 @@
    "verdict": "Queue slow, non-urgent work; keep the answer-now path synchronous",
    "demand_evidence": "Nucamp 'Top 25 Backend Interview Questions 2026' #19",
    "source_to_verify": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html",
-   "source_verified": false
+   "source_verified": true,
+   "source_note": "Primary/secondary source pages fetched 2026-11-17; every claim traced in specs/T07.json \"sources\". Owner reviews facts before publishing."
   },
   {
    "id": "T08",
    "week_day": 4,
    "slot": 2,
-   "status": "queued",
+   "status": "spec_ready",
    "title": "The N+1 query problem",
    "kind": "interview",
    "hook": "One page load fires 101 queries instead of 2",
@@ -124,13 +129,14 @@
    "verdict": "Join or prefetch (eager load) and watch query counts",
    "demand_evidence": "Nucamp 'Top 25 Backend Interview Questions 2026' #5 (adjacent: slow queries)",
    "source_to_verify": "https://docs.djangoproject.com/en/stable/ref/models/querysets/#select-related",
-   "source_verified": false
+   "source_verified": true,
+   "source_note": "Primary/secondary source pages fetched 2026-11-17; every claim traced in specs/T08.json \"sources\". Owner reviews facts before publishing."
   },
   {
    "id": "T09",
    "week_day": 5,
    "slot": 1,
-   "status": "queued",
+   "status": "spec_ready",
    "title": "CORS: why your browser blocks your own API",
    "kind": "interview",
    "hook": "Request works in Postman, fails in the browser",
@@ -138,13 +144,14 @@
    "verdict": "Server sends the right Access-Control headers; never use * with credentials",
    "demand_evidence": "own judgment: classic question, no demand data behind it",
    "source_to_verify": "https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS",
-   "source_verified": false
+   "source_verified": true,
+   "source_note": "Primary/secondary source pages fetched 2026-11-17; every claim traced in specs/T09.json \"sources\". Owner reviews facts before publishing."
   },
   {
    "id": "T10",
    "week_day": 5,
    "slot": 2,
-   "status": "queued",
+   "status": "spec_ready",
    "title": "Rate limiting with a token bucket",
    "kind": "interview",
    "hook": "One client sends a flood and everyone slows down",
@@ -152,13 +159,14 @@
    "verdict": "Refill tokens at a steady rate; share state across servers",
    "demand_evidence": "DesignGurus 'most frequently asked system design questions' (tips: rate limiting)",
    "source_to_verify": "https://en.wikipedia.org/wiki/Token_bucket",
-   "source_verified": false
+   "source_verified": true,
+   "source_note": "Primary/secondary source pages fetched 2026-11-17; every claim traced in specs/T10.json \"sources\". Owner reviews facts before publishing."
   },
   {
    "id": "T11",
    "week_day": 6,
    "slot": 1,
-   "status": "queued",
+   "status": "spec_ready",
    "title": "Docker vs VM: what a container really is",
    "kind": "concept",
    "hook": "VM boots a whole OS vs container starts in moments",
@@ -166,13 +174,14 @@
    "verdict": "Containers for packaging and speed; VMs when you need hard isolation",
    "demand_evidence": "Nucamp 'Top 25 Backend Interview Questions 2026' #14",
    "source_to_verify": "https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/",
-   "source_verified": false
+   "source_verified": true,
+   "source_note": "Primary/secondary source pages fetched 2026-11-17; every claim traced in specs/T11.json \"sources\". Owner reviews facts before publishing."
   },
   {
    "id": "T12",
    "week_day": 6,
    "slot": 2,
-   "status": "queued",
+   "status": "spec_ready",
    "title": "Exponential backoff with jitter",
    "kind": "interview",
    "hook": "1,000 clients retry together every second and re-crash the server",
@@ -180,13 +189,14 @@
    "verdict": "Double the wait each time and add randomness",
    "demand_evidence": "Nucamp 'Top 25 Backend Interview Questions 2026' #4 (idempotent retries) adjacent",
    "source_to_verify": "https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/",
-   "source_verified": false
+   "source_verified": true,
+   "source_note": "Primary/secondary source pages fetched 2026-11-17; every claim traced in specs/T12.json \"sources\". Owner reviews facts before publishing."
   },
   {
    "id": "T13",
    "week_day": 7,
    "slot": 1,
-   "status": "queued",
+   "status": "spec_ready",
    "title": "OAuth 2.0: how 'Login with Google' works",
    "kind": "interview",
    "hook": "You log in without giving the app your Google password",
@@ -194,13 +204,14 @@
    "verdict": "Authorization code flow with PKCE; exact redirect URI match",
    "demand_evidence": "Nucamp 'Top 25 Backend Interview Questions 2026' #12 (OAuth2)",
    "source_to_verify": "https://datatracker.ietf.org/doc/html/rfc6749 ; https://datatracker.ietf.org/doc/html/rfc7636",
-   "source_verified": false
+   "source_verified": true,
+   "source_note": "Primary/secondary source pages fetched 2026-11-17; every claim traced in specs/T13.json \"sources\". Owner reviews facts before publishing."
   },
   {
    "id": "T14",
    "week_day": 7,
    "slot": 2,
-   "status": "queued",
+   "status": "spec_ready",
    "title": "Consistent hashing: add a server without reshuffling everything",
    "kind": "interview",
    "hook": "mod N remaps almost every key when N changes vs ring moves a few",
@@ -208,7 +219,8 @@
    "verdict": "Hash ring plus virtual nodes",
    "demand_evidence": "DesignGurus 'most frequently asked system design questions' (sharding, scaling)",
    "source_to_verify": "https://en.wikipedia.org/wiki/Consistent_hashing",
-   "source_verified": false
+   "source_verified": true,
+   "source_note": "Primary/secondary source pages fetched 2026-11-17; every claim traced in specs/T14.json \"sources\". Owner reviews facts before publishing."
   },
   {
    "id": "T15",

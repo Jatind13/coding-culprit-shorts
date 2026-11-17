@@ -1,0 +1,572 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Idempotency keys",
+ "sources": [
+  "Stripe API reference, 'Idempotent requests' (official docs, fetched 2026-11-17): idempotency keys let you safely retry requests without performing the same operation twice; the client generates a unique key; for API v1 Stripe saves the status code and body of the first request made with a key and returns the saved response on retries; keys are up to 255 characters and V4 UUIDs are suggested; keys can be removed once they are at least 24 hours old and a reused key then creates a new request; parameters are compared with the original request and an error is returned if they differ, to prevent accidental misuse. https://docs.stripe.com/api/idempotent_requests",
+  "Engineering advice, not from the source: generate the key once per user action and reuse it for every retry of that action. The 'tap pay and the network times out' scene is an illustration, not a quoted incident."
+ ],
+ "lines": [
+  {
+   "text": "You tap pay, the network times out, so the app retries, and now you might be charged twice.",
+   "caps": "*TAP PAY | NETWORK *TIMES OUT | CHARGED *TWICE?"
+  },
+  {
+   "text": "The fix is an idempotency key: the client makes a unique ID and sends it along with the request.",
+   "caps": "*IDEMPOTENCY KEY | A *UNIQUE ID | SENT WITH THE *REQUEST"
+  },
+  {
+   "text": "The server saves the result of the first request under that key.",
+   "caps": "SERVER *SAVES | THE FIRST *RESULT"
+  },
+  {
+   "text": "When the retry arrives with the same key, the server doesn't charge again, it just returns the saved response.",
+   "caps": "SAME KEY *RETRY | NO *SECOND CHARGE | SAVED *RESPONSE"
+  },
+  {
+   "text": "Stripe suggests random UUIDs, and keys can be up to two hundred fifty five characters.",
+   "caps": "SUGGESTED: *UUIDS | UP TO *255 CHARACTERS"
+  },
+  {
+   "text": "And if the same key comes back with different parameters, Stripe returns an error.",
+   "caps": "SAME KEY | *DIFFERENT PARAMETERS | = *ERROR"
+  },
+  {
+   "text": "But here's the catch: keys can be removed after twenty four hours, so a very late retry counts as new.",
+   "caps": "BUT THERE IS A *CATCH | KEYS EXPIRE AFTER *24 HOURS | LATE RETRY IS *NEW"
+  },
+  {
+   "text": "So for any write that must not happen twice, send a key, and make it once per action, not once per attempt.",
+   "caps": "*SEND A KEY | ONCE PER *ACTION | NOT PER *ATTEMPT"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "TIMEOUT, THEN RETRY",
+   "color": "coral",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "app",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 650
+    },
+    {
+     "t": "node",
+     "at": "network",
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 890,
+     "y": 650
+    },
+    {
+     "t": "wire",
+     "at": "network",
+     "pts": [
+      [
+       290,
+       650
+      ],
+      [
+       790,
+       650
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "dot",
+     "at": "pay",
+     "pts": [
+      [
+       290,
+       650
+      ],
+      [
+       790,
+       650
+      ]
+     ],
+     "color": "mint",
+     "dur": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "times",
+     "text": "TIMEOUT",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    },
+    {
+     "t": "cross",
+     "at": "out",
+     "x": 540,
+     "y": 650,
+     "color": "coral"
+    },
+    {
+     "t": "chip",
+     "at": "retries",
+     "text": "retry",
+     "color": "cyan",
+     "x": 540,
+     "y": 560,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "charged",
+     "text": "CHARGED TWICE",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 1000
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "A UNIQUE KEY",
+   "color": "mint",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "client",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "idempotency",
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 890,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": "idempotency",
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "chip",
+     "at": "unique",
+     "text": "Idempotency-Key: 7f3a91",
+     "color": "amber",
+     "x": 540,
+     "y": 860,
+     "size": 34
+    },
+    {
+     "t": "dot",
+     "at": "sends",
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "mint",
+     "dur": 1.1
+    },
+    {
+     "t": "badge",
+     "at": "request",
+     "text": "ONE KEY PER ACTION",
+     "color": "mint",
+     "size": 40,
+     "x": 540,
+     "y": 1000
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "SAVE THE RESULT",
+   "color": "mint",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 300,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "saves",
+     "label": "store",
+     "kind": "db",
+     "color": "amber",
+     "x": 780,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": "saves",
+     "pts": [
+      [
+       400,
+       640
+      ],
+      [
+       680,
+       640
+      ]
+     ],
+     "color": "amber"
+    },
+    {
+     "t": "chip",
+     "at": "result",
+     "text": "7f3a91 -> 200 OK",
+     "color": "amber",
+     "x": 540,
+     "y": 860,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "key",
+     "text": "STORED",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "SAME KEY, NO CHARGE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "client",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 600
+    },
+    {
+     "t": "node",
+     "at": "retry",
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 600
+    },
+    {
+     "t": "node",
+     "at": "arrives",
+     "label": "store",
+     "kind": "db",
+     "color": "amber",
+     "x": 890,
+     "y": 600
+    },
+    {
+     "t": "wire",
+     "at": "retry",
+     "pts": [
+      [
+       290,
+       600
+      ],
+      [
+       440,
+       600
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "wire",
+     "at": "arrives",
+     "pts": [
+      [
+       640,
+       600
+      ],
+      [
+       790,
+       600
+      ]
+     ],
+     "color": "amber"
+    },
+    {
+     "t": "chip",
+     "at": "same",
+     "text": "same key",
+     "color": "amber",
+     "x": 540,
+     "y": 790,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "charge",
+     "text": "NO NEW CHARGE",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 910
+    },
+    {
+     "t": "dot",
+     "at": "returns",
+     "pts": [
+      [
+       790,
+       600
+      ],
+      [
+       640,
+       600
+      ]
+     ],
+     "color": "mint",
+     "dur": 0.9
+    },
+    {
+     "t": "chip",
+     "at": "saved",
+     "text": "saved: 200 OK",
+     "color": "amber",
+     "x": 540,
+     "y": 1030,
+     "size": 34
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "KEY FORMAT",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "7f3a91c2-...",
+     "color": "amber",
+     "x": 540,
+     "y": 480,
+     "size": 36
+    },
+    {
+     "t": "row",
+     "at": "random",
+     "label": "suggested",
+     "value": "UUID",
+     "color": "mint",
+     "x": 100,
+     "y": 640,
+     "gap": 330
+    },
+    {
+     "t": "row",
+     "at": "up",
+     "label": "max length",
+     "value": "255",
+     "color": "amber",
+     "x": 100,
+     "y": 760,
+     "gap": 330
+    },
+    {
+     "t": "badge",
+     "at": "five",
+     "text": "255 CHARACTERS",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 920
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "DIFFERENT PARAMETERS",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "key 7f3a91 | $20",
+     "color": "amber",
+     "x": 540,
+     "y": 520,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "different",
+     "text": "key 7f3a91 | $90",
+     "color": "coral",
+     "x": 540,
+     "y": 680,
+     "size": 36
+    },
+    {
+     "t": "cross",
+     "at": "returns",
+     "x": 540,
+     "y": 790,
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "error",
+     "text": "ERROR",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 920
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "THE KEY EXPIRES",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "KEY SAVED",
+     "color": "mint",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "meter",
+     "at": "after",
+     "label": "key age",
+     "color": "amber",
+     "x": 140,
+     "y": 650,
+     "w": 800,
+     "from": 0,
+     "to": 1,
+     "dur": 1.6,
+     "value": "24 h",
+     "show": 0.8
+    },
+    {
+     "t": "badge",
+     "at": "four",
+     "text": "KEY REMOVED",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 800
+    },
+    {
+     "t": "chip",
+     "at": "late",
+     "text": "late retry",
+     "color": "coral",
+     "x": 540,
+     "y": 930,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "new",
+     "text": "TREATED AS NEW",
+     "color": "coral",
+     "size": 42,
+     "x": 540,
+     "y": 1050
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "SEND A KEY",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "write: must not repeat",
+     "color": "coral",
+     "x": 540,
+     "y": 520,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "send",
+     "text": "SEND A KEY",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 680
+    },
+    {
+     "t": "chip",
+     "at": "once",
+     "text": "1 action = 1 key",
+     "color": "mint",
+     "x": 540,
+     "y": 820,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "attempt",
+     "text": "NOT 1 per attempt",
+     "color": "coral",
+     "x": 540,
+     "y": 960,
+     "size": 36
+    },
+    {
+     "t": "cross",
+     "at": 6.1,
+     "x": 880,
+     "y": 960,
+     "color": "coral"
+    }
+   ]
+  }
+ ]
+}

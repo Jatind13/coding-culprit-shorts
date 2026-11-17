@@ -1,0 +1,552 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "CORS",
+ "sources": [
+  "MDN Web Docs, 'Cross-Origin Resource Sharing (CORS)' (fetched 2026-11-17): CORS is an HTTP-header based mechanism that allows a server to indicate any origins (domain, scheme, or port) other than its own from which a browser should permit loading resources; browsers restrict cross-origin HTTP requests initiated from scripts under the same-origin policy; for preflighted requests the browser first sends an OPTIONS request to check the actual request is safe; Access-Control-Allow-Origin names a single origin, or * for requests without credentials; for credentialed requests the server must not use the * wildcard and must specify an explicit origin, otherwise the browser blocks access to the response. https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS",
+  "Inference from the above, not stated verbatim: because enforcement is done by browsers, a tool that is not a browser (curl, a server script) is not stopped by CORS. Postman is named as such a tool."
+ ],
+ "lines": [
+  {
+   "text": "Your API call works in Postman, but in the browser it fails with a CORS error. Is your server broken?",
+   "caps": "WORKS IN *POSTMAN | FAILS IN THE *BROWSER | *CORS ERROR"
+  },
+  {
+   "text": "No. CORS is a rule your browser enforces, not your server.",
+   "caps": "NOT YOUR SERVER | THE *BROWSER ENFORCES IT"
+  },
+  {
+   "text": "By default, scripts can only call the origin the page came from: same scheme, domain, and port.",
+   "caps": "SAME *ORIGIN | SCHEME, *DOMAIN, PORT"
+  },
+  {
+   "text": "To allow another origin, the server replies with an Access-Control-Allow-Origin header naming it.",
+   "caps": "SERVER *REPLIES | *ALLOW-ORIGIN HEADER | NAMES THE *ORIGIN"
+  },
+  {
+   "text": "For requests that could change data, the browser first sends a preflight, an OPTIONS request, to ask if it's safe.",
+   "caps": "*PREFLIGHT | THE *OPTIONS METHOD | ASKS IF *SAFE"
+  },
+  {
+   "text": "Postman isn't a browser, so it never enforces any of this, which is why it works there.",
+   "caps": "POSTMAN IS *NOT A BROWSER | NO *ENFORCEMENT"
+  },
+  {
+   "text": "But here's the catch: if the request sends cookies, the server can't answer with a star. The browser blocks it.",
+   "caps": "BUT THERE IS A *CATCH | COOKIES SENT | NO *STAR ALLOWED"
+  },
+  {
+   "text": "So name the exact origins you trust, and remember CORS won't stop curl or a script from calling your API.",
+   "caps": "NAME *EXACT ORIGINS | CORS *DOESN'T STOP CURL"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "FINE IN POSTMAN",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "your API call",
+     "color": "cyan",
+     "x": 540,
+     "y": 440,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "postman",
+     "text": "Postman: 200 OK",
+     "color": "mint",
+     "x": 540,
+     "y": 600,
+     "size": 36
+    },
+    {
+     "t": "check",
+     "at": [
+      "postman",
+      0.4
+     ],
+     "x": 810,
+     "y": 600,
+     "color": "mint"
+    },
+    {
+     "t": "chip",
+     "at": "browser",
+     "text": "Browser: CORS error",
+     "color": "coral",
+     "x": 540,
+     "y": 780,
+     "size": 36
+    },
+    {
+     "t": "cross",
+     "at": "fails",
+     "x": 870,
+     "y": 780,
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "server",
+     "text": "IS YOUR SERVER BROKEN?",
+     "color": "amber",
+     "size": 38,
+     "x": 540,
+     "y": 940
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "THE BROWSER ENFORCES",
+   "color": "violet",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.6,
+     "text": "CORS",
+     "color": "violet",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "rule",
+     "label": "browser",
+     "kind": "user",
+     "color": "cyan",
+     "x": 300,
+     "y": 650
+    },
+    {
+     "t": "badge",
+     "at": "enforces",
+     "text": "BROWSER ENFORCES",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 880
+    },
+    {
+     "t": "cross",
+     "at": "not",
+     "x": 780,
+     "y": 790,
+     "color": "coral"
+    },
+    {
+     "t": "node",
+     "at": "server",
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 780,
+     "y": 650
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "SAME ORIGIN",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.5,
+     "text": "SAME ORIGIN ONLY",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 480
+    },
+    {
+     "t": "chip",
+     "at": "origin",
+     "text": "https://app.example:443",
+     "color": "cyan",
+     "x": 540,
+     "y": 620,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "scheme",
+     "text": "scheme",
+     "color": "amber",
+     "x": 200,
+     "y": 760,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "domain",
+     "text": "domain",
+     "color": "amber",
+     "x": 540,
+     "y": 760,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "port",
+     "text": "port",
+     "color": "amber",
+     "x": 860,
+     "y": 760,
+     "size": 34
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "ALLOW-ORIGIN HEADER",
+   "color": "violet",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "another origin",
+     "color": "cyan",
+     "x": 540,
+     "y": 440,
+     "size": 36
+    },
+    {
+     "t": "terminal",
+     "at": "replies",
+     "typeFrom": "replies",
+     "typeTo": "header",
+     "x": 80,
+     "y": 540,
+     "w": 920,
+     "h": 260,
+     "lines": [
+      {
+       "t": "Access-Control-Allow-Origin:",
+       "c": "white"
+      },
+      {
+       "t": "https://app.example",
+       "c": "mint"
+      }
+     ]
+    },
+    {
+     "t": "chip",
+     "at": "with",
+     "text": "HTTP response header",
+     "color": "amber",
+     "x": 540,
+     "y": 880,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "naming",
+     "text": "NAMES THE ORIGIN",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 1000
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "THE PREFLIGHT",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "POST /orders",
+     "color": "amber",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "browser",
+     "label": "browser",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "first",
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 890,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": "first",
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "dot",
+     "at": "sends",
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "mint",
+     "loop": true,
+     "dur": 1.1
+    },
+    {
+     "t": "chip",
+     "at": "OPTIONS",
+     "text": "OPTIONS",
+     "color": "amber",
+     "x": 540,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "safe",
+     "text": "IS IT SAFE?",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 940
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "POSTMAN NEVER CHECKS",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "Postman",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 640
+    },
+    {
+     "t": "badge",
+     "at": "browser",
+     "text": "NOT A BROWSER",
+     "color": "amber",
+     "size": 42,
+     "x": 540,
+     "y": 860
+    },
+    {
+     "t": "node",
+     "at": "so",
+     "label": "API",
+     "kind": "server",
+     "color": "violet",
+     "x": 890,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": "so",
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "dot",
+     "at": "never",
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "mint",
+     "loop": true,
+     "dur": 1.0
+    },
+    {
+     "t": "badge",
+     "at": "enforces",
+     "text": "NO CORS CHECK",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 980
+    },
+    {
+     "t": "chip",
+     "at": "which",
+     "text": "that's why it works",
+     "color": "amber",
+     "x": 540,
+     "y": 1090,
+     "size": 34
+    },
+    {
+     "t": "check",
+     "at": "works",
+     "x": 540,
+     "y": 540,
+     "color": "mint"
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "NO STAR WITH COOKIES",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "sends cookies",
+     "color": "amber",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "cookies",
+     "text": "Cookie: session=...",
+     "color": "cyan",
+     "x": 540,
+     "y": 550,
+     "size": 32
+    },
+    {
+     "t": "chip",
+     "at": "answer",
+     "text": "Access-Control-Allow-Origin: *",
+     "color": "coral",
+     "x": 540,
+     "y": 680,
+     "size": 32
+    },
+    {
+     "t": "cross",
+     "at": "star",
+     "x": 930,
+     "y": 680,
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "blocks",
+     "text": "BROWSER BLOCKS IT",
+     "color": "coral",
+     "size": 42,
+     "x": 540,
+     "y": 850
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "NAME EXACT ORIGINS",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.4,
+     "text": "EXACT ORIGINS",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 470
+    },
+    {
+     "t": "chip",
+     "at": "origins",
+     "text": "https://app.example",
+     "color": "mint",
+     "x": 540,
+     "y": 590,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "CORS",
+     "text": "CORS",
+     "color": "violet",
+     "x": 540,
+     "y": 700,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "curl",
+     "text": "curl",
+     "color": "coral",
+     "x": 300,
+     "y": 820,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "script",
+     "text": "a script",
+     "color": "coral",
+     "x": 780,
+     "y": 820,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "calling",
+     "text": "NOT STOPPED BY CORS",
+     "color": "coral",
+     "size": 42,
+     "x": 540,
+     "y": 960
+    }
+   ]
+  }
+ ]
+}

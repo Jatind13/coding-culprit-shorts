@@ -1,0 +1,587 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "OAuth 2.0",
+ "sources": [
+  "RFC 6749, The OAuth 2.0 Authorization Framework (fetched 2026-11-17): in the authorization code grant the client directs the resource owner's user-agent to the authorization endpoint, the authorization server redirects the user-agent back to the client with an authorization code, and the client exchanges it at the token endpoint for an access token; the resource owner's credentials are never shared with the client; the authorization server MUST compare and match the received redirection URI against the registered one, using simple string comparison if a full URI was registered. https://datatracker.ietf.org/doc/html/rfc6749",
+  "RFC 7636, Proof Key for Code Exchange (fetched 2026-11-17): public clients using the authorization code grant are susceptible to the authorization code interception attack; PKCE uses a per-request code_verifier (43 to 128 characters) and a code_challenge derived from it, S256 = BASE64URL(SHA256(verifier)); the verifier is sent later with the token request; a client able to use S256 MUST use it. https://datatracker.ietf.org/doc/html/rfc7636"
+ ],
+ "lines": [
+  {
+   "text": "You click login with Google, and the app never sees your Google password. How does that work?",
+   "caps": "*LOGIN WITH GOOGLE | APP NEVER SEES *YOUR PASSWORD"
+  },
+  {
+   "text": "The app sends your browser to Google's authorization server, where you log in and approve.",
+   "caps": "BROWSER GOES *TO GOOGLE | YOU *LOG IN | YOU *APPROVE"
+  },
+  {
+   "text": "Your credentials are never shared with the app. Google keeps them.",
+   "caps": "CREDENTIALS *NEVER SHARED | *GOOGLE KEEPS THEM"
+  },
+  {
+   "text": "Google then redirects your browser back to the app with an authorization code.",
+   "caps": "REDIRECT *BACK | WITH AN *AUTHORIZATION CODE"
+  },
+  {
+   "text": "The app sends that code to the token endpoint, and exchanges it for an access token.",
+   "caps": "CODE *EXCHANGED | FOR AN *ACCESS TOKEN"
+  },
+  {
+   "text": "But here's the catch: the code travels through the browser, so an attacker who intercepts it could exchange it too.",
+   "caps": "BUT THERE IS A *CATCH | CODE TRAVELS *VIA BROWSER | ATTACKER *INTERCEPTS"
+  },
+  {
+   "text": "PKCE fixes that: the app makes a random secret, sends only its hash first, and must present the original secret later.",
+   "caps": "*PKCE | SEND ONLY THE *HASH | PROVE WITH THE *SECRET"
+  },
+  {
+   "text": "And the server must match the redirect URI against the registered one, so only exact matches are allowed.",
+   "caps": "REDIRECT URI *MUST MATCH | *EXACT MATCH ONLY"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "LOGIN WITH GOOGLE",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "you",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 640
+    },
+    {
+     "t": "chip",
+     "at": 0.9,
+     "text": "Login with Google",
+     "color": "mint",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "google",
+     "label": "Google",
+     "kind": "server",
+     "color": "amber",
+     "x": 890,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "app",
+     "label": "app",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "badge",
+     "at": "never",
+     "text": "NEVER SEES YOUR PASSWORD",
+     "color": "coral",
+     "size": 38,
+     "x": 540,
+     "y": 860
+    },
+    {
+     "t": "chip",
+     "at": "password",
+     "text": "password",
+     "color": "coral",
+     "x": 540,
+     "y": 980,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "work",
+     "text": "HOW?",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 1090
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "GOOGLE'S LOGIN PAGE",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "browser",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": 1.8,
+     "label": "Google",
+     "kind": "server",
+     "color": "amber",
+     "x": 890,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": 1.8,
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "dot",
+     "at": 1.8,
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "mint",
+     "dur": 1.2
+    },
+    {
+     "t": "chip",
+     "at": "authorization",
+     "text": "authorization server",
+     "color": "violet",
+     "x": 540,
+     "y": 820,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "log",
+     "text": "LOG IN",
+     "color": "mint",
+     "size": 46,
+     "x": 340,
+     "y": 980
+    },
+    {
+     "t": "badge",
+     "at": "approve",
+     "text": "APPROVE",
+     "color": "mint",
+     "size": 46,
+     "x": 740,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "GOOGLE KEEPS IT",
+   "color": "mint",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "Google",
+     "kind": "server",
+     "color": "amber",
+     "x": 780,
+     "y": 640
+    },
+    {
+     "t": "chip",
+     "at": "credentials",
+     "text": "credentials",
+     "color": "amber",
+     "x": 780,
+     "y": 800,
+     "size": 34
+    },
+    {
+     "t": "cross",
+     "at": "never",
+     "x": 540,
+     "y": 640,
+     "color": "coral"
+    },
+    {
+     "t": "node",
+     "at": 1.6,
+     "label": "app",
+     "kind": "server",
+     "color": "violet",
+     "x": 270,
+     "y": 640
+    },
+    {
+     "t": "badge",
+     "at": "keeps",
+     "text": "GOOGLE KEEPS THEM",
+     "color": "mint",
+     "size": 40,
+     "x": 540,
+     "y": 960
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "REDIRECT BACK",
+   "color": "violet",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "Google",
+     "kind": "server",
+     "color": "amber",
+     "x": 890,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": "redirects",
+     "pts": [
+      [
+       790,
+       640
+      ],
+      [
+       290,
+       640
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "dot",
+     "at": "redirects",
+     "pts": [
+      [
+       790,
+       640
+      ],
+      [
+       290,
+       640
+      ]
+     ],
+     "color": "mint",
+     "dur": 1.2
+    },
+    {
+     "t": "node",
+     "at": 1.6,
+     "label": "app",
+     "kind": "server",
+     "color": "violet",
+     "x": 190,
+     "y": 640
+    },
+    {
+     "t": "badge",
+     "at": "back",
+     "text": "REDIRECT",
+     "color": "violet",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    },
+    {
+     "t": "chip",
+     "at": "authorization",
+     "text": "authorization code",
+     "color": "amber",
+     "x": 540,
+     "y": 980,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "CODE FOR TOKEN",
+   "color": "mint",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "app",
+     "kind": "server",
+     "color": "violet",
+     "x": 190,
+     "y": 640
+    },
+    {
+     "t": "dot",
+     "at": "code",
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "amber",
+     "dur": 1.2
+    },
+    {
+     "t": "wire",
+     "at": 1.3,
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "node",
+     "at": 2.1,
+     "label": "tokens",
+     "kind": "server",
+     "color": "amber",
+     "x": 890,
+     "y": 640
+    },
+    {
+     "t": "badge",
+     "at": "exchanges",
+     "text": "EXCHANGE",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 780
+    },
+    {
+     "t": "chip",
+     "at": "access",
+     "text": "access token",
+     "color": "mint",
+     "x": 540,
+     "y": 900,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "CODE INTERCEPTION",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "authorization code",
+     "color": "amber",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "through",
+     "label": "browser",
+     "kind": "user",
+     "color": "cyan",
+     "x": 540,
+     "y": 620
+    },
+    {
+     "t": "node",
+     "at": "attacker",
+     "label": "attacker",
+     "kind": "user",
+     "color": "coral",
+     "x": 540,
+     "y": 860
+    },
+    {
+     "t": "dot",
+     "at": "intercepts",
+     "pts": [
+      [
+       540,
+       700
+      ],
+      [
+       540,
+       780
+      ]
+     ],
+     "color": "coral",
+     "dur": 0.8
+    },
+    {
+     "t": "badge",
+     "at": "exchange",
+     "text": "CODE STOLEN",
+     "color": "coral",
+     "size": 44,
+     "x": 540,
+     "y": 1070
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "PROVE IT'S YOUR CODE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "PKCE",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 450
+    },
+    {
+     "t": "chip",
+     "at": "random",
+     "text": "random secret",
+     "color": "amber",
+     "x": 540,
+     "y": 560,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "hash",
+     "text": "SHA-256(secret)",
+     "color": "violet",
+     "x": 540,
+     "y": 700,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "first",
+     "text": "SENT FIRST",
+     "color": "cyan",
+     "size": 42,
+     "x": 540,
+     "y": 820
+    },
+    {
+     "t": "chip",
+     "at": "original",
+     "text": "original secret",
+     "color": "amber",
+     "x": 540,
+     "y": 940,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "later",
+     "text": "PROVED LATER",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 1060
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "EXACT REDIRECT URI",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.4,
+     "text": "MATCH THE URI",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 470
+    },
+    {
+     "t": "chip",
+     "at": "redirect",
+     "text": "https://app.example/cb",
+     "color": "cyan",
+     "x": 540,
+     "y": 620,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "registered",
+     "text": "https://app.example/cb",
+     "color": "amber",
+     "x": 540,
+     "y": 740,
+     "size": 34
+    },
+    {
+     "t": "check",
+     "at": "one",
+     "x": 900,
+     "y": 740,
+     "color": "mint"
+    },
+    {
+     "t": "badge",
+     "at": "exact",
+     "text": "EXACT MATCH ONLY",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 890
+    },
+    {
+     "t": "chip",
+     "at": "matches",
+     "text": "https://evil.example/cb",
+     "color": "coral",
+     "x": 540,
+     "y": 1020,
+     "size": 34
+    },
+    {
+     "t": "cross",
+     "at": "allowed",
+     "x": 900,
+     "y": 1020,
+     "color": "coral"
+    }
+   ]
+  }
+ ]
+}

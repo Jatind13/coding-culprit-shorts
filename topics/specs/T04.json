@@ -1,0 +1,743 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "SQL indexes",
+ "sources": [
+  "PostgreSQL docs, 'Introduction' to indexes (official, fetched 2026-11-17): without an index the system would have to scan the entire table, row by row; with an index it can use a more efficient method and might only have to walk a few levels deep into a search tree; the book-index analogy; after an index is created the system has to keep it synchronized with the table, which adds overhead to data manipulation operations; indexes seldom or never used in queries should be removed. https://www.postgresql.org/docs/current/indexes-intro.html",
+  "Use The Index, Luke!, 'Anatomy of an SQL index': an index combines a doubly linked list and a balanced search tree (B-tree), kept in sorted order; the index is redundant data stored separately from the table. https://use-the-index-luke.com/sql/anatomy",
+  "PostgreSQL docs, EXPLAIN (to verify): EXPLAIN shows the execution plan the planner generates for a statement. https://www.postgresql.org/docs/current/sql-explain.html"
+ ],
+ "lines": [
+  {
+   "text": "Same query, same table, but one takes seconds and one is instant. The difference is an index.",
+   "caps": "SAME *QUERY | ONE *SLOW | ONE *INSTANT"
+  },
+  {
+   "text": "Without an index, the database has to scan the entire table, row by row, to find your matches.",
+   "caps": "NO INDEX | SCAN *EVERY ROW | ROW BY *ROW"
+  },
+  {
+   "text": "An index works like the index of a book: you look up the term, then flip straight to the right page.",
+   "caps": "LIKE A *BOOK INDEX | LOOK UP THE *TERM | JUMP TO THE *PAGE"
+  },
+  {
+   "text": "Under the hood, it's a sorted search tree, so the database walks a few levels instead of reading every row.",
+   "caps": "A SORTED *TREE | WALK A *FEW LEVELS | NOT *EVERY ROW"
+  },
+  {
+   "text": "So index the columns you filter and join on, then check the query plan with EXPLAIN to be sure it's used.",
+   "caps": "INDEX WHAT YOU *FILTER | AND *JOIN ON | CHECK WITH *EXPLAIN"
+  },
+  {
+   "text": "But here's the catch: the index has to be kept in sync with the table, so every write gets slower.",
+   "caps": "BUT THERE IS A *CATCH | KEEP IN *SYNC | WRITES GET *SLOWER"
+  },
+  {
+   "text": "It also takes extra space, so an unused index is all cost, and the docs say to remove it.",
+   "caps": "TAKES *SPACE | UNUSED INDEX = *COST | *REMOVE IT"
+  },
+  {
+   "text": "So don't index everything. Index what your queries use, and measure before and after.",
+   "caps": "DON'T INDEX *EVERYTHING | INDEX WHAT YOU *USE | *MEASURE"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "SAME QUERY, 2 SPEEDS",
+   "color": "violet",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "typeFrom": 0.2,
+     "typeTo": 2.2,
+     "x": 80,
+     "y": 430,
+     "w": 920,
+     "h": 260,
+     "lines": [
+      {
+       "t": "SELECT * FROM users",
+       "c": "white"
+      },
+      {
+       "t": "WHERE id = 42;",
+       "c": "amber"
+      }
+     ]
+    },
+    {
+     "t": "meter",
+     "at": "takes",
+     "label": "no index",
+     "color": "coral",
+     "x": 140,
+     "y": 800,
+     "w": 800,
+     "from": 0,
+     "to": 1,
+     "dur": 2.2,
+     "value": "seconds",
+     "show": 0.85
+    },
+    {
+     "t": "meter",
+     "at": "instant",
+     "label": "with index",
+     "color": "mint",
+     "x": 140,
+     "y": 960,
+     "w": 800,
+     "from": 0,
+     "to": 0.04,
+     "dur": 0.3,
+     "value": "instant",
+     "show": 0.01
+    },
+    {
+     "t": "badge",
+     "at": "index",
+     "text": "AN INDEX",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 1100
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "FULL TABLE SCAN",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "no index",
+     "color": "coral",
+     "x": 540,
+     "y": 440,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": 2.7,
+     "text": "1",
+     "color": "cyan",
+     "x": 215,
+     "y": 580
+    },
+    {
+     "t": "sq",
+     "at": 2.9000000000000004,
+     "text": "2",
+     "color": "cyan",
+     "x": 365,
+     "y": 580
+    },
+    {
+     "t": "sq",
+     "at": 3.1,
+     "text": "3",
+     "color": "cyan",
+     "x": 515,
+     "y": 580
+    },
+    {
+     "t": "sq",
+     "at": 3.3000000000000003,
+     "text": "4",
+     "color": "cyan",
+     "x": 665,
+     "y": 580
+    },
+    {
+     "t": "sq",
+     "at": 3.5,
+     "text": "5",
+     "color": "cyan",
+     "x": 815,
+     "y": 580
+    },
+    {
+     "t": "sq",
+     "at": 3.7,
+     "text": "6",
+     "color": "cyan",
+     "x": 215,
+     "y": 700
+    },
+    {
+     "t": "sq",
+     "at": 3.9000000000000004,
+     "text": "7",
+     "color": "cyan",
+     "x": 365,
+     "y": 700
+    },
+    {
+     "t": "sq",
+     "at": 4.1000000000000005,
+     "text": "8",
+     "color": "cyan",
+     "x": 515,
+     "y": 700
+    },
+    {
+     "t": "sq",
+     "at": 4.300000000000001,
+     "text": "9",
+     "color": "cyan",
+     "x": 665,
+     "y": 700
+    },
+    {
+     "t": "sq",
+     "at": 4.5,
+     "text": "42",
+     "color": "amber",
+     "x": 815,
+     "y": 700
+    },
+    {
+     "t": "badge",
+     "at": "row",
+     "text": "SCAN EVERY ROW",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 880
+    },
+    {
+     "t": "chip",
+     "at": "matches",
+     "text": "to find your matches",
+     "color": "white",
+     "x": 540,
+     "y": 990,
+     "size": 34
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "LIKE A BOOK INDEX",
+   "color": "violet",
+   "items": [
+    {
+     "t": "card",
+     "at": 0.2,
+     "title": "book index",
+     "color": "violet",
+     "x": 120,
+     "y": 430,
+     "w": 840,
+     "h": 330
+    },
+    {
+     "t": "text",
+     "at": 0.6,
+     "text": "caching ........ 14",
+     "color": "dim",
+     "x": 540,
+     "y": 560,
+     "size": 44
+    },
+    {
+     "t": "text",
+     "at": 1.3,
+     "text": "dns ............ 31",
+     "color": "dim",
+     "x": 540,
+     "y": 640,
+     "size": 44
+    },
+    {
+     "t": "text",
+     "at": 2.0,
+     "text": "queues ......... 52",
+     "color": "dim",
+     "x": 540,
+     "y": 720,
+     "size": 44
+    },
+    {
+     "t": "chip",
+     "at": "look",
+     "text": "look up: dns",
+     "color": "cyan",
+     "x": 540,
+     "y": 860,
+     "size": 36
+    },
+    {
+     "t": "text",
+     "at": "then",
+     "text": "then flip",
+     "color": "dim",
+     "x": 540,
+     "y": 920,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "right",
+     "text": "-> page 31",
+     "color": "mint",
+     "x": 540,
+     "y": 990,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "A SORTED TREE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "sq",
+     "at": 0.5,
+     "text": "50",
+     "color": "mint",
+     "x": 540,
+     "y": 500
+    },
+    {
+     "t": "chip",
+     "at": "sorted",
+     "text": "keys kept in order",
+     "color": "violet",
+     "x": 540,
+     "y": 390,
+     "size": 32
+    },
+    {
+     "t": "wire",
+     "at": "tree",
+     "pts": [
+      [
+       540,
+       540
+      ],
+      [
+       330,
+       620
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "wire",
+     "at": "tree",
+     "pts": [
+      [
+       540,
+       540
+      ],
+      [
+       750,
+       620
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "sq",
+     "at": 2.8,
+     "text": "20",
+     "color": "cyan",
+     "x": 330,
+     "y": 660
+    },
+    {
+     "t": "sq",
+     "at": 2.9,
+     "text": "80",
+     "color": "cyan",
+     "x": 750,
+     "y": 660
+    },
+    {
+     "t": "wire",
+     "at": 3.4,
+     "pts": [
+      [
+       330,
+       700
+      ],
+      [
+       230,
+       780
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "wire",
+     "at": 3.4,
+     "pts": [
+      [
+       330,
+       700
+      ],
+      [
+       430,
+       780
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "wire",
+     "at": 3.4,
+     "pts": [
+      [
+       750,
+       700
+      ],
+      [
+       650,
+       780
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "wire",
+     "at": 3.4,
+     "pts": [
+      [
+       750,
+       700
+      ],
+      [
+       850,
+       780
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "sq",
+     "at": 3.7,
+     "text": "10",
+     "color": "dim",
+     "x": 230,
+     "y": 820
+    },
+    {
+     "t": "sq",
+     "at": 3.8,
+     "text": "30",
+     "color": "dim",
+     "x": 430,
+     "y": 820
+    },
+    {
+     "t": "sq",
+     "at": 3.9,
+     "text": "60",
+     "color": "dim",
+     "x": 650,
+     "y": 820
+    },
+    {
+     "t": "sq",
+     "at": 4.0,
+     "text": "90",
+     "color": "dim",
+     "x": 850,
+     "y": 820
+    },
+    {
+     "t": "dot",
+     "at": "walks",
+     "pts": [
+      [
+       540,
+       500
+      ],
+      [
+       330,
+       660
+      ],
+      [
+       430,
+       820
+      ]
+     ],
+     "color": "mint",
+     "dur": 1.4
+    },
+    {
+     "t": "chip",
+     "at": "levels",
+     "text": "a few levels",
+     "color": "mint",
+     "x": 540,
+     "y": 980,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "every",
+     "text": "NOT EVERY ROW",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 1090
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "CHECK WITH EXPLAIN",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.5,
+     "text": "WHERE col",
+     "color": "amber",
+     "x": 300,
+     "y": 460,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "join",
+     "text": "JOIN col",
+     "color": "amber",
+     "x": 740,
+     "y": 460,
+     "size": 34
+    },
+    {
+     "t": "terminal",
+     "at": "check",
+     "typeFrom": "check",
+     "typeTo": "explain",
+     "x": 80,
+     "y": 560,
+     "w": 920,
+     "h": 260,
+     "lines": [
+      {
+       "t": "EXPLAIN SELECT * FROM users",
+       "c": "white"
+      },
+      {
+       "t": "WHERE id = 42;",
+       "c": "mint"
+      }
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "plan",
+     "text": "QUERY PLAN",
+     "color": "violet",
+     "size": 46,
+     "x": 540,
+     "y": 920
+    },
+    {
+     "t": "badge",
+     "at": "used",
+     "text": "IS THE INDEX USED?",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 1050
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "THE CATCH: WRITES",
+   "color": "coral",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "table",
+     "kind": "db",
+     "color": "amber",
+     "x": 280,
+     "y": 560
+    },
+    {
+     "t": "node",
+     "at": "index",
+     "label": "index",
+     "kind": "cache",
+     "color": "violet",
+     "x": 800,
+     "y": 560
+    },
+    {
+     "t": "wire",
+     "at": "sync",
+     "pts": [
+      [
+       390,
+       560
+      ],
+      [
+       690,
+       560
+      ]
+     ],
+     "color": "violet"
+    },
+    {
+     "t": "dot",
+     "at": "sync",
+     "pts": [
+      [
+       390,
+       560
+      ],
+      [
+       690,
+       560
+      ]
+     ],
+     "color": "mint",
+     "loop": true,
+     "dur": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "sync",
+     "text": "KEEP IN SYNC",
+     "color": "violet",
+     "size": 46,
+     "x": 540,
+     "y": 800
+    },
+    {
+     "t": "meter",
+     "at": "every",
+     "label": "write speed",
+     "color": "coral",
+     "x": 140,
+     "y": 1000,
+     "w": 800,
+     "from": 0.9,
+     "to": 0.35,
+     "dur": 1.2,
+     "value": "slower",
+     "show": 0
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "AN UNUSED INDEX",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.5,
+     "text": "takes extra space",
+     "color": "amber",
+     "x": 540,
+     "y": 500,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "unused",
+     "text": "unused index",
+     "color": "violet",
+     "x": 540,
+     "y": 660,
+     "size": 36
+    },
+    {
+     "t": "cross",
+     "at": 2.9,
+     "x": 860,
+     "y": 660,
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "cost",
+     "text": "ALL COST",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 810
+    },
+    {
+     "t": "badge",
+     "at": "remove",
+     "text": "REMOVE IT",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 960
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "MEASURE FIRST",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.4,
+     "text": "DON'T INDEX EVERYTHING",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 500
+    },
+    {
+     "t": "badge",
+     "at": "what",
+     "text": "INDEX WHAT YOU USE",
+     "color": "mint",
+     "size": 40,
+     "x": 540,
+     "y": 660
+    },
+    {
+     "t": "chip",
+     "at": "measure",
+     "text": "measure BEFORE",
+     "color": "amber",
+     "x": 540,
+     "y": 830,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "after",
+     "text": "measure AFTER",
+     "color": "mint",
+     "x": 540,
+     "y": 960,
+     "size": 36
+    },
+    {
+     "t": "check",
+     "at": 5.2,
+     "x": 860,
+     "y": 960,
+     "color": "mint"
+    }
+   ]
+  }
+ ]
+}

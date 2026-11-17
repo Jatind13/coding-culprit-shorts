@@ -1,0 +1,594 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Token bucket",
+ "sources": [
+  "Wikipedia, 'Token bucket' (secondary source, fetched 2026-11-17): a fixed-capacity bucket holds tokens; tokens are added at a fixed rate and tokens arriving when the bucket is full are discarded; a packet of n bytes needs n tokens, removed on send; a packet does not conform if there are insufficient tokens, and can be dropped, queued, or sent marked as non-conforming; the long-term rate is capped by the token rate while the bucket depth allows bursts. https://en.wikipedia.org/wiki/Token_bucket",
+  "Engineering consequence, not from the source: per-server buckets multiply a client's allowance by the number of servers; the ten-servers example is an illustration."
+ ],
+ "lines": [
+  {
+   "text": "One client floods your API with requests, and suddenly everyone else gets slow responses.",
+   "caps": "*ONE CLIENT FLOODS | EVERYONE *SLOWS DOWN"
+  },
+  {
+   "text": "A token bucket stops that. Picture a bucket that holds a fixed number of tokens.",
+   "caps": "*TOKEN BUCKET | A *FIXED NUMBER | OF TOKENS"
+  },
+  {
+   "text": "Tokens drip in at a steady rate, and when the bucket is full, extra tokens are thrown away.",
+   "caps": "TOKENS *DRIP IN | STEADY *RATE | FULL? *DISCARD"
+  },
+  {
+   "text": "Every request takes a token. If the bucket has one, the request goes through.",
+   "caps": "*EVERY REQUEST | TAKES A *TOKEN | *GOES THROUGH"
+  },
+  {
+   "text": "If the bucket is empty, the request doesn't conform, so you reject it, or make it wait.",
+   "caps": "BUCKET *EMPTY | *REJECT IT | OR *WAIT"
+  },
+  {
+   "text": "That gives a nice property: the average rate is capped by the refill rate, but a full bucket still allows a short burst.",
+   "caps": "AVERAGE *CAPPED | FULL BUCKET *ALLOWS BURSTS"
+  },
+  {
+   "text": "But here's the catch: if each server keeps its own bucket, a client hitting ten servers gets ten times the limit.",
+   "caps": "BUT THERE IS A *CATCH | EACH SERVER *ITS OWN BUCKET | *10X THE LIMIT"
+  },
+  {
+   "text": "So refill at a steady rate, size the bucket for the burst you'll allow, and share the counts across servers.",
+   "caps": "*STEADY REFILL | SIZE FOR THE *BURST | *SHARE THE COUNTS"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "ONE CLIENT FLOODS",
+   "color": "coral",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "client",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": 0.3,
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "coral"
+    },
+    {
+     "t": "dot",
+     "at": "floods",
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "coral",
+     "loop": true,
+     "dur": 0.35
+    },
+    {
+     "t": "node",
+     "at": "API",
+     "label": "API",
+     "kind": "server",
+     "color": "violet",
+     "x": 890,
+     "y": 640
+    },
+    {
+     "t": "badge",
+     "at": "requests",
+     "text": "FLOOD",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    },
+    {
+     "t": "chip",
+     "at": "everyone",
+     "text": "everyone else",
+     "color": "cyan",
+     "x": 540,
+     "y": 960,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "slow",
+     "text": "SLOW RESPONSES",
+     "color": "coral",
+     "size": 42,
+     "x": 540,
+     "y": 1080
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "THE TOKEN BUCKET",
+   "color": "violet",
+   "items": [
+    {
+     "t": "card",
+     "at": 0.3,
+     "title": "bucket",
+     "color": "violet",
+     "x": 300,
+     "y": 450,
+     "w": 480,
+     "h": 420
+    },
+    {
+     "t": "sq",
+     "at": 2.5,
+     "text": "tok",
+     "color": "amber",
+     "x": 420,
+     "y": 640,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 2.7,
+     "text": "tok",
+     "color": "amber",
+     "x": 540,
+     "y": 640,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 2.9,
+     "text": "tok",
+     "color": "amber",
+     "x": 660,
+     "y": 640,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 3.1,
+     "text": "tok",
+     "color": "amber",
+     "x": 420,
+     "y": 740,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 3.3,
+     "text": "tok",
+     "color": "amber",
+     "x": 540,
+     "y": 740,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 3.5,
+     "text": "tok",
+     "color": "amber",
+     "x": 660,
+     "y": 740,
+     "s": 0.9
+    },
+    {
+     "t": "chip",
+     "at": "fixed",
+     "text": "capacity: 6",
+     "color": "amber",
+     "x": 540,
+     "y": 980,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "tokens",
+     "text": "TOKENS",
+     "color": "violet",
+     "size": 40,
+     "x": 540,
+     "y": 1090
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "STEADY REFILL",
+   "color": "mint",
+   "items": [
+    {
+     "t": "meter",
+     "at": 0.4,
+     "label": "tokens in bucket",
+     "color": "mint",
+     "x": 140,
+     "y": 620,
+     "w": 800,
+     "from": 0.2,
+     "to": 1.0,
+     "dur": 4.0,
+     "value": "full",
+     "show": 0.95
+    },
+    {
+     "t": "badge",
+     "at": "steady",
+     "text": "STEADY RATE",
+     "color": "cyan",
+     "size": 46,
+     "x": 540,
+     "y": 780
+    },
+    {
+     "t": "badge",
+     "at": "full",
+     "text": "BUCKET FULL",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 900
+    },
+    {
+     "t": "chip",
+     "at": "extra",
+     "text": "extra tokens discarded",
+     "color": "coral",
+     "x": 540,
+     "y": 1030,
+     "size": 34
+    },
+    {
+     "t": "cross",
+     "at": "away",
+     "x": 900,
+     "y": 1030,
+     "color": "coral"
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "EACH REQUEST COSTS 1",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "1 REQUEST = 1 TOKEN",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 480
+    },
+    {
+     "t": "chip",
+     "at": "token",
+     "text": "tokens: 5 -> 4",
+     "color": "amber",
+     "x": 540,
+     "y": 620,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "one",
+     "text": "bucket has one?",
+     "color": "cyan",
+     "x": 540,
+     "y": 760,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "goes",
+     "text": "GOES THROUGH",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 900
+    },
+    {
+     "t": "check",
+     "at": "through",
+     "x": 860,
+     "y": 900,
+     "color": "mint"
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "BUCKET EMPTY",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.5,
+     "text": "tokens: 0",
+     "color": "coral",
+     "x": 540,
+     "y": 480,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "doesn't",
+     "text": "DOESN'T CONFORM",
+     "color": "coral",
+     "size": 44,
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "badge",
+     "at": "reject",
+     "text": "REJECT",
+     "color": "coral",
+     "size": 42,
+     "x": 290,
+     "y": 820
+    },
+    {
+     "t": "badge",
+     "at": "wait",
+     "text": "OR WAIT",
+     "color": "amber",
+     "size": 42,
+     "x": 790,
+     "y": 820
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "RATE CAP + BURST",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.5,
+     "text": "average rate",
+     "color": "cyan",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "meter",
+     "at": "capped",
+     "label": "refill rate",
+     "color": "violet",
+     "x": 140,
+     "y": 640,
+     "w": 800,
+     "from": 0,
+     "to": 0.5,
+     "dur": 1.0,
+     "value": "cap",
+     "show": 0.45
+    },
+    {
+     "t": "chip",
+     "at": "full",
+     "text": "full bucket",
+     "color": "mint",
+     "x": 540,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "allows",
+     "text": "SHORT BURST OK",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 930
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "TEN BUCKETS",
+   "color": "coral",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "client",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 600
+    },
+    {
+     "t": "node",
+     "at": "each",
+     "label": "bucket",
+     "kind": "server",
+     "color": "violet",
+     "x": 640,
+     "y": 480
+    },
+    {
+     "t": "node",
+     "at": 2.1,
+     "label": "bucket",
+     "kind": "server",
+     "color": "violet",
+     "x": 640,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": 2.4,
+     "label": "bucket",
+     "kind": "server",
+     "color": "violet",
+     "x": 640,
+     "y": 800
+    },
+    {
+     "t": "wire",
+     "at": "each",
+     "pts": [
+      [
+       290,
+       580
+      ],
+      [
+       540,
+       480
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "wire",
+     "at": 2.1,
+     "pts": [
+      [
+       290,
+       600
+      ],
+      [
+       540,
+       640
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "wire",
+     "at": 2.4,
+     "pts": [
+      [
+       290,
+       620
+      ],
+      [
+       540,
+       800
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "dot",
+     "at": "client",
+     "pts": [
+      [
+       290,
+       600
+      ],
+      [
+       540,
+       640
+      ]
+     ],
+     "color": "mint",
+     "loop": true,
+     "dur": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "ten",
+     "text": "10 SERVERS",
+     "color": "amber",
+     "size": 44,
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": "badge",
+     "at": "times",
+     "text": "10x THE LIMIT",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 1080
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "THE RIGHT SETUP",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "STEADY REFILL",
+     "color": "cyan",
+     "size": 46,
+     "x": 540,
+     "y": 480
+    },
+    {
+     "t": "badge",
+     "at": "size",
+     "text": "SIZE FOR THE BURST",
+     "color": "amber",
+     "size": 42,
+     "x": 540,
+     "y": 590
+    },
+    {
+     "t": "chip",
+     "at": "burst",
+     "text": "= bucket depth",
+     "color": "amber",
+     "x": 540,
+     "y": 700,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "share",
+     "text": "SHARE THE COUNTS",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 830
+    },
+    {
+     "t": "chip",
+     "at": "across",
+     "text": "across servers",
+     "color": "violet",
+     "x": 540,
+     "y": 950,
+     "size": 36
+    }
+   ]
+  }
+ ]
+}

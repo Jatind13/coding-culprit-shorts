@@ -1,0 +1,553 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "CAP theorem",
+ "sources": [
+  "Wikipedia, 'CAP theorem' (secondary source, fetched 2026-11-17): any distributed data store can provide at most two of three guarantees: consistency (every read receives the most recent write or an error), availability (every request received by a non-failing node must result in a response), partition tolerance (the system continues to operate despite an arbitrary number of messages being dropped or delayed); if there is a network partition, one has to choose between consistency or availability; conjecture by Eric Brewer (PODC 2000), formal proof by Seth Gilbert and Nancy Lynch (2002); in 2012 Brewer added that designers only need to sacrifice consistency or availability in the presence of partitions. https://en.wikipedia.org/wiki/CAP_theorem",
+  "Engineering illustration, not from the source: payments refuse when unsure, a like counter may show a stale number."
+ ],
+ "lines": [
+  {
+   "text": "Your database runs on two servers, the network between them breaks, and now they can't talk. What should happen?",
+   "caps": "*TWO SERVERS | NETWORK *BREAKS | NOW WHAT?"
+  },
+  {
+   "text": "That's the CAP theorem: a distributed data store can give you at most two of three guarantees.",
+   "caps": "THE *CAP THEOREM | AT MOST *TWO OF THREE"
+  },
+  {
+   "text": "Consistency means every read gets the most recent write, or an error.",
+   "caps": "*CONSISTENCY | LATEST WRITE *OR AN ERROR"
+  },
+  {
+   "text": "Availability means every request to a working node gets a response.",
+   "caps": "*AVAILABILITY | EVERY REQUEST *GETS AN ANSWER"
+  },
+  {
+   "text": "Partition tolerance means the system keeps working even when messages between nodes get dropped or delayed.",
+   "caps": "*PARTITION TOLERANCE | MESSAGES *DROPPED | KEEPS *WORKING"
+  },
+  {
+   "text": "So when the network splits, you must choose: refuse to answer and stay consistent, or answer and risk stale data.",
+   "caps": "NETWORK *SPLITS | *REFUSE, CONSISTENT | OR *ANSWER, STALE"
+  },
+  {
+   "text": "But here's the catch: it's not a permanent choice of two. Brewer later said you only give one up during a partition.",
+   "caps": "BUT THERE IS A *CATCH | NOT *PERMANENT | ONLY DURING A *PARTITION"
+  },
+  {
+   "text": "So decide per feature: a payment should refuse when unsure, while a like count can show a stale number.",
+   "caps": "DECIDE *PER FEATURE | PAYMENT: *REFUSE | LIKES: *STALE IS FINE"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "NETWORK SPLIT",
+   "color": "coral",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "server A",
+     "kind": "server",
+     "color": "violet",
+     "x": 230,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "servers",
+     "label": "server B",
+     "kind": "server",
+     "color": "violet",
+     "x": 850,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": "servers",
+     "pts": [
+      [
+       330,
+       640
+      ],
+      [
+       750,
+       640
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "cross",
+     "at": "breaks",
+     "x": 540,
+     "y": 640,
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "breaks",
+     "text": "PARTITION",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    },
+    {
+     "t": "chip",
+     "at": "talk",
+     "text": "can't talk",
+     "color": "coral",
+     "x": 540,
+     "y": 960,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "happen",
+     "text": "NOW WHAT?",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 1070
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "CAP THEOREM",
+   "color": "violet",
+   "items": [
+    {
+     "t": "sq",
+     "at": 0.5,
+     "text": "C",
+     "color": "mint",
+     "x": 240,
+     "y": 640,
+     "s": 1.5
+    },
+    {
+     "t": "sq",
+     "at": 1.0,
+     "text": "A",
+     "color": "cyan",
+     "x": 540,
+     "y": 640,
+     "s": 1.5
+    },
+    {
+     "t": "sq",
+     "at": 1.5,
+     "text": "P",
+     "color": "violet",
+     "x": 840,
+     "y": 640,
+     "s": 1.5
+    },
+    {
+     "t": "chip",
+     "at": "store",
+     "text": "distributed data store",
+     "color": "violet",
+     "x": 540,
+     "y": 480,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "most",
+     "text": "AT MOST TWO OF THREE",
+     "color": "amber",
+     "size": 40,
+     "x": 540,
+     "y": 900
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "CONSISTENCY",
+   "color": "mint",
+   "items": [
+    {
+     "t": "record",
+     "at": 0.3,
+     "label": "A: x = 5",
+     "color": "amber",
+     "x": 300,
+     "y": 640
+    },
+    {
+     "t": "record",
+     "at": "read",
+     "label": "B: x = 5",
+     "color": "amber",
+     "x": 780,
+     "y": 640
+    },
+    {
+     "t": "badge",
+     "at": "most",
+     "text": "SAME ANSWER",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 820
+    },
+    {
+     "t": "check",
+     "at": "recent",
+     "x": 540,
+     "y": 640,
+     "color": "mint"
+    },
+    {
+     "t": "badge",
+     "at": "or",
+     "text": "OR AN ERROR",
+     "color": "coral",
+     "size": 42,
+     "x": 540,
+     "y": 950
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "AVAILABILITY",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "client",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "request",
+     "label": "node",
+     "kind": "server",
+     "color": "violet",
+     "x": 890,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": "request",
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "dot",
+     "at": "node",
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "mint",
+     "loop": true,
+     "dur": 1.0
+    },
+    {
+     "t": "badge",
+     "at": "gets",
+     "text": "ALWAYS ANSWERS",
+     "color": "cyan",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "PARTITION TOLERANCE",
+   "color": "violet",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "node A",
+     "kind": "server",
+     "color": "violet",
+     "x": 230,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "tolerance",
+     "label": "node B",
+     "kind": "server",
+     "color": "violet",
+     "x": 850,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": "tolerance",
+     "pts": [
+      [
+       330,
+       640
+      ],
+      [
+       750,
+       640
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "dot",
+     "at": "keeps",
+     "pts": [
+      [
+       330,
+       640
+      ],
+      [
+       750,
+       640
+      ]
+     ],
+     "color": "mint",
+     "loop": true,
+     "dur": 1.0,
+     "hide": "dropped"
+    },
+    {
+     "t": "badge",
+     "at": "working",
+     "text": "KEEPS WORKING",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 860,
+     "hide": "dropped"
+    },
+    {
+     "t": "chip",
+     "at": "messages",
+     "text": "messages between nodes",
+     "color": "cyan",
+     "x": 540,
+     "y": 480,
+     "size": 34
+    },
+    {
+     "t": "cross",
+     "at": "dropped",
+     "x": 540,
+     "y": 640,
+     "color": "coral"
+    },
+    {
+     "t": "chip",
+     "at": "dropped",
+     "text": "messages dropped",
+     "color": "coral",
+     "x": 540,
+     "y": 960,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "delayed",
+     "text": "or delayed",
+     "color": "amber",
+     "x": 540,
+     "y": 1070,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "YOU MUST CHOOSE",
+   "color": "coral",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "A",
+     "kind": "server",
+     "color": "violet",
+     "x": 230,
+     "y": 560
+    },
+    {
+     "t": "node",
+     "at": 0.6,
+     "label": "B",
+     "kind": "server",
+     "color": "violet",
+     "x": 850,
+     "y": 560
+    },
+    {
+     "t": "cross",
+     "at": "splits",
+     "x": 540,
+     "y": 560,
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "choose",
+     "text": "CHOOSE ONE",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 760
+    },
+    {
+     "t": "chip",
+     "at": "refuse",
+     "text": "refuse = consistent",
+     "color": "mint",
+     "x": 540,
+     "y": 890,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "or",
+     "text": "answer = maybe stale",
+     "color": "coral",
+     "x": 540,
+     "y": 1010,
+     "size": 34
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "NOT A PERMANENT PICK",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "pick 2 forever?",
+     "color": "coral",
+     "x": 540,
+     "y": 440,
+     "size": 36
+    },
+    {
+     "t": "cross",
+     "at": "not",
+     "x": 830,
+     "y": 440,
+     "color": "coral"
+    },
+    {
+     "t": "chip",
+     "at": "brewer",
+     "text": "Brewer, 2012",
+     "color": "amber",
+     "x": 540,
+     "y": 620,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "give",
+     "text": "GIVE UP ONE",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 780
+    },
+    {
+     "t": "badge",
+     "at": "during",
+     "text": "ONLY DURING A PARTITION",
+     "color": "mint",
+     "size": 40,
+     "x": 540,
+     "y": 940
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "DECIDE PER FEATURE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.4,
+     "text": "PER FEATURE",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 440
+    },
+    {
+     "t": "chip",
+     "at": "payment",
+     "text": "payment",
+     "color": "amber",
+     "x": 290,
+     "y": 600,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "refuse",
+     "text": "REFUSE WHEN UNSURE",
+     "color": "coral",
+     "size": 34,
+     "x": 290,
+     "y": 720
+    },
+    {
+     "t": "chip",
+     "at": "like",
+     "text": "like count",
+     "color": "amber",
+     "x": 790,
+     "y": 600,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "stale",
+     "text": "STALE IS FINE",
+     "color": "mint",
+     "size": 34,
+     "x": 790,
+     "y": 840
+    }
+   ]
+  }
+ ]
+}

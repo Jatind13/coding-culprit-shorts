@@ -1,0 +1,627 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Docker vs VM",
+ "sources": [
+  "Docker docs, 'What is a container?' (official, fetched 2026-11-17): a container is an isolated process with all the files it needs to run; a VM is an entire operating system with its own kernel, hardware drivers, programs, and applications; running a VM to isolate one application adds a lot of overhead; when you run multiple containers they all share the same kernel, so you can fit more applications on less infrastructure; containers are self-contained and do not depend on software preinstalled on the host. https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/",
+  "NIST SP 800-190, Application Container Security Guide (fetched 2026-11-17): section 2.2, with containers multiple apps share the same OS kernel instance but are segregated from each other, and the separation is far less than that provided to VMs by a hypervisor; section 3.5.2, a shared kernel invariably results in a larger inter-object attack surface and the isolation provided by container runtimes is not as high as that provided by hypervisors; section 3.5.3, flaws in low-level host components such as kernel primitives can impact all the containers and apps that run on the host. https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf"
+ ],
+ "lines": [
+  {
+   "text": "A virtual machine takes a while to boot, but a container starts in moments. Why?",
+   "caps": "VM *BOOTS SLOWLY | CONTAINER *STARTS FAST | *WHY?"
+  },
+  {
+   "text": "A virtual machine is an entire operating system, with its own kernel, drivers, and applications.",
+   "caps": "A VM IS A *WHOLE OS | OWN *KERNEL | OWN *DRIVERS"
+  },
+  {
+   "text": "A container is just an isolated process, with all the files it needs to run.",
+   "caps": "A CONTAINER | IS AN *ISOLATED PROCESS | PLUS ITS *FILES"
+  },
+  {
+   "text": "Containers share the host's kernel, so there's no second operating system to boot.",
+   "caps": "*SHARED KERNEL | NO *SECOND OS | NOTHING TO *BOOT"
+  },
+  {
+   "text": "That's why you can fit many more of them on the same machine.",
+   "caps": "*MORE CONTAINERS | SAME *MACHINE"
+  },
+  {
+   "text": "And because they're self-contained, a container doesn't depend on anything installed on the host.",
+   "caps": "*SELF-CONTAINED | NOTHING *INSTALLED ON HOST"
+  },
+  {
+   "text": "But here's the catch: they all share one kernel, so a kernel bug can affect every container, and isolation is weaker than a VM's.",
+   "caps": "BUT THERE IS A *CATCH | ONE *SHARED KERNEL | *WEAKER ISOLATION"
+  },
+  {
+   "text": "So use containers for packaging and speed, and reach for a VM when you need hard isolation.",
+   "caps": "CONTAINERS: *PACKAGING + SPEED | VMS: *HARD ISOLATION"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "BOOT VS START",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.4,
+     "label": "VM",
+     "kind": "server",
+     "color": "violet",
+     "x": 290,
+     "y": 620
+    },
+    {
+     "t": "chip",
+     "at": "takes",
+     "text": "takes a while",
+     "color": "amber",
+     "x": 290,
+     "y": 760,
+     "size": 34
+    },
+    {
+     "t": "meter",
+     "at": "boot",
+     "label": "VM boot",
+     "color": "coral",
+     "x": 90,
+     "y": 900,
+     "w": 400,
+     "from": 0,
+     "to": 1,
+     "dur": 2.0,
+     "value": "slow",
+     "show": 0.85
+    },
+    {
+     "t": "node",
+     "at": "container",
+     "label": "container",
+     "kind": "server",
+     "color": "mint",
+     "x": 790,
+     "y": 620
+    },
+    {
+     "t": "meter",
+     "at": "starts",
+     "label": "container",
+     "color": "mint",
+     "x": 590,
+     "y": 900,
+     "w": 400,
+     "from": 0,
+     "to": 1,
+     "dur": 0.25,
+     "value": "fast",
+     "show": 0.5
+    },
+    {
+     "t": "chip",
+     "at": "moments",
+     "text": "moments",
+     "color": "mint",
+     "x": 790,
+     "y": 760,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "why",
+     "text": "WHY?",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 1040
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "A WHOLE OS",
+   "color": "violet",
+   "items": [
+    {
+     "t": "card",
+     "at": 0.3,
+     "title": "virtual machine",
+     "color": "violet",
+     "x": 240,
+     "y": 450,
+     "w": 600,
+     "h": 420
+    },
+    {
+     "t": "badge",
+     "at": "entire",
+     "text": "ENTIRE OS",
+     "color": "amber",
+     "size": 44,
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": "text",
+     "at": "operating",
+     "text": "operating system",
+     "color": "violet",
+     "x": 540,
+     "y": 560,
+     "size": 38
+    },
+    {
+     "t": "text",
+     "at": "kernel",
+     "text": "own kernel",
+     "color": "amber",
+     "x": 540,
+     "y": 640,
+     "size": 38
+    },
+    {
+     "t": "text",
+     "at": "drivers",
+     "text": "drivers",
+     "color": "amber",
+     "x": 540,
+     "y": 710,
+     "size": 38
+    },
+    {
+     "t": "text",
+     "at": "applications",
+     "text": "applications",
+     "color": "amber",
+     "x": 540,
+     "y": 780,
+     "size": 38
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "JUST A PROCESS",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "container",
+     "color": "cyan",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "isolated",
+     "text": "ISOLATED PROCESS",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 620
+    },
+    {
+     "t": "chip",
+     "at": "files",
+     "text": "+ the files it needs",
+     "color": "amber",
+     "x": 540,
+     "y": 780,
+     "size": 34
+    },
+    {
+     "t": "check",
+     "at": "run",
+     "x": 840,
+     "y": 780,
+     "color": "mint"
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "SHARED KERNEL",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "sq",
+     "at": 0.3,
+     "text": "A",
+     "color": "cyan",
+     "x": 300,
+     "y": 560
+    },
+    {
+     "t": "sq",
+     "at": 0.5,
+     "text": "B",
+     "color": "cyan",
+     "x": 540,
+     "y": 560
+    },
+    {
+     "t": "sq",
+     "at": 0.7,
+     "text": "C",
+     "color": "cyan",
+     "x": 780,
+     "y": 560
+    },
+    {
+     "t": "card",
+     "at": "kernel",
+     "title": "host kernel",
+     "color": "cyan",
+     "x": 140,
+     "y": 700,
+     "w": 800,
+     "h": 200
+    },
+    {
+     "t": "badge",
+     "at": "second",
+     "text": "NO SECOND OS",
+     "color": "coral",
+     "size": 44,
+     "x": 540,
+     "y": 1000
+    },
+    {
+     "t": "chip",
+     "at": "boot",
+     "text": "nothing to boot",
+     "color": "mint",
+     "x": 540,
+     "y": 1110,
+     "size": 34
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "MORE PER MACHINE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "card",
+     "at": 0.2,
+     "title": "one machine",
+     "color": "mint",
+     "x": 200,
+     "y": 450,
+     "w": 680,
+     "h": 400
+    },
+    {
+     "t": "sq",
+     "at": 0.5,
+     "text": "app",
+     "color": "cyan",
+     "x": 330,
+     "y": 590,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.67,
+     "text": "app",
+     "color": "cyan",
+     "x": 470,
+     "y": 590,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.8400000000000001,
+     "text": "app",
+     "color": "cyan",
+     "x": 610,
+     "y": 590,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 1.01,
+     "text": "app",
+     "color": "cyan",
+     "x": 750,
+     "y": 590,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 1.1800000000000002,
+     "text": "app",
+     "color": "cyan",
+     "x": 330,
+     "y": 690,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 1.35,
+     "text": "app",
+     "color": "cyan",
+     "x": 470,
+     "y": 690,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 1.52,
+     "text": "app",
+     "color": "cyan",
+     "x": 610,
+     "y": 690,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 1.6900000000000002,
+     "text": "app",
+     "color": "cyan",
+     "x": 750,
+     "y": 690,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 1.86,
+     "text": "app",
+     "color": "cyan",
+     "x": 330,
+     "y": 790,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 2.0300000000000002,
+     "text": "app",
+     "color": "cyan",
+     "x": 470,
+     "y": 790,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 2.2,
+     "text": "app",
+     "color": "cyan",
+     "x": 610,
+     "y": 790,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 2.37,
+     "text": "app",
+     "color": "cyan",
+     "x": 750,
+     "y": 790,
+     "s": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "same",
+     "text": "SAME MACHINE",
+     "color": "cyan",
+     "size": 44,
+     "x": 540,
+     "y": 960
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "SELF-CONTAINED",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "card",
+     "at": 0.3,
+     "title": "container",
+     "color": "cyan",
+     "x": 240,
+     "y": 450,
+     "w": 600,
+     "h": 260
+    },
+    {
+     "t": "text",
+     "at": 0.8,
+     "text": "app + its files",
+     "color": "amber",
+     "x": 540,
+     "y": 590,
+     "size": 40
+    },
+    {
+     "t": "badge",
+     "at": "self-contained",
+     "text": "SELF-CONTAINED",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 800
+    },
+    {
+     "t": "chip",
+     "at": "depend",
+     "text": "depends on host?",
+     "color": "amber",
+     "x": 540,
+     "y": 930,
+     "size": 34
+    },
+    {
+     "t": "cross",
+     "at": "anything",
+     "x": 830,
+     "y": 930,
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "installed",
+     "text": "NOTHING TO INSTALL",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 1050
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "THE CATCH: ONE KERNEL",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "one shared kernel",
+     "color": "violet",
+     "x": 540,
+     "y": 400,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": 1.4,
+     "text": "A",
+     "color": "cyan",
+     "x": 300,
+     "y": 600
+    },
+    {
+     "t": "sq",
+     "at": 1.6,
+     "text": "B",
+     "color": "cyan",
+     "x": 540,
+     "y": 600
+    },
+    {
+     "t": "sq",
+     "at": 1.8,
+     "text": "C",
+     "color": "cyan",
+     "x": 780,
+     "y": 600
+    },
+    {
+     "t": "card",
+     "at": "kernel",
+     "title": "host kernel",
+     "color": "violet",
+     "x": 140,
+     "y": 740,
+     "w": 800,
+     "h": 160
+    },
+    {
+     "t": "chip",
+     "at": "bug",
+     "text": "kernel bug",
+     "color": "coral",
+     "x": 540,
+     "y": 1010,
+     "size": 36
+    },
+    {
+     "t": "cross",
+     "at": "every",
+     "x": 300,
+     "y": 500,
+     "color": "coral"
+    },
+    {
+     "t": "cross",
+     "at": 5.4,
+     "x": 540,
+     "y": 500,
+     "color": "coral"
+    },
+    {
+     "t": "cross",
+     "at": 5.6,
+     "x": 780,
+     "y": 500,
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "weaker",
+     "text": "WEAKER ISOLATION",
+     "color": "coral",
+     "size": 42,
+     "x": 540,
+     "y": 1110
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "PICK THE RIGHT ONE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.6,
+     "text": "CONTAINERS",
+     "color": "cyan",
+     "size": 40,
+     "x": 290,
+     "y": 520
+    },
+    {
+     "t": "chip",
+     "at": "packaging",
+     "text": "packaging",
+     "color": "amber",
+     "x": 290,
+     "y": 640,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "speed",
+     "text": "speed",
+     "color": "amber",
+     "x": 290,
+     "y": 740,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "VM",
+     "text": "VM",
+     "color": "violet",
+     "size": 44,
+     "x": 790,
+     "y": 520
+    },
+    {
+     "t": "chip",
+     "at": "hard",
+     "text": "hard isolation",
+     "color": "coral",
+     "x": 790,
+     "y": 640,
+     "size": 34
+    }
+   ]
+  }
+ ]
+}

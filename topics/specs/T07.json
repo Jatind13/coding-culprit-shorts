@@ -1,0 +1,635 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Sync API vs queue",
+ "sources": [
+  "Amazon SQS Developer Guide, 'What is Amazon SQS' (official, fetched 2026-11-17): SQS offers a secure, durable, and available hosted queue that lets you integrate and decouple distributed software systems and components. https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html",
+  "Amazon SQS Developer Guide, 'Amazon SQS standard queues' (official, fetched 2026-11-17): standard queues ensure at-least-once delivery, more than one copy of a message might be delivered, messages may occasionally arrive out of order; they make a best-effort attempt to keep the order messages were sent; suitable as long as your application can handle messages that arrive more than once or out of order. https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html",
+  "Illustration, not a quoted case: the sign-up email example and its 30 seconds are made-up example numbers, labelled on screen."
+ ],
+ "lines": [
+  {
+   "text": "A user clicks sign up, and your server sends the welcome email before answering, so they stare at a spinner.",
+   "caps": "*SIGN UP | SERVER SENDS *EMAIL FIRST | USER *WAITS"
+  },
+  {
+   "text": "A message queue fixes that: the server drops a message in the queue and answers right away.",
+   "caps": "A *QUEUE | DROP *A MESSAGE | ANSWER *INSTANTLY"
+  },
+  {
+   "text": "A separate worker picks the message up and sends the email in the background.",
+   "caps": "A *WORKER | PICKS IT UP | SENDS IN THE *BACKGROUND"
+  },
+  {
+   "text": "That decouples the two sides. Amazon describes SQS as a hosted queue that decouples distributed systems.",
+   "caps": "*DECOUPLED | A HOSTED *QUEUE | SQS"
+  },
+  {
+   "text": "The user gets an instant response, and the slow work happens whenever the worker gets to it.",
+   "caps": "*INSTANT RESPONSE | SLOW WORK *LATER"
+  },
+  {
+   "text": "But here's the catch: standard SQS queues deliver at least once, so a message can arrive twice, or out of order.",
+   "caps": "BUT THERE IS A *CATCH | AT LEAST *ONCE | CAN ARRIVE *TWICE"
+  },
+  {
+   "text": "So your worker has to handle duplicates, for example by checking whether it already sent that email.",
+   "caps": "HANDLE *DUPLICATES | CHECK *ALREADY SENT"
+  },
+  {
+   "text": "So queue the slow, non-urgent work, and keep anything the user needs to see right now synchronous.",
+   "caps": "QUEUE THE *SLOW WORK | KEEP *URGENT SYNC"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "THE SPINNER",
+   "color": "coral",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "user",
+     "kind": "user",
+     "color": "cyan",
+     "x": 190,
+     "y": 650
+    },
+    {
+     "t": "badge",
+     "at": 0.8,
+     "text": "CLICK: SIGN UP",
+     "color": "mint",
+     "size": 40,
+     "x": 540,
+     "y": 470
+    },
+    {
+     "t": "node",
+     "at": "server",
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 890,
+     "y": 650
+    },
+    {
+     "t": "wire",
+     "at": "server",
+     "pts": [
+      [
+       290,
+       650
+      ],
+      [
+       790,
+       650
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "chip",
+     "at": "email",
+     "text": "send welcome email",
+     "color": "amber",
+     "x": 540,
+     "y": 830,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "stare",
+     "text": "WAITING...",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": "chip",
+     "at": "spinner",
+     "text": "30 s (example)",
+     "color": "amber",
+     "x": 540,
+     "y": 1070,
+     "size": 34
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "DROP IT IN A QUEUE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.5,
+     "label": "queue",
+     "kind": "db",
+     "color": "amber",
+     "x": 230,
+     "y": 820
+    },
+    {
+     "t": "node",
+     "at": "server",
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 540
+    },
+    {
+     "t": "wire",
+     "at": "drops",
+     "pts": [
+      [
+       480,
+       600
+      ],
+      [
+       290,
+       770
+      ]
+     ],
+     "color": "amber"
+    },
+    {
+     "t": "dot",
+     "at": "drops",
+     "pts": [
+      [
+       480,
+       600
+      ],
+      [
+       290,
+       770
+      ]
+     ],
+     "color": "mint",
+     "dur": 0.9
+    },
+    {
+     "t": "chip",
+     "at": "message",
+     "text": "message",
+     "color": "amber",
+     "x": 540,
+     "y": 990,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "answers",
+     "label": "user",
+     "kind": "user",
+     "color": "cyan",
+     "x": 850,
+     "y": 820
+    },
+    {
+     "t": "wire",
+     "at": "answers",
+     "pts": [
+      [
+       600,
+       600
+      ],
+      [
+       790,
+       770
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "dot",
+     "at": "right",
+     "pts": [
+      [
+       600,
+       600
+      ],
+      [
+       790,
+       770
+      ]
+     ],
+     "color": "mint",
+     "dur": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "away",
+     "text": "INSTANT OK",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 1100
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "A WORKER",
+   "color": "violet",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "queue",
+     "kind": "db",
+     "color": "amber",
+     "x": 190,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "worker",
+     "label": "worker",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": "worker",
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       440,
+       640
+      ]
+     ],
+     "color": "amber"
+    },
+    {
+     "t": "dot",
+     "at": "picks",
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       440,
+       640
+      ]
+     ],
+     "color": "mint",
+     "dur": 0.8
+    },
+    {
+     "t": "dot",
+     "at": "sends",
+     "pts": [
+      [
+       640,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "mint",
+     "dur": 0.8
+    },
+    {
+     "t": "chip",
+     "at": "email",
+     "text": "email sent",
+     "color": "mint",
+     "x": 880,
+     "y": 640,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "background",
+     "text": "IN THE BACKGROUND",
+     "color": "violet",
+     "size": 42,
+     "x": 540,
+     "y": 860
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "DECOUPLED",
+   "color": "mint",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.4,
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 190,
+     "y": 620
+    },
+    {
+     "t": "node",
+     "at": 1.5,
+     "label": "queue",
+     "kind": "db",
+     "color": "amber",
+     "x": 540,
+     "y": 620
+    },
+    {
+     "t": "node",
+     "at": 1.8,
+     "label": "worker",
+     "kind": "server",
+     "color": "violet",
+     "x": 890,
+     "y": 620
+    },
+    {
+     "t": "wire",
+     "at": 1.5,
+     "pts": [
+      [
+       290,
+       620
+      ],
+      [
+       440,
+       620
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "wire",
+     "at": 1.8,
+     "pts": [
+      [
+       640,
+       620
+      ],
+      [
+       790,
+       620
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "chip",
+     "at": "Amazon",
+     "text": "Amazon SQS",
+     "color": "cyan",
+     "x": 540,
+     "y": 820,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "hosted",
+     "text": "HOSTED QUEUE",
+     "color": "amber",
+     "size": 42,
+     "x": 540,
+     "y": 940
+    },
+    {
+     "t": "badge",
+     "at": "distributed",
+     "text": "DECOUPLES SYSTEMS",
+     "color": "mint",
+     "size": 40,
+     "x": 540,
+     "y": 1060
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "INSTANT RESPONSE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "meter",
+     "at": 0.4,
+     "label": "response time",
+     "color": "mint",
+     "x": 140,
+     "y": 620,
+     "w": 800,
+     "from": 0.9,
+     "to": 0.05,
+     "dur": 1.2,
+     "value": "instant",
+     "show": 0
+    },
+    {
+     "t": "chip",
+     "at": "slow",
+     "text": "slow work",
+     "color": "amber",
+     "x": 540,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "whenever",
+     "text": "later",
+     "color": "violet",
+     "x": 540,
+     "y": 920,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "worker",
+     "text": "WHEN THE WORKER IS FREE",
+     "color": "mint",
+     "size": 38,
+     "x": 540,
+     "y": 1040
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "AT LEAST ONCE",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "SQS standard queue",
+     "color": "violet",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "deliver",
+     "text": "AT LEAST ONCE",
+     "color": "coral",
+     "size": 44,
+     "x": 540,
+     "y": 610
+    },
+    {
+     "t": "record",
+     "at": "message",
+     "label": "msg #7",
+     "color": "amber",
+     "x": 300,
+     "y": 800
+    },
+    {
+     "t": "record",
+     "at": "twice",
+     "label": "msg #7",
+     "color": "coral",
+     "x": 780,
+     "y": 800
+    },
+    {
+     "t": "badge",
+     "at": "twice",
+     "text": "SAME MESSAGE TWICE",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 930
+    },
+    {
+     "t": "chip",
+     "at": "order",
+     "text": "or out of order",
+     "color": "amber",
+     "x": 540,
+     "y": 1060,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "HANDLE DUPLICATES",
+   "color": "mint",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "worker",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 540
+    },
+    {
+     "t": "badge",
+     "at": "handle",
+     "text": "HANDLE DUPLICATES",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 730
+    },
+    {
+     "t": "terminal",
+     "at": "checking",
+     "typeFrom": "checking",
+     "typeTo": "sent",
+     "x": 80,
+     "y": 830,
+     "w": 920,
+     "h": 200,
+     "lines": [
+      {
+       "t": "already_sent(user)?",
+       "c": "white"
+      },
+      {
+       "t": "-> skip",
+       "c": "mint"
+      }
+     ]
+    },
+    {
+     "t": "chip",
+     "at": "email",
+     "text": "no second email",
+     "color": "mint",
+     "x": 540,
+     "y": 1110,
+     "size": 34
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "QUEUE THE SLOW STUFF",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.4,
+     "text": "QUEUE",
+     "color": "violet",
+     "size": 46,
+     "x": 540,
+     "y": 470
+    },
+    {
+     "t": "chip",
+     "at": "slow",
+     "text": "slow, non-urgent",
+     "color": "amber",
+     "x": 540,
+     "y": 590,
+     "size": 36
+    },
+    {
+     "t": "text",
+     "at": 2.2,
+     "text": "vs",
+     "color": "dim",
+     "x": 540,
+     "y": 700,
+     "size": 44
+    },
+    {
+     "t": "chip",
+     "at": "user",
+     "text": "user needs it now",
+     "color": "cyan",
+     "x": 540,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "synchronous",
+     "text": "KEEP IT SYNCHRONOUS",
+     "color": "cyan",
+     "size": 40,
+     "x": 540,
+     "y": 930
+    }
+   ]
+  }
+ ]
+}

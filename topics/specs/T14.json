@@ -1,0 +1,1597 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Consistent hashing",
+ "sources": [
+  "Wikipedia, 'Consistent hashing' (secondary source, fetched 2026-11-17): with hash-mod-n, a change in the number of slots causes nearly all keys to be remapped; consistent hashing maps both keys and servers onto a unit circle; each key goes to the next server clockwise; adding or removing a server moves only nearby keys; virtual nodes (duplicate labels per server) reduce skew from uneven placement; the term was introduced by David Karger et al. at MIT in 1997. https://en.wikipedia.org/wiki/Consistent_hashing",
+  "Illustration, not from the source: three-then-four servers is an example, and a mass cache miss is the consequence for a cache."
+ ],
+ "lines": [
+  {
+   "text": "You spread cache keys over three servers with hash mod three, and it works fine, until you add a fourth.",
+   "caps": "*3 SERVERS | HASH *MOD 3 | ADD A *FOURTH"
+  },
+  {
+   "text": "Change the number of servers, and nearly all the keys get remapped to a different server.",
+   "caps": "*NEARLY ALL KEYS | *MOVE"
+  },
+  {
+   "text": "In a cache, that means almost everything misses at once, and your database takes the hit.",
+   "caps": "*EVERYTHING MISSES | DATABASE *TAKES THE HIT"
+  },
+  {
+   "text": "Consistent hashing fixes it by mapping both the servers and the keys onto a circle, called a hash ring.",
+   "caps": "SERVERS *AND KEYS | ON A *CIRCLE | THE *HASH RING"
+  },
+  {
+   "text": "Each key belongs to the next server clockwise from it.",
+   "caps": "EACH KEY | NEXT SERVER *CLOCKWISE"
+  },
+  {
+   "text": "Add a server, and only the keys right next to it move, a small share of the total.",
+   "caps": "ADD A SERVER | ONLY *NEARBY KEYS MOVE"
+  },
+  {
+   "text": "But here's the catch: with only a few points on the ring, one server can end up with a huge arc, and an uneven load.",
+   "caps": "BUT THERE IS A *CATCH | FEW POINTS | *UNEVEN LOAD"
+  },
+  {
+   "text": "So give each server many virtual nodes, spread around the ring, and the load evens out.",
+   "caps": "*VIRTUAL NODES | SPREAD *AROUND THE RING | LOAD *EVENS OUT"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "HASH MOD 3",
+   "color": "violet",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "cache keys",
+     "color": "amber",
+     "x": 540,
+     "y": 440,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": 2.4,
+     "label": "S0",
+     "kind": "server",
+     "color": "cyan",
+     "x": 190,
+     "y": 600
+    },
+    {
+     "t": "node",
+     "at": 2.6,
+     "label": "S1",
+     "kind": "server",
+     "color": "cyan",
+     "x": 540,
+     "y": 600
+    },
+    {
+     "t": "node",
+     "at": 2.8,
+     "label": "S2",
+     "kind": "server",
+     "color": "cyan",
+     "x": 890,
+     "y": 600
+    },
+    {
+     "t": "chip",
+     "at": "hash",
+     "text": "hash(key) % 3",
+     "color": "violet",
+     "x": 540,
+     "y": 770,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "works",
+     "text": "WORKS FINE",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 890
+    },
+    {
+     "t": "node",
+     "at": "fourth",
+     "label": "new",
+     "kind": "server",
+     "color": "coral",
+     "x": 540,
+     "y": 1060
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "NEARLY ALL KEYS MOVE",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "now: hash(key) % 4",
+     "color": "amber",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "meter",
+     "at": "nearly",
+     "label": "keys remapped",
+     "color": "coral",
+     "x": 140,
+     "y": 640,
+     "w": 800,
+     "from": 0,
+     "to": 0.95,
+     "dur": 1.6,
+     "value": "nearly all",
+     "show": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "remapped",
+     "text": "REMAPPED",
+     "color": "coral",
+     "size": 44,
+     "x": 540,
+     "y": 790
+    },
+    {
+     "t": "badge",
+     "at": "different",
+     "text": "TO A DIFFERENT SERVER",
+     "color": "coral",
+     "size": 38,
+     "x": 540,
+     "y": 910
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "EVERYTHING MISSES",
+   "color": "coral",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "cache",
+     "kind": "cache",
+     "color": "violet",
+     "x": 190,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": 1.5,
+     "label": "database",
+     "kind": "db",
+     "color": "amber",
+     "x": 890,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": 1.5,
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "coral",
+     "dash": [
+      10,
+      10
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "misses",
+     "text": "ALL MISS",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    },
+    {
+     "t": "dot",
+     "at": 3.1,
+     "pts": [
+      [
+       290,
+       640
+      ],
+      [
+       790,
+       640
+      ]
+     ],
+     "color": "coral",
+     "loop": true,
+     "dur": 0.5
+    },
+    {
+     "t": "badge",
+     "at": "takes",
+     "text": "DATABASE TAKES THE HIT",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "THE HASH RING",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "consistent hashing",
+     "color": "mint",
+     "x": 540,
+     "y": 420,
+     "size": 36
+    },
+    {
+     "t": "wire",
+     "at": "circle",
+     "pts": [
+      [
+       540,
+       540
+      ],
+      [
+       580,
+       543
+      ],
+      [
+       619,
+       554
+      ],
+      [
+       655,
+       571
+      ],
+      [
+       688,
+       594
+      ],
+      [
+       716,
+       622
+      ],
+      [
+       739,
+       655
+      ],
+      [
+       756,
+       691
+      ],
+      [
+       767,
+       730
+      ],
+      [
+       770,
+       770
+      ],
+      [
+       767,
+       810
+      ],
+      [
+       756,
+       849
+      ],
+      [
+       739,
+       885
+      ],
+      [
+       716,
+       918
+      ],
+      [
+       688,
+       946
+      ],
+      [
+       655,
+       969
+      ],
+      [
+       619,
+       986
+      ],
+      [
+       580,
+       997
+      ],
+      [
+       540,
+       1000
+      ],
+      [
+       500,
+       997
+      ],
+      [
+       461,
+       986
+      ],
+      [
+       425,
+       969
+      ],
+      [
+       392,
+       946
+      ],
+      [
+       364,
+       918
+      ],
+      [
+       341,
+       885
+      ],
+      [
+       324,
+       849
+      ],
+      [
+       313,
+       810
+      ],
+      [
+       310,
+       770
+      ],
+      [
+       313,
+       730
+      ],
+      [
+       324,
+       691
+      ],
+      [
+       341,
+       655
+      ],
+      [
+       364,
+       622
+      ],
+      [
+       392,
+       594
+      ],
+      [
+       425,
+       571
+      ],
+      [
+       461,
+       554
+      ],
+      [
+       500,
+       543
+      ],
+      [
+       540,
+       540
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "sq",
+     "at": "servers",
+     "text": "S0",
+     "color": "mint",
+     "x": 540,
+     "y": 540,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 3.1,
+     "text": "S1",
+     "color": "mint",
+     "x": 739,
+     "y": 885,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 3.3,
+     "text": "S2",
+     "color": "mint",
+     "x": 341,
+     "y": 885,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "keys",
+     "text": "k1",
+     "color": "amber",
+     "x": 739,
+     "y": 655,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.1,
+     "text": "k2",
+     "color": "amber",
+     "x": 540,
+     "y": 1000,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.3,
+     "text": "k3",
+     "color": "amber",
+     "x": 341,
+     "y": 655,
+     "s": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "ring",
+     "text": "HASH RING",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 1110
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "CLOCKWISE",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "wire",
+     "at": 0.1,
+     "pts": [
+      [
+       540,
+       540
+      ],
+      [
+       580,
+       543
+      ],
+      [
+       619,
+       554
+      ],
+      [
+       655,
+       571
+      ],
+      [
+       688,
+       594
+      ],
+      [
+       716,
+       622
+      ],
+      [
+       739,
+       655
+      ],
+      [
+       756,
+       691
+      ],
+      [
+       767,
+       730
+      ],
+      [
+       770,
+       770
+      ],
+      [
+       767,
+       810
+      ],
+      [
+       756,
+       849
+      ],
+      [
+       739,
+       885
+      ],
+      [
+       716,
+       918
+      ],
+      [
+       688,
+       946
+      ],
+      [
+       655,
+       969
+      ],
+      [
+       619,
+       986
+      ],
+      [
+       580,
+       997
+      ],
+      [
+       540,
+       1000
+      ],
+      [
+       500,
+       997
+      ],
+      [
+       461,
+       986
+      ],
+      [
+       425,
+       969
+      ],
+      [
+       392,
+       946
+      ],
+      [
+       364,
+       918
+      ],
+      [
+       341,
+       885
+      ],
+      [
+       324,
+       849
+      ],
+      [
+       313,
+       810
+      ],
+      [
+       310,
+       770
+      ],
+      [
+       313,
+       730
+      ],
+      [
+       324,
+       691
+      ],
+      [
+       341,
+       655
+      ],
+      [
+       364,
+       622
+      ],
+      [
+       392,
+       594
+      ],
+      [
+       425,
+       571
+      ],
+      [
+       461,
+       554
+      ],
+      [
+       500,
+       543
+      ],
+      [
+       540,
+       540
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "sq",
+     "at": 0.3,
+     "text": "S0",
+     "color": "mint",
+     "x": 540,
+     "y": 540,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.4,
+     "text": "S1",
+     "color": "mint",
+     "x": 739,
+     "y": 885,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.5,
+     "text": "S2",
+     "color": "mint",
+     "x": 341,
+     "y": 885,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.6,
+     "text": "k1",
+     "color": "amber",
+     "x": 739,
+     "y": 655,
+     "s": 0.9
+    },
+    {
+     "t": "dot",
+     "at": "clockwise",
+     "pts": [
+      [
+       739,
+       655
+      ],
+      [
+       756,
+       691
+      ],
+      [
+       767,
+       730
+      ],
+      [
+       770,
+       770
+      ],
+      [
+       767,
+       810
+      ],
+      [
+       756,
+       849
+      ],
+      [
+       739,
+       885
+      ]
+     ],
+     "color": "mint",
+     "dur": 1.0
+    },
+    {
+     "t": "chip",
+     "at": "next",
+     "text": "next server",
+     "color": "mint",
+     "x": 540,
+     "y": 1110,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "ADD A SERVER",
+   "color": "mint",
+   "items": [
+    {
+     "t": "wire",
+     "at": 0.1,
+     "pts": [
+      [
+       540,
+       540
+      ],
+      [
+       580,
+       543
+      ],
+      [
+       619,
+       554
+      ],
+      [
+       655,
+       571
+      ],
+      [
+       688,
+       594
+      ],
+      [
+       716,
+       622
+      ],
+      [
+       739,
+       655
+      ],
+      [
+       756,
+       691
+      ],
+      [
+       767,
+       730
+      ],
+      [
+       770,
+       770
+      ],
+      [
+       767,
+       810
+      ],
+      [
+       756,
+       849
+      ],
+      [
+       739,
+       885
+      ],
+      [
+       716,
+       918
+      ],
+      [
+       688,
+       946
+      ],
+      [
+       655,
+       969
+      ],
+      [
+       619,
+       986
+      ],
+      [
+       580,
+       997
+      ],
+      [
+       540,
+       1000
+      ],
+      [
+       500,
+       997
+      ],
+      [
+       461,
+       986
+      ],
+      [
+       425,
+       969
+      ],
+      [
+       392,
+       946
+      ],
+      [
+       364,
+       918
+      ],
+      [
+       341,
+       885
+      ],
+      [
+       324,
+       849
+      ],
+      [
+       313,
+       810
+      ],
+      [
+       310,
+       770
+      ],
+      [
+       313,
+       730
+      ],
+      [
+       324,
+       691
+      ],
+      [
+       341,
+       655
+      ],
+      [
+       364,
+       622
+      ],
+      [
+       392,
+       594
+      ],
+      [
+       425,
+       571
+      ],
+      [
+       461,
+       554
+      ],
+      [
+       500,
+       543
+      ],
+      [
+       540,
+       540
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "sq",
+     "at": 0.2,
+     "text": "S0",
+     "color": "cyan",
+     "x": 540,
+     "y": 540,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.3,
+     "text": "S1",
+     "color": "cyan",
+     "x": 739,
+     "y": 885,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.4,
+     "text": "S2",
+     "color": "cyan",
+     "x": 341,
+     "y": 885,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.9,
+     "text": "S3",
+     "color": "mint",
+     "x": 540,
+     "y": 1000
+    },
+    {
+     "t": "sq",
+     "at": 1.4,
+     "text": "k",
+     "color": "amber",
+     "x": 682,
+     "y": 951,
+     "s": 0.8
+    },
+    {
+     "t": "badge",
+     "at": "right",
+     "text": "ONLY NEARBY KEYS MOVE",
+     "color": "mint",
+     "size": 40,
+     "x": 540,
+     "y": 1120
+    },
+    {
+     "t": "dot",
+     "at": "move",
+     "pts": [
+      [
+       682,
+       951
+      ],
+      [
+       650,
+       972
+      ],
+      [
+       615,
+       987
+      ],
+      [
+       578,
+       997
+      ],
+      [
+       540,
+       1000
+      ]
+     ],
+     "color": "mint",
+     "dur": 0.8
+    },
+    {
+     "t": "chip",
+     "at": "small",
+     "text": "small share",
+     "color": "amber",
+     "x": 540,
+     "y": 770,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "UNEVEN LOAD",
+   "color": "coral",
+   "items": [
+    {
+     "t": "wire",
+     "at": 0.1,
+     "pts": [
+      [
+       540,
+       540
+      ],
+      [
+       580,
+       543
+      ],
+      [
+       619,
+       554
+      ],
+      [
+       655,
+       571
+      ],
+      [
+       688,
+       594
+      ],
+      [
+       716,
+       622
+      ],
+      [
+       739,
+       655
+      ],
+      [
+       756,
+       691
+      ],
+      [
+       767,
+       730
+      ],
+      [
+       770,
+       770
+      ],
+      [
+       767,
+       810
+      ],
+      [
+       756,
+       849
+      ],
+      [
+       739,
+       885
+      ],
+      [
+       716,
+       918
+      ],
+      [
+       688,
+       946
+      ],
+      [
+       655,
+       969
+      ],
+      [
+       619,
+       986
+      ],
+      [
+       580,
+       997
+      ],
+      [
+       540,
+       1000
+      ],
+      [
+       500,
+       997
+      ],
+      [
+       461,
+       986
+      ],
+      [
+       425,
+       969
+      ],
+      [
+       392,
+       946
+      ],
+      [
+       364,
+       918
+      ],
+      [
+       341,
+       885
+      ],
+      [
+       324,
+       849
+      ],
+      [
+       313,
+       810
+      ],
+      [
+       310,
+       770
+      ],
+      [
+       313,
+       730
+      ],
+      [
+       324,
+       691
+      ],
+      [
+       341,
+       655
+      ],
+      [
+       364,
+       622
+      ],
+      [
+       392,
+       594
+      ],
+      [
+       425,
+       571
+      ],
+      [
+       461,
+       554
+      ],
+      [
+       500,
+       543
+      ],
+      [
+       540,
+       540
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "sq",
+     "at": 0.3,
+     "text": "S0",
+     "color": "violet",
+     "x": 461,
+     "y": 554,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.5,
+     "text": "S1",
+     "color": "violet",
+     "x": 580,
+     "y": 543,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.7,
+     "text": "S2",
+     "color": "violet",
+     "x": 688,
+     "y": 594,
+     "s": 0.9
+    },
+    {
+     "t": "chip",
+     "at": "few",
+     "text": "few points",
+     "color": "cyan",
+     "x": 540,
+     "y": 420,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "one",
+     "text": "one server",
+     "color": "amber",
+     "x": 540,
+     "y": 700,
+     "size": 34
+    },
+    {
+     "t": "wire",
+     "at": "huge",
+     "pts": [
+      [
+       716,
+       622
+      ],
+      [
+       739,
+       654
+      ],
+      [
+       755,
+       689
+      ],
+      [
+       766,
+       726
+      ],
+      [
+       770,
+       765
+      ],
+      [
+       768,
+       803
+      ],
+      [
+       759,
+       841
+      ],
+      [
+       744,
+       877
+      ],
+      [
+       723,
+       909
+      ],
+      [
+       697,
+       938
+      ],
+      [
+       666,
+       962
+      ],
+      [
+       632,
+       981
+      ],
+      [
+       596,
+       993
+      ],
+      [
+       557,
+       999
+      ],
+      [
+       519,
+       999
+      ],
+      [
+       480,
+       992
+      ],
+      [
+       444,
+       979
+      ],
+      [
+       410,
+       960
+      ],
+      [
+       380,
+       935
+      ],
+      [
+       355,
+       906
+      ],
+      [
+       334,
+       873
+      ],
+      [
+       320,
+       837
+      ],
+      [
+       312,
+       799
+      ],
+      [
+       310,
+       761
+      ],
+      [
+       315,
+       722
+      ],
+      [
+       326,
+       685
+      ],
+      [
+       344,
+       650
+      ],
+      [
+       366,
+       619
+      ],
+      [
+       394,
+       592
+      ],
+      [
+       426,
+       570
+      ],
+      [
+       461,
+       554
+      ]
+     ],
+     "color": "coral",
+     "dash": [
+      10,
+      10
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "huge",
+     "text": "HUGE ARC",
+     "color": "coral",
+     "size": 44,
+     "x": 540,
+     "y": 1110
+    },
+    {
+     "t": "chip",
+     "at": "uneven",
+     "text": "uneven load",
+     "color": "coral",
+     "x": 540,
+     "y": 810,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "VIRTUAL NODES",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.4,
+     "text": "virtual nodes",
+     "color": "violet",
+     "x": 540,
+     "y": 420,
+     "size": 36
+    },
+    {
+     "t": "wire",
+     "at": 1.4,
+     "pts": [
+      [
+       540,
+       540
+      ],
+      [
+       580,
+       543
+      ],
+      [
+       619,
+       554
+      ],
+      [
+       655,
+       571
+      ],
+      [
+       688,
+       594
+      ],
+      [
+       716,
+       622
+      ],
+      [
+       739,
+       655
+      ],
+      [
+       756,
+       691
+      ],
+      [
+       767,
+       730
+      ],
+      [
+       770,
+       770
+      ],
+      [
+       767,
+       810
+      ],
+      [
+       756,
+       849
+      ],
+      [
+       739,
+       885
+      ],
+      [
+       716,
+       918
+      ],
+      [
+       688,
+       946
+      ],
+      [
+       655,
+       969
+      ],
+      [
+       619,
+       986
+      ],
+      [
+       580,
+       997
+      ],
+      [
+       540,
+       1000
+      ],
+      [
+       500,
+       997
+      ],
+      [
+       461,
+       986
+      ],
+      [
+       425,
+       969
+      ],
+      [
+       392,
+       946
+      ],
+      [
+       364,
+       918
+      ],
+      [
+       341,
+       885
+      ],
+      [
+       324,
+       849
+      ],
+      [
+       313,
+       810
+      ],
+      [
+       310,
+       770
+      ],
+      [
+       313,
+       730
+      ],
+      [
+       324,
+       691
+      ],
+      [
+       341,
+       655
+      ],
+      [
+       364,
+       622
+      ],
+      [
+       392,
+       594
+      ],
+      [
+       425,
+       571
+      ],
+      [
+       461,
+       554
+      ],
+      [
+       500,
+       543
+      ],
+      [
+       540,
+       540
+      ]
+     ],
+     "color": "stroke"
+    },
+    {
+     "t": "sq",
+     "at": 1.6,
+     "text": "",
+     "color": "mint",
+     "x": 540,
+     "y": 540,
+     "s": 0.7
+    },
+    {
+     "t": "sq",
+     "at": 1.9500000000000002,
+     "text": "",
+     "color": "violet",
+     "x": 688,
+     "y": 594,
+     "s": 0.7
+    },
+    {
+     "t": "sq",
+     "at": 2.3,
+     "text": "",
+     "color": "amber",
+     "x": 767,
+     "y": 730,
+     "s": 0.7
+    },
+    {
+     "t": "sq",
+     "at": 2.65,
+     "text": "",
+     "color": "mint",
+     "x": 739,
+     "y": 885,
+     "s": 0.7
+    },
+    {
+     "t": "sq",
+     "at": 3.0,
+     "text": "",
+     "color": "violet",
+     "x": 619,
+     "y": 986,
+     "s": 0.7
+    },
+    {
+     "t": "sq",
+     "at": 3.35,
+     "text": "",
+     "color": "amber",
+     "x": 461,
+     "y": 986,
+     "s": 0.7
+    },
+    {
+     "t": "sq",
+     "at": 3.6999999999999997,
+     "text": "",
+     "color": "mint",
+     "x": 341,
+     "y": 885,
+     "s": 0.7
+    },
+    {
+     "t": "sq",
+     "at": 4.05,
+     "text": "",
+     "color": "violet",
+     "x": 313,
+     "y": 730,
+     "s": 0.7
+    },
+    {
+     "t": "sq",
+     "at": 4.4,
+     "text": "",
+     "color": "amber",
+     "x": 392,
+     "y": 594,
+     "s": 0.7
+    },
+    {
+     "t": "badge",
+     "at": "evens",
+     "text": "LOAD EVENS OUT",
+     "color": "mint",
+     "size": 44,
+     "x": 540,
+     "y": 1110
+    }
+   ]
+  }
+ ]
+}
