@@ -1,0 +1,48 @@
+{
+ "title": "Why is Kafka so fast",
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "sources": [
+  "Apache Kafka documentation, Design (https://kafka.apache.org/40/design/design/): throughput of hard drives has diverged from seek latency; random writes far slower than linear; 'using the filesystem and relying on pagecache is superior to maintaining an in-memory cache'; all data is 'immediately written to a persistent log on the filesystem without necessarily flushing to disk'; two common inefficiencies are 'too many small I/O operations, and excessive byte copying'; protocol built around a 'message set' abstraction that groups messages; with sendfile the OS sends data 'from pagecache to the network directly'; 'efficient compression requires compressing multiple messages together rather than compressing each message individually'.",
+  "Illustration only: the size meter, message chips and the copy path in the zero-copy shot are simplified drawings, not measurements. 'Check your durability settings' is a practical summary of the 'without necessarily flushing' point, not a quote."
+ ],
+ "lines": [
+  {
+   "text": "Kafka writes every message to disk, and yet it handles huge streams, so why is it so fast?",
+   "caps": "*KAFKA WRITES TO *DISK | YET IT IS *FAST"
+  },
+  {
+   "text": "First, it only appends to the end of a log, and sequential writes are far faster than random ones.",
+   "caps": "*ONLY APPENDS | *SEQUENTIAL BEATS *RANDOM"
+  },
+  {
+   "text": "Second, it leans on the operating system's page cache, instead of building its own cache.",
+   "caps": "LEANS ON THE *OS | THE PAGE *CACHE"
+  },
+  {
+   "text": "Third, it batches messages together, so the cost of small requests is shared.",
+   "caps": "*BATCHES MESSAGES | *SHARED COST"
+  },
+  {
+   "text": "Fourth, it compresses whole batches, which works far better than one message at a time.",
+   "caps": "*COMPRESSES | WHOLE *BATCHES"
+  },
+  {
+   "text": "And with zero-copy, the operating system sends data from the page cache straight to the network.",
+   "caps": "*ZERO-COPY | CACHE *STRAIGHT TO NETWORK"
+  },
+  {
+   "text": "But here's the catch: writes aren't necessarily flushed to disk right away, so check your durability settings.",
+   "caps": "BUT THERE IS A *CATCH | NOT *FLUSHED RIGHT AWAY | CHECK *DURABILITY"
+  },
+  {
+   "text": "So Kafka is fast because it works with the disk and the OS, so append, batch, and skip the copies.",
+   "caps": "*WORKS WITH THE OS | *APPEND | *BATCH | SKIP *COPIES"
+  }
+ ]
+}

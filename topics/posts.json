@@ -1,16 +1,266 @@
 {
-"T01":{"title":"Why 0.1 + 0.2 ≠ 0.3 in JavaScript","summary":"Computers store numbers in binary, where 0.1 repeats forever, so the stored values are only approximate. The tiny error shows up when you add, and the fix is to compare with a tolerance (epsilon) instead of ===.","tags":["javascript","floatingpoint","programming","webdev","coding"]},
-"T02":{"title":"Cache Stampede: when one expired key kills your database","summary":"A popular cache entry expires, every request misses at the same moment, and all of them rebuild it from the database at once. Here is why it happens and how to stop it.","tags":["caching","systemdesign","backend","softwareengineering","coding"]},
-"T03":{"title":"Idempotency Keys: How Stripe Avoids Charging You Twice","summary":"Tap pay, the network times out, the app retries. An idempotency key lets the server recognise the retry and return the first result instead of charging again.","tags":["idempotency","systemdesign","backend","api","softwareengineering"]},
-"T04":{"title":"Why a SQL Index Makes Queries Instant","summary":"Without an index the database scans every row. An index is a sorted tree, like a book's index, so it jumps straight to the match. The catch: indexes cost write speed and space.","tags":["sql","database","postgres","backend","softwareengineering"]},
-"T05":{"title":"JWT vs Session Cookie: What's the Real Difference?","summary":"Sessions keep your state on the server and give the browser an ID. A JWT carries signed proof in the token itself. The trade-off is revocation vs. statelessness.","tags":["jwt","authentication","websecurity","backend","softwareengineering"]},
-"T06":{"title":"CAP Theorem Explained in 60 Seconds","summary":"When the network between two servers breaks, a distributed store must choose between consistency and availability. That is the real meaning of CAP.","tags":["captheorem","distributedsystems","systemdesign","database","softwareengineering"]},
-"T07":{"title":"Why Your API Shouldn't Send Emails Directly (Use a Queue)","summary":"Sending the welcome email before responding makes users wait. A message queue lets the server answer immediately while a worker does the slow job in the background.","tags":["messagequeue","systemdesign","backend","aws","softwareengineering"]},
-"T08":{"title":"The N+1 Query Problem: 101 Queries for One Page","summary":"One query for a list, then one more query per item inside a loop. Lazy loading hides it, and your database pays for it. Here is how to spot and fix it.","tags":["nplusone","orm","database","backend","softwareengineering"]},
-"T09":{"title":"CORS Error? Your Server Isn't Broken","summary":"CORS is a rule the browser enforces, not the server. Here is why your API works in Postman but fails in the browser, and what the server must send to allow another origin.","tags":["cors","webdevelopment","javascript","api","frontend"]},
-"T10":{"title":"Token Bucket: The Rate Limiter Behind Most APIs","summary":"A bucket holds a fixed number of tokens, refilled at a steady rate. Every request takes one. Empty bucket means the request is rejected, so one noisy client cannot slow everyone else.","tags":["ratelimiting","systemdesign","backend","api","softwareengineering"]},
-"T11":{"title":"Docker vs Virtual Machine: Why Containers Start So Fast","summary":"A VM boots a whole operating system with its own kernel. A container is an isolated process sharing the host kernel, so there is nothing to boot.","tags":["docker","containers","devops","virtualmachine","softwareengineering"]},
-"T12":{"title":"Exponential Backoff and Jitter: Stop Retry Storms","summary":"A thousand clients retry at once and knock the recovering server over again. Doubling the wait helps, and adding randomness (jitter) spreads the retries out.","tags":["backoff","distributedsystems","systemdesign","backend","softwareengineering"]},
-"T13":{"title":"How 'Login with Google' Works (OAuth 2.0)","summary":"The app never sees your Google password. It redirects you to Google, gets an authorization code, and exchanges it for a token. Here is the flow, and why PKCE matters.","tags":["oauth","authentication","websecurity","backend","softwareengineering"]},
-"T14":{"title":"Consistent Hashing: Add a Server Without Losing Your Cache","summary":"hash mod N remaps almost every key when N changes. Consistent hashing puts servers and keys on a ring so only nearby keys move.","tags":["consistenthashing","systemdesign","distributedsystems","caching","softwareengineering"]}
+ "L01": {
+  "title": "What Is an API? Explained Simply",
+  "summary": "An API is a menu of requests one program may make to another. Your app sends a request, the server answers with structured data (usually JSON), and your app never sees how the server works inside.",
+  "tags": [
+   "api",
+   "backend",
+   "webdevelopment",
+   "programming",
+   "softwareengineering"
+  ]
+ },
+ "L02": {
+  "title": "REST vs GraphQL: Which One Should You Use?",
+  "summary": "REST gives fixed-shape responses from many endpoints, which causes over-fetching and under-fetching. GraphQL has one endpoint and you ask for the exact shape you want. Pick by who is asking.",
+  "tags": [
+   "graphql",
+   "rest",
+   "api",
+   "backend",
+   "webdevelopment"
+  ]
+ },
+ "L03": {
+  "title": "gRPC vs WebSocket vs Webhook: When to Use Which",
+  "summary": "A webhook is the other service calling your URL, a WebSocket keeps one connection open both ways, and gRPC lets services call each other's functions with typed binary messages. Pick by who is talking.",
+  "tags": [
+   "grpc",
+   "websocket",
+   "webhooks",
+   "systemdesign",
+   "backend"
+  ]
+ },
+ "L04": {
+  "title": "What Is MCP (Model Context Protocol)?",
+  "summary": "MCP replaces custom connectors between AI apps and tools with one shared standard: hosts, clients and servers that offer tools, resources and prompts. Build one server and every MCP app can use it.",
+  "tags": [
+   "mcp",
+   "ai",
+   "llm",
+   "softwareengineering",
+   "backend"
+  ]
+ },
+ "L05": {
+  "title": "Bloom Filter: Check a Billion Usernames Without the Database",
+  "summary": "A Bloom filter is a row of bits. Any zero bit means 'definitely not present'; all ones means 'probably present'. Use it as a cheap gatekeeper in front of the database, never as the source of truth.",
+  "tags": [
+   "bloomfilter",
+   "datastructures",
+   "systemdesign",
+   "backend",
+   "softwareengineering"
+  ]
+ },
+ "L06": {
+  "title": "How Websites Spot a Typo in Your Card Number (Luhn Check)",
+  "summary": "The Luhn algorithm uses the last digit as a check digit, so a mistyped number is rejected before any bank call. It catches typos only; it never proves a card is real.",
+  "tags": [
+   "luhn",
+   "algorithms",
+   "payments",
+   "programming",
+   "softwareengineering"
+  ]
+ },
+ "L07": {
+  "title": "How OTP Expiry Actually Works",
+  "summary": "The server stores the code with a deadline (or a database TTL) and compares the time on use. Authenticator apps derive codes from a shared secret and the clock. Expiry is a stored deadline, not a running timer per code.",
+  "tags": [
+   "otp",
+   "authentication",
+   "websecurity",
+   "backend",
+   "softwareengineering"
+  ]
+ },
+ "L08": {
+  "title": "Optimistic Locking: Two Users, One Seat, Same Millisecond",
+  "summary": "Both users read the seat at version 1. Each save says update only where the version is still 1, so the first wins and the second gets a conflict. Use it when clashes are rare, and take a real lock when they are not.",
+  "tags": [
+   "optimisticlocking",
+   "database",
+   "concurrency",
+   "systemdesign",
+   "backend"
+  ]
+ },
+ "L09": {
+  "title": "How Websites Store Passwords (and Why Argon2id)",
+  "summary": "A good site never stores your password. It stores a salted, slow hash, so a leak doesn't hand attackers the originals. Use Argon2id.",
+  "tags": [
+   "passwords",
+   "websecurity",
+   "hashing",
+   "backend",
+   "softwareengineering"
+  ]
+ },
+ "L10": {
+  "title": "Why Is Kafka So Fast?",
+  "summary": "Kafka works with the disk and the OS instead of against them: append-only writes, batching, and skipping copies with the page cache and zero-copy sends.",
+  "tags": [
+   "kafka",
+   "systemdesign",
+   "backend",
+   "distributedsystems",
+   "softwareengineering"
+  ]
+ },
+ "T01": {
+  "title": "Why 0.1 + 0.2 ≠ 0.3 in JavaScript",
+  "summary": "Computers store numbers in binary, where 0.1 repeats forever, so the stored values are only approximate. The tiny error shows up when you add, and the fix is to compare with a tolerance (epsilon) instead of ===.",
+  "tags": [
+   "javascript",
+   "floatingpoint",
+   "programming",
+   "webdev",
+   "coding"
+  ]
+ },
+ "T02": {
+  "title": "Cache Stampede: when one expired key kills your database",
+  "summary": "A popular cache entry expires, every request misses at the same moment, and all of them rebuild it from the database at once. Here is why it happens and how to stop it.",
+  "tags": [
+   "caching",
+   "systemdesign",
+   "backend",
+   "softwareengineering",
+   "coding"
+  ]
+ },
+ "T03": {
+  "title": "Idempotency Keys: How Stripe Avoids Charging You Twice",
+  "summary": "Tap pay, the network times out, the app retries. An idempotency key lets the server recognise the retry and return the first result instead of charging again.",
+  "tags": [
+   "idempotency",
+   "systemdesign",
+   "backend",
+   "api",
+   "softwareengineering"
+  ]
+ },
+ "T04": {
+  "title": "Why a SQL Index Makes Queries Instant",
+  "summary": "Without an index the database scans every row. An index is a sorted tree, like a book's index, so it jumps straight to the match. The catch: indexes cost write speed and space.",
+  "tags": [
+   "sql",
+   "database",
+   "postgres",
+   "backend",
+   "softwareengineering"
+  ]
+ },
+ "T05": {
+  "title": "JWT vs Session Cookie: What's the Real Difference?",
+  "summary": "Sessions keep your state on the server and give the browser an ID. A JWT carries signed proof in the token itself. The trade-off is revocation vs. statelessness.",
+  "tags": [
+   "jwt",
+   "authentication",
+   "websecurity",
+   "backend",
+   "softwareengineering"
+  ]
+ },
+ "T06": {
+  "title": "CAP Theorem Explained in 60 Seconds",
+  "summary": "When the network between two servers breaks, a distributed store must choose between consistency and availability. That is the real meaning of CAP.",
+  "tags": [
+   "captheorem",
+   "distributedsystems",
+   "systemdesign",
+   "database",
+   "softwareengineering"
+  ]
+ },
+ "T07": {
+  "title": "Why Your API Shouldn't Send Emails Directly (Use a Queue)",
+  "summary": "Sending the welcome email before responding makes users wait. A message queue lets the server answer immediately while a worker does the slow job in the background.",
+  "tags": [
+   "messagequeue",
+   "systemdesign",
+   "backend",
+   "aws",
+   "softwareengineering"
+  ]
+ },
+ "T08": {
+  "title": "The N+1 Query Problem: 101 Queries for One Page",
+  "summary": "One query for a list, then one more query per item inside a loop. Lazy loading hides it, and your database pays for it. Here is how to spot and fix it.",
+  "tags": [
+   "nplusone",
+   "orm",
+   "database",
+   "backend",
+   "softwareengineering"
+  ]
+ },
+ "T09": {
+  "title": "CORS Error? Your Server Isn't Broken",
+  "summary": "CORS is a rule the browser enforces, not the server. Here is why your API works in Postman but fails in the browser, and what the server must send to allow another origin.",
+  "tags": [
+   "cors",
+   "webdevelopment",
+   "javascript",
+   "api",
+   "frontend"
+  ]
+ },
+ "T10": {
+  "title": "Token Bucket: The Rate Limiter Behind Most APIs",
+  "summary": "A bucket holds a fixed number of tokens, refilled at a steady rate. Every request takes one. Empty bucket means the request is rejected, so one noisy client cannot slow everyone else.",
+  "tags": [
+   "ratelimiting",
+   "systemdesign",
+   "backend",
+   "api",
+   "softwareengineering"
+  ]
+ },
+ "T11": {
+  "title": "Docker vs Virtual Machine: Why Containers Start So Fast",
+  "summary": "A VM boots a whole operating system with its own kernel. A container is an isolated process sharing the host kernel, so there is nothing to boot.",
+  "tags": [
+   "docker",
+   "containers",
+   "devops",
+   "virtualmachine",
+   "softwareengineering"
+  ]
+ },
+ "T12": {
+  "title": "Exponential Backoff and Jitter: Stop Retry Storms",
+  "summary": "A thousand clients retry at once and knock the recovering server over again. Doubling the wait helps, and adding randomness (jitter) spreads the retries out.",
+  "tags": [
+   "backoff",
+   "distributedsystems",
+   "systemdesign",
+   "backend",
+   "softwareengineering"
+  ]
+ },
+ "T13": {
+  "title": "How 'Login with Google' Works (OAuth 2.0)",
+  "summary": "The app never sees your Google password. It redirects you to Google, gets an authorization code, and exchanges it for a token. Here is the flow, and why PKCE matters.",
+  "tags": [
+   "oauth",
+   "authentication",
+   "websecurity",
+   "backend",
+   "softwareengineering"
+  ]
+ },
+ "T14": {
+  "title": "Consistent Hashing: Add a Server Without Losing Your Cache",
+  "summary": "hash mod N remaps almost every key when N changes. Consistent hashing puts servers and keys on a ring so only nearby keys move.",
+  "tags": [
+   "consistenthashing",
+   "systemdesign",
+   "distributedsystems",
+   "caching",
+   "softwareengineering"
+  ]
+ }
 }

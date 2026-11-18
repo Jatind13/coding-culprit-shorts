@@ -1,0 +1,56 @@
+{
+ "title": "gRPC vs WebSocket vs Webhook",
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "sources": [
+  "Stripe Docs, 'Receive Stripe events in your webhook endpoint' docs.stripe.com/webhooks (Stripe pushes events as HTTPS requests to your endpoint; endpoints must be publicly accessible HTTPS URLs; verify the Stripe-Signature header; return 2xx quickly; automatic retries for up to three days in live mode; the same event may arrive more than once, so log processed event IDs)",
+  "MDN Web Docs, 'WebSockets API' (a two-way interactive communication session between the user's browser and a server; send messages and receive responses without having to poll)",
+  "gRPC docs, 'Introduction to gRPC' grpc.io/docs/what-is-grpc/introduction (Protocol Buffers by default) and 'Core concepts' (bidirectional streaming RPCs: both sides send a sequence of messages using a read-write stream)",
+  "gRPC repository, 'gRPC over HTTP2' github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md (gRPC carried over HTTP/2 framing)",
+  "grpc-web repository, github.com/grpc/grpc-web (gRPC-web clients connect to gRPC services via a special proxy; Envoy by default)",
+  "Typical, not measured: 'every open connection costs the server memory' is a general rule of thumb; no benchmark is claimed. Payment example and field names are illustrative."
+ ],
+ "lines": [
+  {
+   "text": "A payment just succeeded, so does your server keep asking, or wait to be told?",
+   "caps": "A PAYMENT *SUCCEEDED | KEEP *ASKING? | OR WAIT TO BE *TOLD?"
+  },
+  {
+   "text": "Being told is a webhook: the other service sends an HTTP request to your URL.",
+   "caps": "BEING TOLD IS A *WEBHOOK | AN HTTP *REQUEST | TO YOUR *URL"
+  },
+  {
+   "text": "It's one way, so your server must be reachable, and it should verify the signature.",
+   "caps": "IT'S *ONE WAY | MUST BE *REACHABLE | VERIFY THE *SIGNATURE"
+  },
+  {
+   "text": "A WebSocket keeps one connection open, so either side can send a message any time.",
+   "caps": "A *WEBSOCKET | ONE CONNECTION *OPEN | EITHER SIDE *ANY TIME"
+  },
+  {
+   "text": "That's why chat and live prices use it, though each open connection costs memory.",
+   "caps": "*CHAT AND LIVE PRICES | EACH CONNECTION COSTS *MEMORY"
+  },
+  {
+   "text": "And gRPC lets one service call another's functions, with typed binary messages over HTTP two.",
+   "caps": "AND *GRPC | CALLS *FUNCTIONS | TYPED *BINARY MESSAGES"
+  },
+  {
+   "text": "But here's the catch: browsers need a proxy layer, called gRPC web, to reach gRPC services.",
+   "caps": "BUT HERE'S THE *CATCH | BROWSERS NEED A *PROXY | CALLED GRPC *WEB"
+  },
+  {
+   "text": "And a webhook can arrive twice or fail, so plan for retries and duplicates.",
+   "caps": "A WEBHOOK CAN *ARRIVE TWICE | OR *FAIL | PLAN FOR *DUPLICATES"
+  },
+  {
+   "text": "Pick by who's talking: server to you, webhook; browser live, WebSocket; service to service, gRPC.",
+   "caps": "PICK BY WHO'S *TALKING | SERVER TO YOU: *WEBHOOK | BROWSER LIVE: *WEBSOCKET | SERVICE TO SERVICE: *GRPC"
+  }
+ ]
+}

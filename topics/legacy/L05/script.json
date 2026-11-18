@@ -1,0 +1,52 @@
+{
+ "title": "Bloom filter",
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "sources": [
+  "Wikipedia, 'Bloom filter' (conceived by Burton Howard Bloom in 1970; bit array plus hash functions; false positive matches are possible, false negatives are not; removing an element from the simple filter is impossible; about 9.6 bits per element for a 1% error rate with optimal k) - secondary source",
+  "Example numbers: a billion usernames x about 9.6 bits = about 9.6 billion bits = about 1.2 GB (my arithmetic from the Wikipedia figure; decimal gigabytes). The 16-bit row, the hash positions and the names on screen are made-up illustrations. 'Cheap gatekeeper, never the source of truth' is a rule of thumb, not a sourced claim."
+ ],
+ "lines": [
+  {
+   "text": "Is this username taken? Does every one of a billion checks really need a trip to the database?",
+   "caps": "IS THIS *USERNAME TAKEN? | A *BILLION CHECKS | A TRIP TO THE *DATABASE?"
+  },
+  {
+   "text": "A Bloom filter is just a long row of bits, all starting at zero.",
+   "caps": "A ROW OF *BITS | ALL START AT *ZERO"
+  },
+  {
+   "text": "To add a name, you hash it a few times, and flip those bits to one.",
+   "caps": "*HASH THE NAME | FLIP THOSE BITS TO *ONE"
+  },
+  {
+   "text": "To check a name, you hash it the same way, and look at those bits.",
+   "caps": "HASH IT THE *SAME WAY | LOOK AT THOSE *BITS"
+  },
+  {
+   "text": "If any of them is still zero, the name is definitely free, and the database never hears about it.",
+   "caps": "ANY BIT *ZERO | DEFINITELY *FREE | NO *DATABASE TRIP"
+  },
+  {
+   "text": "If they're all ones, the name is probably taken, so only then do you ask the database.",
+   "caps": "ALL *ONES | PROBABLY *TAKEN | NOW ASK THE *DATABASE"
+  },
+  {
+   "text": "But here's the catch: other names can flip the same bits, so you get false positives, though never false negatives, and you can't delete a name.",
+   "caps": "BUT THERE IS A *CATCH | FALSE *POSITIVES | NEVER FALSE *NEGATIVES | NO *DELETES"
+  },
+  {
+   "text": "You choose the size: about ten bits per name gives roughly one percent false positives, so a billion names fit in about one point two gigabytes.",
+   "caps": "ABOUT *TEN BITS PER NAME | ONE PERCENT *FALSE POSITIVES | A BILLION IN *1.2 GB"
+  },
+  {
+   "text": "So use it as a cheap gatekeeper in front of the database, but never as the source of truth.",
+   "caps": "A CHEAP *GATEKEEPER | NEVER THE *SOURCE OF TRUTH"
+  }
+ ]
+}

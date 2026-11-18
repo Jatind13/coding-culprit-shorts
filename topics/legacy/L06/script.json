@@ -1,0 +1,48 @@
+{
+ "title": "Luhn check",
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "sources": [
+  "Wikipedia, 'Luhn algorithm' (devised 1954 by IBM scientist Hans Peter Luhn, US patent issued 23 Aug 1960; from the rightmost digit, the check digit, double every second digit moving left; a doubled digit above 9 has 9 subtracted, same as summing its digits; valid if the total mod 10 is 0; detects all single-digit errors and almost all adjacent transpositions, but not 09 <-> 90; not a cryptographically secure hash, designed to protect against accidental errors, not malicious attacks; most credit card numbers use it) - secondary source",
+  "Example numbers: 4111 1111 1111 1111 is a widely used test number whose Luhn total is 30 (my arithmetic, checked in code); changing the last digit to 2 gives 31; 4000 0000 0000 0002 totals 10 and is a made-up number. 'The bank authorises the payment' and 'sites run Luhn in the browser before asking the bank' are common practice, not from the cited page."
+ ],
+ "lines": [
+  {
+   "text": "You mistype one digit of your card number, and the site complains before you even press pay, without asking your bank.",
+   "caps": "YOU *MISTYPE A DIGIT | THE SITE *COMPLAINS | WITHOUT ASKING THE *BANK"
+  },
+  {
+   "text": "It runs a tiny arithmetic check called the Luhn algorithm, which treats the last digit as a check digit.",
+   "caps": "THE *LUHN ALGORITHM | THE LAST DIGIT IS A *CHECK DIGIT"
+  },
+  {
+   "text": "Starting from the right, you double every second digit, and if that gives two digits, you add them together.",
+   "caps": "START FROM THE *RIGHT | *DOUBLE EVERY SECOND DIGIT | TWO DIGITS? *ADD THEM"
+  },
+  {
+   "text": "Then you add up everything, and if the total ends in zero, the number passes.",
+   "caps": "*ADD IT ALL UP | ENDS IN *ZERO | NUMBER *PASSES"
+  },
+  {
+   "text": "Change one digit and the total becomes thirty one, so the site rejects it as a typo.",
+   "caps": "CHANGE *ONE DIGIT | TOTAL *THIRTY ONE | REJECTED AS A *TYPO"
+  },
+  {
+   "text": "But here's the catch: Luhn only catches typos, so anyone can invent a number that passes, and that proves nothing about the account.",
+   "caps": "BUT THERE IS A *CATCH | ANYONE CAN *INVENT ONE | PROVES *NOTHING"
+  },
+  {
+   "text": "The real check is your bank, which approves the payment itself, while Luhn just saves it a wasted trip.",
+   "caps": "THE REAL CHECK IS THE *BANK | LUHN SAVES A *WASTED TRIP"
+  },
+  {
+   "text": "So treat Luhn as a typo filter, never as proof that a card is real.",
+   "caps": "A *TYPO FILTER | NEVER *PROOF"
+  }
+ ]
+}

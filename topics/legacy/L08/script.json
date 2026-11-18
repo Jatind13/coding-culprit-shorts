@@ -1,0 +1,49 @@
+{
+ "title": "Optimistic locking",
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "sources": [
+  "Wikipedia, 'Optimistic concurrency control': non-locking method; transactions proceed without acquiring locks; before committing each verifies that no other transaction modified the data it read, otherwise it rolls back and can be restarted; generally used where data contention is low; 'the cost of repeatedly restarting transactions hurts performance significantly' under high contention, so other methods may suit better (secondary source).",
+  "Vlad Mihalcea, 'Optimistic locking with JPA and Hibernate': UPDATE product SET quantity = 0, version = 2 WHERE id = 1 AND version = 1; if the stored version changed the update count is 0 and Hibernate throws OptimisticLockException.",
+  "Example numbers: seat A7, users Asha and Ben, versions 1 and 2, '17 retries' and the retry limit are made-up illustrations. 'Hot row: take a real lock' is a rule of thumb (Wikipedia only says other methods may suit better), and the movie-booking flow is a simplified example, not any real ticketing system."
+ ],
+ "lines": [
+  {
+   "text": "Two people tap seat A seven at the exact same millisecond, so who gets the ticket?",
+   "caps": "*TWO USERS | ONE *SEAT | THE SAME *MILLISECOND"
+  },
+  {
+   "text": "Optimistic locking assumes a clash is rare, so it takes no lock, and just reads the seat with its version number.",
+   "caps": "CLASHES ARE *RARE | TAKES *NO LOCK | READS THE *VERSION"
+  },
+  {
+   "text": "Both users read seat A seven at version one, and both decide to book it.",
+   "caps": "*BOTH READ VERSION *ONE | BOTH WANT *A7"
+  },
+  {
+   "text": "Each save says: update this seat, but only where the version is still one.",
+   "caps": "*UPDATE THIS SEAT | *ONLY WHERE VERSION IS *ONE"
+  },
+  {
+   "text": "The first one matches, so the seat is booked, and the version becomes two.",
+   "caps": "THE *FIRST MATCHES | SEAT *BOOKED | VERSION BECOMES *TWO"
+  },
+  {
+   "text": "The second one finds version two, so zero rows change, and that user gets a conflict.",
+   "caps": "THE *SECOND FINDS TWO | ZERO *ROWS CHANGE | A *CONFLICT"
+  },
+  {
+   "text": "But here's the catch: for a hot seat, losers keep retrying, which wastes work, so you need a retry limit.",
+   "caps": "BUT THERE IS A *CATCH | LOSERS KEEP *RETRYING | A RETRY *LIMIT"
+  },
+  {
+   "text": "So use it when clashes are rare, and take a real lock when everyone fights over the same row.",
+   "caps": "CLASHES *RARE | A REAL *LOCK | FOR A HOT *ROW"
+  }
+ ]
+}

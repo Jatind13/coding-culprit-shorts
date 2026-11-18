@@ -6,7 +6,8 @@ posts = json.load(open(root / "topics/posts.json"))
 if ID not in posts:
     sys.exit(f"POST FAILED: no entry for {ID} in topics/posts.json")
 p = posts[ID]
-spec = json.load(open(root / f"topics/specs/{ID}.json"))
+sp = root / f"topics/legacy/{ID}/script.json"
+spec = json.load(open(sp if sp.exists() else root / f"topics/specs/{ID}.json"))
 urls = []
 for s in spec.get("sources", []):
     for u in re.findall(r"https?://[^\s)\]>,;]+", s if isinstance(s, str) else json.dumps(s)):

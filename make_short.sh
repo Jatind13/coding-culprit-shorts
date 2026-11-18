@@ -2,16 +2,17 @@
 # ./make_short.sh T03            -> renders topics/specs/T03.json into out/T03/ (MP4 + cover + review sheet)
 # Stops at the first failed gate: narration length, scene check, audio level, rendered length.
 set -e
-ID="$1"; HERE="$(cd "$(dirname "$0")" && pwd)"; SPEC="$HERE/topics/specs/$ID.json"; B="$HERE/build/$ID"; OUT="$HERE/out/$ID"
+ID="$1"; HERE="$(cd "$(dirname "$0")" && pwd)"; LEG="$HERE/topics/legacy/$ID"; SPEC="$HERE/topics/specs/$ID.json"; [ -f "$LEG/script.json" ] && SPEC="$LEG/script.json"; B="$HERE/build/$ID"; OUT="$HERE/out/$ID"
 PY="${PYTHON:-python3}"
 [ -f "$SPEC" ] || { echo "usage: ./make_short.sh <topic id>   (needs topics/specs/<id>.json)"; exit 2; }
 if [ -z "$CHROME" ]; then for c in google-chrome google-chrome-stable chromium chromium-browser; do command -v $c >/dev/null && export CHROME="$(command -v $c)" && break; done; fi
-mkdir -p "$HERE/build" "$OUT"; rm -rf "$B"; cp -r "$HERE/engine" "$B"; cp "$SPEC" "$B/script.json"; mkdir -p "$B/data" "$B/review"
+mkdir -p "$HERE/build" "$OUT"; rm -rf "$B"; cp -r "$HERE/engine" "$B"; cp "$SPEC" "$B/script.json"; [ -f "$LEG/shots.js" ] && cp "$LEG/shots.js" "$B/src/shots.js"; mkdir -p "$B/data" "$B/review"
 cd "$B"
 $PY "$HERE/scripts/voice.py" . | tail -1
 $PY "$HERE/scripts/words.py" . | tail -1
+MAXN=55.7; [ -f "$LEG/script.json" ] && MAXN=57.6  # legacy videos were already posted at up to ~57 s; the 59 s video gate below still applies
 DUR=$($PY -c "import json;print(json.load(open('data/lines.json'))['duration'])")
-$PY -c "d=$DUR; print(f'narration {d:.1f} s'); assert d<=55.7, f'GATE FAILED: narration {d:.1f} s is too long for a Short (max 55.7)'"
+$PY -c "d=$DUR; print(f'narration {d:.1f} s'); assert d<=$MAXN, f'GATE FAILED: narration {d:.1f} s is too long for a Short (max $MAXN)'"
 node tools/capture.mjs check > review/check.txt 2>&1 || true
 grep -q "CHECK OK" review/check.txt || { echo "GATE FAILED: scene check"; grep -E "^  S|ERROR" review/check.txt | sort -u | head -20; exit 4; }
 node tools/capture.mjs cues | tail -1

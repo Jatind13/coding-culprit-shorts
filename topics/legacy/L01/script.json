@@ -1,0 +1,61 @@
+{
+ "title": "What Is an API?",
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "sources": [
+  "MDN Web Docs, 'Introduction to web APIs' (APIs abstract more complex code away from you, providing easier syntax to use in its place)",
+  "MDN Web Docs, 'HTTP response status codes' (200 OK: the request succeeded; 404 Not Found: the server cannot find the requested resource; 429 Too Many Requests: too many requests in a given amount of time, i.e. rate limiting)",
+  "The menu analogy, the GET /weather example and JSON as the usual response format are standard HTTP/web-API practice, simplified for the short; endpoint names and values are illustrative"
+ ],
+ "lines": [
+  {
+   "text": "Your weather app doesn't own a weather station, so how does it know it's raining?",
+   "caps": "NO *WEATHER STATION? | HOW DOES IT *KNOW?"
+  },
+  {
+   "text": "It asks another program, through something called an API.",
+   "caps": "IT *ASKS | ANOTHER *PROGRAM | THROUGH AN *API"
+  },
+  {
+   "text": "That stands for application programming interface,",
+   "caps": "*APPLICATION | PROGRAMMING *INTERFACE"
+  },
+  {
+   "text": "which is really a menu of the requests one program may make to another.",
+   "caps": "A *MENU | OF ALLOWED *REQUESTS"
+  },
+  {
+   "text": "So your app sends a request, like get the weather for Delhi,",
+   "caps": "SENDS A *REQUEST | WEATHER FOR *DELHI"
+  },
+  {
+   "text": "and the server sends back an answer, usually as structured data called JSON.",
+   "caps": "BACK COMES AN *ANSWER | AS *JSON"
+  },
+  {
+   "text": "Your app never sees how the server works inside, it just trusts the menu.",
+   "caps": "NEVER SEES *INSIDE | JUST TRUSTS THE *MENU"
+  },
+  {
+   "text": "But here's the catch: ask for something that isn't on the menu,",
+   "caps": "BUT HERE'S THE *CATCH | NOT ON THE *MENU?"
+  },
+  {
+   "text": "and you get an error, like four oh four, not found,",
+   "caps": "AN *ERROR | *404 | NOT FOUND"
+  },
+  {
+   "text": "or ask too often, and you hear four twenty nine, too many requests.",
+   "caps": "ASK TOO *OFTEN | *429 | TOO MANY *REQUESTS"
+  },
+  {
+   "text": "So an API is a promise: ask this way, and I'll answer that way.",
+   "caps": "A *PROMISE | ASK THIS *WAY | I'LL ANSWER *THAT WAY"
+  }
+ ]
+}

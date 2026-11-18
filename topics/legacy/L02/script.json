@@ -1,0 +1,63 @@
+{
+ "title": "REST vs GraphQL",
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "sources": [
+  "GraphQL Foundation, 'Introduction to GraphQL' graphql.org/learn (clients ask for exactly the fields they need and get a predictable response; typically served from a single endpoint)",
+  "AWS AppSync docs, 'Why use GraphQL' (over-fetching and under-fetching with fixed-shape REST responses; one request can return related data)",
+  "Fielding, 'Architectural Styles and the Design of Network-based Software Architectures', ch.5 (REST; cacheable resources identified by URL)",
+  "MDN Web Docs, 'HTTP caching' (responses to GET requests are cacheable by URL; POST responses generally are not)",
+  "The two-request example, field names and the verdict are simplified and illustrative; a well-designed REST API can embed related data"
+ ],
+ "lines": [
+  {
+   "text": "Your app needs a user's name and their latest posts, so how many requests is that?",
+   "caps": "NEEDS A *NAME | AND *POSTS | HOW MANY *REQUESTS?"
+  },
+  {
+   "text": "With REST, it's often two: one endpoint for the user, another for the posts.",
+   "caps": "WITH *REST | *TWO REQUESTS | TWO *ENDPOINTS"
+  },
+  {
+   "text": "And each endpoint sends back a fixed shape, so you also get fields you never asked for.",
+   "caps": "A FIXED *SHAPE | FIELDS YOU *NEVER ASKED FOR"
+  },
+  {
+   "text": "That's over fetching, and needing a second trip is under fetching.",
+   "caps": "*OVER FETCHING | *UNDER FETCHING"
+  },
+  {
+   "text": "GraphQL flips it: there's one endpoint, and you write the exact shape you want.",
+   "caps": "*GRAPHQL FLIPS IT | ONE *ENDPOINT | YOU WRITE THE *SHAPE"
+  },
+  {
+   "text": "So you send a query asking for the name and three post titles,",
+   "caps": "SEND A *QUERY | NAME AND *TITLES"
+  },
+  {
+   "text": "and one response comes back with exactly those fields, nothing extra.",
+   "caps": "ONE *RESPONSE | EXACTLY THOSE *FIELDS"
+  },
+  {
+   "text": "But here's the catch: everything goes through one endpoint, so simple URL based caching gets harder.",
+   "caps": "BUT HERE'S THE *CATCH | ONE *ENDPOINT | *CACHING GETS HARDER"
+  },
+  {
+   "text": "And a deeply nested query can make the server do far more work than it looks.",
+   "caps": "A *NESTED QUERY | FAR MORE *WORK"
+  },
+  {
+   "text": "So REST is simple and cache friendly, and GraphQL is flexible but needs more care.",
+   "caps": "*REST IS SIMPLE | GRAPHQL NEEDS *CARE"
+  },
+  {
+   "text": "Pick by who's asking: fixed needs, REST; many different needs, GraphQL.",
+   "caps": "PICK BY WHO'S *ASKING | FIXED: *REST | MANY: *GRAPHQL"
+  }
+ ]
+}

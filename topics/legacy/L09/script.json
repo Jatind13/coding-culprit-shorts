@@ -1,0 +1,48 @@
+{
+ "title": "How websites store passwords",
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "sources": [
+  "OWASP Password Storage Cheat Sheet: 'Passwords should never be stored in plain text'; encryption is two-way, so attackers can retrieve plaintext from encrypted data; hashing is one-way, but an attacker can still guess candidates and compare hashes; a salt is a unique, random string added to each password; salting defeats precomputed rainbow-table/lookup attacks, and different salts give different hashes even for the same password; Argon2id is the first choice (min 19 MiB memory, 2 iterations, parallelism 1); scrypt, bcrypt (legacy), PBKDF2 (FIPS) are alternatives. https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html",
+  "Example values: the password 'cat123', the hash strings and the user names are made-up illustrations, not real hashes. 'Slow on purpose' is a plain-language summary of OWASP's work-factor settings; the login compare flow is simplified (no pepper, no rate limiting)."
+ ],
+ "lines": [
+  {
+   "text": "When you sign up, a good website never saves your password, so what does it keep instead?",
+   "caps": "*NEVER SAVES YOUR *PASSWORD | SO WHAT *DOES IT KEEP?"
+  },
+  {
+   "text": "Plain text is the worst, because one leak exposes everyone, and encryption is two-way, so attackers can get the original back.",
+   "caps": "*PLAIN TEXT = *LEAK | ENCRYPTION *REVERSES"
+  },
+  {
+   "text": "Instead it stores a hash, which is a one-way scramble of your password.",
+   "caps": "STORES A *HASH | A *ONE-WAY SCRAMBLE"
+  },
+  {
+   "text": "At login, it hashes what you type, and compares the two hashes.",
+   "caps": "*HASH WHAT YOU TYPE | *COMPARE THE HASHES"
+  },
+  {
+   "text": "But the same password always gives the same hash, so attackers use lookup tables.",
+   "caps": "*SAME PASSWORD | *SAME HASH | LOOKUP *TABLES"
+  },
+  {
+   "text": "So each user gets a random salt, added before hashing, and identical passwords now look different.",
+   "caps": "A RANDOM *SALT | ADDED *BEFORE HASHING | NOW THEY *DIFFER"
+  },
+  {
+   "text": "But here's the catch: attackers can still guess and compare, so a fast hash helps them, and a slow one like Argon2id hurts them.",
+   "caps": "BUT THERE IS A *CATCH | *FAST HASH HELPS THEM | *SLOW HURTS THEM"
+  },
+  {
+   "text": "So never store the password, store a salted, slow hash, and pick Argon2id.",
+   "caps": "NEVER STORE THE *PASSWORD | A *SALTED SLOW HASH | PICK *ARGON2ID"
+  }
+ ]
+}

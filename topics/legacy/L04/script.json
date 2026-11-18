@@ -1,0 +1,55 @@
+{
+ "title": "What is MCP",
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "sources": [
+  "Model Context Protocol docs, 'What is MCP?' modelcontextprotocol.io/docs/getting-started/intro (open-source standard for connecting AI applications to external systems; 'USB-C port for AI applications'; supported by Claude, ChatGPT, Visual Studio Code, Cursor and others)",
+  "Model Context Protocol docs, 'Architecture overview' (host creates one client per server; JSON-RPC 2.0 data layer; servers expose tools, resources and prompts; stdio and Streamable HTTP transports)",
+  "Model Context Protocol docs, 'Security best practices' (local servers run with the client's privileges; clients must show the exact command and get explicit user approval before one-click local server setup)",
+  "Wikipedia, 'Model Context Protocol' (introduced by Anthropic in November 2024; tool poisoning described by Invariant Labs in April 2025: malicious instructions hidden in tool descriptions visible to the model but not to users) - secondary source",
+  "Example numbers: five apps and five tools is an illustration of the N x M integration problem; 25 vs 10 connections is simplified. The injected instruction on screen is a made-up example. 'Pick by need' is a rule of thumb, not a sourced claim."
+ ],
+ "lines": [
+  {
+   "text": "An AI app wants your calendar, your files and your tickets, so does it need custom code for every tool?",
+   "caps": "WANTS YOUR *CALENDAR | FILES, *TICKETS | *CUSTOM CODE | FOR EVERY *TOOL?"
+  },
+  {
+   "text": "Five apps and five tools used to mean twenty five connectors.",
+   "caps": "*FIVE APPS | FIVE *TOOLS | *TWENTY FIVE CONNECTORS"
+  },
+  {
+   "text": "MCP, the Model Context Protocol, replaces them with one shared standard.",
+   "caps": "*MCP | MODEL CONTEXT *PROTOCOL | ONE SHARED *STANDARD"
+  },
+  {
+   "text": "The app is the host, it runs a client per connection, and each tool sits behind a server.",
+   "caps": "THE APP IS THE *HOST | ONE *CLIENT PER CONNECTION | BEHIND A *SERVER"
+  },
+  {
+   "text": "A server offers tools to run, resources to read, and prompts to reuse.",
+   "caps": "*TOOLS TO RUN | *RESOURCES TO READ | *PROMPTS TO REUSE"
+  },
+  {
+   "text": "So a tool builds one server, and every app that speaks MCP can use it, which is why so many do.",
+   "caps": "BUILD *ONE SERVER | EVERY APP CAN *USE IT | WHY SO *MANY DO"
+  },
+  {
+   "text": "But here's the catch: a server runs with your permissions, and a bad tool description can hijack the model.",
+   "caps": "BUT HERE'S THE *CATCH | RUNS WITH YOUR *PERMISSIONS | A BAD *DESCRIPTION | CAN HIJACK THE MODEL"
+  },
+  {
+   "text": "So only install servers you trust, and review what they run.",
+   "caps": "ONLY SERVERS YOU *TRUST | REVIEW WHAT THEY *RUN"
+  },
+  {
+   "text": "Pick MCP when many apps need many tools; for one fixed integration, a plain API call is simpler.",
+   "caps": "PICK *MCP | MANY APPS, MANY TOOLS | ONE FIXED: PLAIN *API CALL"
+  }
+ ]
+}

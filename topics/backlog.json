@@ -1,22 +1,111 @@
 {
  "channel": "@CodingCulprit",
  "cadence": "2 per day",
- "already_made": [
-  "What Is an API",
-  "REST vs GraphQL",
-  "gRPC vs WebSocket vs Webhook",
-  "What is MCP",
-  "Bloom filter",
-  "Luhn check",
-  "OTP expiry",
-  "Optimistic locking",
-  "Password storage",
-  "Why is Kafka so fast"
- ],
+ "already_made": [],
  "topics": [
   {
-   "id": "T01",
+   "id": "L01",
+   "status": "spec_ready",
+   "title": "What Is an API?",
+   "kind": "concept",
+   "repost": true,
+   "note": "Posted on the previous channel (deleted); re-posting first on the new channel. Render with the same workflow input (L01..L10). Facts were checked when first made; sources are in topics/legacy/<ID>/script.json.",
    "week_day": 1,
+   "slot": 1
+  },
+  {
+   "id": "L02",
+   "status": "spec_ready",
+   "title": "REST vs GraphQL",
+   "kind": "concept",
+   "repost": true,
+   "note": "Posted on the previous channel (deleted); re-posting first on the new channel. Render with the same workflow input (L01..L10). Facts were checked when first made; sources are in topics/legacy/<ID>/script.json.",
+   "week_day": 1,
+   "slot": 2
+  },
+  {
+   "id": "L03",
+   "status": "spec_ready",
+   "title": "gRPC vs WebSocket vs Webhook",
+   "kind": "concept",
+   "repost": true,
+   "note": "Posted on the previous channel (deleted); re-posting first on the new channel. Render with the same workflow input (L01..L10). Facts were checked when first made; sources are in topics/legacy/<ID>/script.json.",
+   "week_day": 2,
+   "slot": 1
+  },
+  {
+   "id": "L04",
+   "status": "spec_ready",
+   "title": "What is MCP",
+   "kind": "concept",
+   "repost": true,
+   "note": "Posted on the previous channel (deleted); re-posting first on the new channel. Render with the same workflow input (L01..L10). Facts were checked when first made; sources are in topics/legacy/<ID>/script.json.",
+   "week_day": 2,
+   "slot": 2
+  },
+  {
+   "id": "L05",
+   "status": "spec_ready",
+   "title": "Bloom filter",
+   "kind": "concept",
+   "repost": true,
+   "note": "Posted on the previous channel (deleted); re-posting first on the new channel. Render with the same workflow input (L01..L10). Facts were checked when first made; sources are in topics/legacy/<ID>/script.json.",
+   "week_day": 3,
+   "slot": 1
+  },
+  {
+   "id": "L06",
+   "status": "spec_ready",
+   "title": "Luhn check",
+   "kind": "concept",
+   "repost": true,
+   "note": "Posted on the previous channel (deleted); re-posting first on the new channel. Render with the same workflow input (L01..L10). Facts were checked when first made; sources are in topics/legacy/<ID>/script.json.",
+   "week_day": 3,
+   "slot": 2
+  },
+  {
+   "id": "L07",
+   "status": "spec_ready",
+   "title": "OTP expiry",
+   "kind": "concept",
+   "repost": true,
+   "note": "Posted on the previous channel (deleted); re-posting first on the new channel. Render with the same workflow input (L01..L10). Facts were checked when first made; sources are in topics/legacy/<ID>/script.json.",
+   "week_day": 4,
+   "slot": 1
+  },
+  {
+   "id": "L08",
+   "status": "spec_ready",
+   "title": "Optimistic locking",
+   "kind": "concept",
+   "repost": true,
+   "note": "Posted on the previous channel (deleted); re-posting first on the new channel. Render with the same workflow input (L01..L10). Facts were checked when first made; sources are in topics/legacy/<ID>/script.json.",
+   "week_day": 4,
+   "slot": 2
+  },
+  {
+   "id": "L09",
+   "status": "spec_ready",
+   "title": "How websites store passwords",
+   "kind": "concept",
+   "repost": true,
+   "note": "Posted on the previous channel (deleted); re-posting first on the new channel. Render with the same workflow input (L01..L10). Facts were checked when first made; sources are in topics/legacy/<ID>/script.json.",
+   "week_day": 5,
+   "slot": 1
+  },
+  {
+   "id": "L10",
+   "status": "spec_ready",
+   "title": "Why is Kafka so fast",
+   "kind": "concept",
+   "repost": true,
+   "note": "Posted on the previous channel (deleted); re-posting first on the new channel. Render with the same workflow input (L01..L10). Facts were checked when first made; sources are in topics/legacy/<ID>/script.json.",
+   "week_day": 5,
+   "slot": 2
+  },
+  {
+   "id": "T01",
+   "week_day": 6,
    "slot": 1,
    "status": "rendered",
    "title": "Why 0.1 + 0.2 is not 0.3",
@@ -30,7 +119,7 @@
   },
   {
    "id": "T02",
-   "week_day": 1,
+   "week_day": 6,
    "slot": 2,
    "status": "rendered",
    "title": "Cache stampede: when one expired key kills your database",
@@ -44,7 +133,7 @@
   },
   {
    "id": "T03",
-   "week_day": 2,
+   "week_day": 7,
    "slot": 1,
    "status": "spec_ready",
    "title": "Idempotency keys: how a retry doesn't charge you twice",
@@ -59,7 +148,7 @@
   },
   {
    "id": "T04",
-   "week_day": 2,
+   "week_day": 7,
    "slot": 2,
    "status": "spec_ready",
    "title": "Why is my SQL query slow? (indexes)",
@@ -74,7 +163,7 @@
   },
   {
    "id": "T05",
-   "week_day": 3,
+   "week_day": 8,
    "slot": 1,
    "status": "spec_ready",
    "title": "JWT vs session cookie: where does login state live?",
@@ -89,7 +178,7 @@
   },
   {
    "id": "T06",
-   "week_day": 3,
+   "week_day": 8,
    "slot": 2,
    "status": "spec_ready",
    "title": "CAP theorem in plain English",
@@ -104,7 +193,7 @@
   },
   {
    "id": "T07",
-   "week_day": 4,
+   "week_day": 9,
    "slot": 1,
    "status": "spec_ready",
    "title": "Sync API vs message queue: when to wait and when not to",
@@ -119,7 +208,7 @@
   },
   {
    "id": "T08",
-   "week_day": 4,
+   "week_day": 9,
    "slot": 2,
    "status": "spec_ready",
    "title": "The N+1 query problem",
@@ -134,7 +223,7 @@
   },
   {
    "id": "T09",
-   "week_day": 5,
+   "week_day": 10,
    "slot": 1,
    "status": "spec_ready",
    "title": "CORS: why your browser blocks your own API",
@@ -149,7 +238,7 @@
   },
   {
    "id": "T10",
-   "week_day": 5,
+   "week_day": 10,
    "slot": 2,
    "status": "spec_ready",
    "title": "Rate limiting with a token bucket",
@@ -164,7 +253,7 @@
   },
   {
    "id": "T11",
-   "week_day": 6,
+   "week_day": 11,
    "slot": 1,
    "status": "spec_ready",
    "title": "Docker vs VM: what a container really is",
@@ -179,7 +268,7 @@
   },
   {
    "id": "T12",
-   "week_day": 6,
+   "week_day": 11,
    "slot": 2,
    "status": "spec_ready",
    "title": "Exponential backoff with jitter",
@@ -194,7 +283,7 @@
   },
   {
    "id": "T13",
-   "week_day": 7,
+   "week_day": 12,
    "slot": 1,
    "status": "spec_ready",
    "title": "OAuth 2.0: how 'Login with Google' works",
@@ -209,7 +298,7 @@
   },
   {
    "id": "T14",
-   "week_day": 7,
+   "week_day": 12,
    "slot": 2,
    "status": "spec_ready",
    "title": "Consistent hashing: add a server without reshuffling everything",
@@ -224,8 +313,6 @@
   },
   {
    "id": "T15",
-   "week_day": null,
-   "slot": null,
    "status": "reserve",
    "title": "What happens when you type a URL and press Enter",
    "kind": "interview",
@@ -238,8 +325,6 @@
   },
   {
    "id": "T16",
-   "week_day": null,
-   "slot": null,
    "status": "reserve",
    "title": "Load balancing: round robin vs least connections",
    "kind": "interview",
@@ -252,8 +337,6 @@
   },
   {
    "id": "T17",
-   "week_day": null,
-   "slot": null,
    "status": "reserve",
    "title": "SQL injection in 30 seconds",
    "kind": "interview",
@@ -266,8 +349,6 @@
   },
   {
    "id": "T18",
-   "week_day": null,
-   "slot": null,
    "status": "reserve",
    "title": "Logs vs metrics vs traces",
    "kind": "interview",
@@ -280,8 +361,6 @@
   },
   {
    "id": "T19",
-   "week_day": null,
-   "slot": null,
    "status": "reserve",
    "title": "API versioning without breaking clients",
    "kind": "interview",
@@ -294,8 +373,6 @@
   },
   {
    "id": "T20",
-   "week_day": null,
-   "slot": null,
    "status": "reserve",
    "title": "ACID with a bank transfer",
    "kind": "interview",
@@ -308,8 +385,6 @@
   },
   {
    "id": "T21",
-   "week_day": null,
-   "slot": null,
    "status": "reserve",
    "title": "How a HashMap really works",
    "kind": "coding",
@@ -320,5 +395,6 @@
    "source_to_verify": "https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/HashMap.html",
    "source_verified": false
   }
- ]
+ ],
+ "note": "Channel was recreated 2026-11-18; L01-L10 are the earlier videos, re-posted first."
 }
