@@ -62,7 +62,7 @@
     },
     {
      "t": "node",
-     "at": "java",
+     "at": 1.6,
      "label": "HashMap",
      "kind": "db",
      "color": "violet",
@@ -71,7 +71,7 @@
     },
     {
      "t": "chip",
-     "at": "check",
+     "at": 3.4,
      "text": "how many checks?",
      "color": "white",
      "x": 540,

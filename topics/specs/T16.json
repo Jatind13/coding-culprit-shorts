@@ -116,6 +116,15 @@
      "color": "coral"
     },
     {
+     "t": "chip",
+     "at": 3.0,
+     "text": "each wants the other",
+     "color": "white",
+     "x": 540,
+     "y": 720,
+     "size": 30
+    },
+    {
      "t": "badge",
      "at": "who",
      "text": "WHO WINS?",

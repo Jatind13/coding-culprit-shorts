@@ -262,6 +262,15 @@
      "s": 1.2
     },
     {
+     "t": "chip",
+     "at": 2.4,
+     "text": "named by its hash",
+     "color": "white",
+     "x": 540,
+     "y": 575,
+     "size": 30
+    },
+    {
      "t": "wire",
      "at": "named",
      "pts": [

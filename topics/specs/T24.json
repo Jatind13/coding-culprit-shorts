@@ -183,6 +183,15 @@
     },
     {
      "t": "chip",
+     "at": 1.6,
+     "text": "round robin",
+     "color": "violet",
+     "x": 540,
+     "y": 640,
+     "size": 36
+    },
+    {
+     "t": "chip",
      "at": "turns",
      "text": "A, B, A, B...",
      "color": "violet",
