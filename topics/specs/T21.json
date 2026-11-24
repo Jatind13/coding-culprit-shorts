@@ -1,0 +1,537 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Café Wi-Fi vs your password",
+ "sources": [
+  "Cloudflare Learning, 'What is HTTPS?' (https://www.cloudflare.com/learning/ssl/what-is-https/, fetched 2026-11-24): over HTTP 'all communications... occur in plain text' and can be captured and read; with HTTPS intercepted traffic 'will come across as nonsensical characters'.",
+  "Cloudflare Learning, 'What happens in a TLS handshake?' (https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/, fetched 2026-11-24): the handshake authenticates the server ('The client verifies the server's SSL certificate with the certificate authority that issued it') and generates 'session keys in order to use symmetric encryption after the handshake is complete'.",
+  "The catch (HTTPS protects data in transit, storage is the site's job) is a summary; see OWASP Password Storage Cheat Sheet for storage."
+ ],
+ "lines": [
+  {
+   "text": "You log in on café Wi-Fi. Can a stranger on the same network read your password? Yes or no?",
+   "caps": "CAFÉ *WI-FI | CAN THEY *READ IT? | YES OR *NO?"
+  },
+  {
+   "text": "Over plain HTTP, yes. Everything travels as plain text, readable with free tools.",
+   "caps": "PLAIN *HTTP: YES | *PLAIN TEXT | *READABLE"
+  },
+  {
+   "text": "Over HTTPS, no. First, your browser and the server do a TLS handshake.",
+   "caps": "*HTTPS: NO | *TLS HANDSHAKE"
+  },
+  {
+   "text": "The server shows a certificate, and your browser checks it with the authority that issued it.",
+   "caps": "*CERTIFICATE | *CHECKED | REAL *SERVER"
+  },
+  {
+   "text": "Then both sides create session keys, and everything after that is encrypted.",
+   "caps": "*SESSION KEYS | *ENCRYPTED"
+  },
+  {
+   "text": "The stranger can still capture the packets, but they look like nonsense.",
+   "caps": "STILL *CAPTURED | LOOKS LIKE *NONSENSE"
+  },
+  {
+   "text": "But here's the catch: HTTPS only protects the trip. Once it arrives, storing it safely is the site's job.",
+   "caps": "THE *CATCH | ONLY THE *TRIP | STORAGE: *THEIR JOB"
+  },
+  {
+   "text": "So check for HTTPS before you type. Did you say no?",
+   "caps": "CHECK FOR *HTTPS | DID YOU SAY *NO?"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "CAFÉ WI-FI",
+   "color": "amber",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "you",
+     "kind": "user",
+     "color": "cyan",
+     "x": 200,
+     "y": 560
+    },
+    {
+     "t": "node",
+     "at": "wi",
+     "label": "wi-fi",
+     "kind": "server",
+     "color": "amber",
+     "x": 540,
+     "y": 560
+    },
+    {
+     "t": "node",
+     "at": "stranger",
+     "label": "stranger",
+     "kind": "user",
+     "color": "coral",
+     "x": 880,
+     "y": 560
+    },
+    {
+     "t": "chip",
+     "at": "same",
+     "text": "same network",
+     "color": "white",
+     "x": 540,
+     "y": 760,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "password",
+     "text": "READ IT?",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 900
+    },
+    {
+     "t": "chip",
+     "at": "yes",
+     "text": "YES",
+     "color": "white",
+     "x": 380,
+     "y": 1040,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "no",
+     "text": "NO",
+     "color": "white",
+     "x": 700,
+     "y": 1040,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "PLAIN HTTP",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "http://",
+     "color": "coral",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "yes",
+     "text": "YES",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 600
+    },
+    {
+     "t": "terminal",
+     "at": "everything",
+     "x": 60,
+     "y": 720,
+     "w": 960,
+     "h": 110,
+     "lines": [
+      {
+       "t": "password=hunter2",
+       "c": "coral"
+      }
+     ]
+    },
+    {
+     "t": "chip",
+     "at": "readable",
+     "text": "readable",
+     "color": "coral",
+     "x": 540,
+     "y": 920,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "free",
+     "text": "free tools",
+     "color": "white",
+     "x": 540,
+     "y": 1040,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "HTTPS",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "https://",
+     "color": "mint",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "no",
+     "text": "NO",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 600
+    },
+    {
+     "t": "node",
+     "at": "browser",
+     "label": "browser",
+     "kind": "user",
+     "color": "cyan",
+     "x": 220,
+     "y": 800
+    },
+    {
+     "t": "node",
+     "at": "server",
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 860,
+     "y": 800
+    },
+    {
+     "t": "wire",
+     "at": "handshake",
+     "pts": [
+      [
+       310,
+       800
+      ],
+      [
+       770,
+       800
+      ]
+     ],
+     "color": "mint"
+    },
+    {
+     "t": "chip",
+     "at": "tls",
+     "text": "TLS handshake",
+     "color": "mint",
+     "x": 540,
+     "y": 1000,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "CERTIFICATE",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "browser",
+     "kind": "user",
+     "color": "cyan",
+     "x": 220,
+     "y": 600
+    },
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 860,
+     "y": 600
+    },
+    {
+     "t": "chip",
+     "at": "certificate",
+     "text": "certificate",
+     "color": "amber",
+     "x": 860,
+     "y": 780,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "checks",
+     "text": "checked",
+     "color": "cyan",
+     "x": 220,
+     "y": 780,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "authority",
+     "label": "CA",
+     "kind": "server",
+     "color": "mint",
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": "check",
+     "at": "issued",
+     "x": 740,
+     "y": 960,
+     "color": "mint"
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "SESSION KEYS",
+   "color": "mint",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "browser",
+     "kind": "user",
+     "color": "cyan",
+     "x": 220,
+     "y": 600
+    },
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 860,
+     "y": 600
+    },
+    {
+     "t": "chip",
+     "at": "session",
+     "text": "key",
+     "color": "mint",
+     "x": 220,
+     "y": 780,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "keys",
+     "text": "key",
+     "color": "mint",
+     "x": 860,
+     "y": 780,
+     "size": 36
+    },
+    {
+     "t": "dot",
+     "at": "everything",
+     "pts": [
+      [
+       310,
+       600
+      ],
+      [
+       770,
+       600
+      ]
+     ],
+     "color": "mint",
+     "dur": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "encrypted",
+     "text": "ENCRYPTED",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 960
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "NONSENSE",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "stranger",
+     "kind": "user",
+     "color": "coral",
+     "x": 540,
+     "y": 500
+    },
+    {
+     "t": "chip",
+     "at": "capture",
+     "text": "captured",
+     "color": "coral",
+     "x": 540,
+     "y": 660,
+     "size": 36
+    },
+    {
+     "t": "terminal",
+     "at": "look",
+     "x": 60,
+     "y": 760,
+     "w": 960,
+     "h": 110,
+     "lines": [
+      {
+       "t": "x8$Qa!9z@k#Lp2&vT",
+       "c": "white"
+      }
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "nonsense",
+     "text": "NONSENSE",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "ONLY THE TRIP",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "THE CATCH",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "node",
+     "at": "https",
+     "label": "you",
+     "kind": "user",
+     "color": "cyan",
+     "x": 200,
+     "y": 660
+    },
+    {
+     "t": "node",
+     "at": "protects",
+     "label": "site",
+     "kind": "server",
+     "color": "violet",
+     "x": 880,
+     "y": 660
+    },
+    {
+     "t": "wire",
+     "at": "trip",
+     "pts": [
+      [
+       290,
+       660
+      ],
+      [
+       790,
+       660
+      ]
+     ],
+     "color": "mint"
+    },
+    {
+     "t": "chip",
+     "at": "trip",
+     "text": "encrypted trip",
+     "color": "mint",
+     "x": 540,
+     "y": 570,
+     "size": 32
+    },
+    {
+     "t": "node",
+     "at": "arrives",
+     "label": "storage",
+     "kind": "db",
+     "color": "amber",
+     "x": 880,
+     "y": 880
+    },
+    {
+     "t": "chip",
+     "at": "safely",
+     "text": "their job",
+     "color": "amber",
+     "x": 540,
+     "y": 1040,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "CHECK FOR HTTPS",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "https://",
+     "color": "mint",
+     "x": 540,
+     "y": 480,
+     "size": 36
+    },
+    {
+     "t": "check",
+     "at": "check",
+     "x": 820,
+     "y": 480,
+     "color": "mint"
+    },
+    {
+     "t": "chip",
+     "at": "did",
+     "text": "did you say no?",
+     "color": "amber",
+     "x": 540,
+     "y": 760,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "no",
+     "text": "NO",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 900
+    }
+   ]
+  }
+ ]
+}

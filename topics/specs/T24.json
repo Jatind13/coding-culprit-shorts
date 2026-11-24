@@ -1,0 +1,533 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Which server gets the request?",
+ "sources": [
+  "nginx docs, 'Using nginx as HTTP load balancer' (http://nginx.org/en/docs/http/load_balancing.html, fetched 2026-11-24): 'When the load balancing method is not specifically configured, it defaults to round-robin'; 'least-connected — next request is assigned to the server with the least number of active connections'; 'Least-connected allows controlling the load on application instances more fairly in a situation when some of the requests take longer to complete'; passive health checks: on an error nginx 'will mark this server as failed, and will try to avoid selecting this server for subsequent inbound requests for a while'.",
+  "Illustration only: servers A and B and their request counts are an example."
+ ],
+ "lines": [
+  {
+   "text": "Server A is busy with slow requests, and server B is idle. With round robin, where does the next request go? Guess.",
+   "caps": "A IS *BUSY | B IS *IDLE | WHERE *NEXT?"
+  },
+  {
+   "text": "It can go to A. Round robin just takes turns, it doesn't look at load.",
+   "caps": "CAN BE *A | JUST TAKES *TURNS | IGNORES *LOAD"
+  },
+  {
+   "text": "It's the nginx default, and it's fine when every request costs about the same.",
+   "caps": "NGINX *DEFAULT | FINE IF *EQUAL"
+  },
+  {
+   "text": "Least connections fixes it: the next request goes to the server with the fewest active connections.",
+   "caps": "*LEAST CONNECTIONS | FEWEST *ACTIVE"
+  },
+  {
+   "text": "So B gets it, and the busy server can catch up.",
+   "caps": "*B GETS IT | A *CATCHES UP"
+  },
+  {
+   "text": "But here's the catch: neither one helps if a server is dead.",
+   "caps": "THE *CATCH | A *DEAD SERVER"
+  },
+  {
+   "text": "Nginx marks a server as failed when its requests error, and skips it for a while.",
+   "caps": "MARKED *FAILED | *SKIPPED | FOR A *WHILE"
+  },
+  {
+   "text": "So use least connections when requests vary, and keep health checks on. Did you pick A?",
+   "caps": "*LEAST CONNECTIONS | HEALTH *CHECKS | DID YOU PICK *A?"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "WHERE NEXT?",
+   "color": "amber",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "A",
+     "kind": "server",
+     "color": "coral",
+     "x": 250,
+     "y": 560
+    },
+    {
+     "t": "chip",
+     "at": "busy",
+     "text": "busy",
+     "color": "coral",
+     "x": 250,
+     "y": 720,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "slow",
+     "text": "slow requests",
+     "color": "coral",
+     "x": 250,
+     "y": 830,
+     "size": 32
+    },
+    {
+     "t": "node",
+     "at": 3.2,
+     "label": "B",
+     "kind": "server",
+     "color": "mint",
+     "x": 830,
+     "y": 560
+    },
+    {
+     "t": "chip",
+     "at": "idle",
+     "text": "idle",
+     "color": "mint",
+     "x": 830,
+     "y": 720,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "round",
+     "label": "LB",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 880
+    },
+    {
+     "t": "chip",
+     "at": "robin",
+     "text": "round robin",
+     "color": "violet",
+     "x": 540,
+     "y": 1030,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "where",
+     "text": "A OR B?",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 400
+    },
+    {
+     "t": "chip",
+     "at": "guess",
+     "text": "guess",
+     "color": "amber",
+     "x": 540,
+     "y": 720,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "TAKES TURNS",
+   "color": "coral",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "A",
+     "kind": "server",
+     "color": "coral",
+     "x": 250,
+     "y": 560
+    },
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "B",
+     "kind": "server",
+     "color": "mint",
+     "x": 830,
+     "y": 560
+    },
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "LB",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 860
+    },
+    {
+     "t": "wire",
+     "at": "go",
+     "pts": [
+      [
+       500,
+       800
+      ],
+      [
+       290,
+       620
+      ]
+     ],
+     "color": "coral"
+    },
+    {
+     "t": "chip",
+     "at": "turns",
+     "text": "A, B, A, B...",
+     "color": "violet",
+     "x": 540,
+     "y": 1010,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "load",
+     "text": "IGNORES LOAD",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 400
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "NGINX DEFAULT",
+   "color": "violet",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "nginx",
+     "color": "violet",
+     "x": 540,
+     "y": 470,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "default",
+     "text": "DEFAULT",
+     "color": "violet",
+     "size": 46,
+     "x": 540,
+     "y": 610
+    },
+    {
+     "t": "chip",
+     "at": "fine",
+     "text": "fine if equal",
+     "color": "mint",
+     "x": 540,
+     "y": 780,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": "every",
+     "text": "1",
+     "color": "amber",
+     "x": 380,
+     "y": 940,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "costs",
+     "text": "1",
+     "color": "amber",
+     "x": 540,
+     "y": 940,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "same",
+     "text": "1",
+     "color": "amber",
+     "x": 700,
+     "y": 940,
+     "s": 0.9
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "LEAST CONNECTIONS",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "LEAST CONNECTIONS",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "node",
+     "at": "next",
+     "label": "A",
+     "kind": "server",
+     "color": "coral",
+     "x": 250,
+     "y": 680
+    },
+    {
+     "t": "chip",
+     "at": "request",
+     "text": "3 active",
+     "color": "coral",
+     "x": 250,
+     "y": 840,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "server",
+     "label": "B",
+     "kind": "server",
+     "color": "mint",
+     "x": 830,
+     "y": 680
+    },
+    {
+     "t": "chip",
+     "at": "fewest",
+     "text": "0 active",
+     "color": "mint",
+     "x": 830,
+     "y": 840,
+     "size": 36
+    },
+    {
+     "t": "check",
+     "at": 5.2,
+     "x": 830,
+     "y": 980,
+     "color": "mint"
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "B GETS IT",
+   "color": "mint",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "A",
+     "kind": "server",
+     "color": "coral",
+     "x": 250,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "B",
+     "kind": "server",
+     "color": "mint",
+     "x": 830,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "LB",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 900
+    },
+    {
+     "t": "wire",
+     "at": "gets",
+     "pts": [
+      [
+       580,
+       850
+      ],
+      [
+       790,
+       700
+      ]
+     ],
+     "color": "mint"
+    },
+    {
+     "t": "dot",
+     "at": "gets",
+     "pts": [
+      [
+       580,
+       840
+      ],
+      [
+       790,
+       700
+      ]
+     ],
+     "color": "mint",
+     "dur": 0.6
+    },
+    {
+     "t": "chip",
+     "at": "catch",
+     "text": "A catches up",
+     "color": "amber",
+     "x": 250,
+     "y": 800,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "DEAD SERVER",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "THE CATCH",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "node",
+     "at": "neither",
+     "label": "B",
+     "kind": "server",
+     "color": "coral",
+     "x": 540,
+     "y": 680
+    },
+    {
+     "t": "cross",
+     "at": "dead",
+     "x": 720,
+     "y": 680,
+     "color": "coral"
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "PASSIVE CHECKS",
+   "color": "amber",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "nginx",
+     "color": "violet",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "server",
+     "label": "B",
+     "kind": "server",
+     "color": "coral",
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "badge",
+     "at": "failed",
+     "text": "FAILED",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 820
+    },
+    {
+     "t": "chip",
+     "at": "error",
+     "text": "request errored",
+     "color": "coral",
+     "x": 540,
+     "y": 940,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "skips",
+     "text": "skipped for a while",
+     "color": "amber",
+     "x": 540,
+     "y": 1060,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "PICK LEAST CONN",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "LEAST CONNECTIONS",
+     "color": "mint",
+     "size": 40,
+     "x": 540,
+     "y": 470
+    },
+    {
+     "t": "chip",
+     "at": "vary",
+     "text": "when requests vary",
+     "color": "white",
+     "x": 540,
+     "y": 620,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "health",
+     "text": "+ health checks",
+     "color": "mint",
+     "x": 540,
+     "y": 750,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "did",
+     "text": "did you pick A?",
+     "color": "amber",
+     "x": 540,
+     "y": 920,
+     "size": 36
+    },
+    {
+     "t": "cross",
+     "at": 5.1,
+     "x": 880,
+     "y": 920,
+     "color": "coral"
+    }
+   ]
+  }
+ ]
+}

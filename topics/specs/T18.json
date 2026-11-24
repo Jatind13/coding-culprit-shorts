@@ -1,0 +1,506 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Git doesn't store diffs",
+ "sources": [
+  "Pro Git book, 'What is Git?' (https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F, fetched 2026-11-24): most other systems store 'a list of file-based changes'; 'Git doesn't think of or store its data this way'; every commit 'takes a picture of what all your files look like at that moment'; 'if files have not changed, Git doesn't store the file again, just a link to the previous identical file'; SHA-1 hash, 'a 40-character string composed of hexadecimal characters... calculated based on the contents'; 'Git stores everything in its database not by file name but by the hash value of its contents'; 'it's impossible to change the contents of any file or directory without Git knowing about it'.",
+  "Simplification: Git can still compress objects into packfiles internally; the video describes the conceptual model from the book."
+ ],
+ "lines": [
+  {
+   "text": "Most developers think Git saves the changes you make. So, diffs or full copies? Pick one.",
+   "caps": "GIT SAVES *CHANGES? | *DIFFS | OR *COPIES?"
+  },
+  {
+   "text": "Neither, exactly. Every commit is a snapshot of your whole project.",
+   "caps": "*NEITHER | A *SNAPSHOT | WHOLE *PROJECT"
+  },
+  {
+   "text": "But unchanged files aren't stored again. Git just links to the copy it already has.",
+   "caps": "*UNCHANGED FILES | NOT *STORED AGAIN | JUST A *LINK"
+  },
+  {
+   "text": "How does it know a file is the same? Every file is named by a hash of its contents.",
+   "caps": "SAME FILE? | NAMED BY *HASH | OF ITS *CONTENTS"
+  },
+  {
+   "text": "That's the forty character SHA-1 you see in every commit ID.",
+   "caps": "*40 CHARACTERS | *SHA-1 | COMMIT *ID"
+  },
+  {
+   "text": "Same content means the same hash, so identical files are stored only once.",
+   "caps": "SAME *CONTENT | SAME *HASH | STORED *ONCE"
+  },
+  {
+   "text": "And change one byte, and the hash changes, so history can't be edited without Git knowing.",
+   "caps": "ONE *BYTE | NEW *HASH | GIT *KNOWS"
+  },
+  {
+   "text": "So Git is a database of snapshots, keyed by hash. Did you pick diffs?",
+   "caps": "*SNAPSHOTS | KEYED BY *HASH | DID YOU PICK *DIFFS?"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "DIFFS OR COPIES?",
+   "color": "violet",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "git",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 520
+    },
+    {
+     "t": "chip",
+     "at": "changes",
+     "text": "saves changes?",
+     "color": "white",
+     "x": 540,
+     "y": 700,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "diffs",
+     "text": "A: DIFFS",
+     "color": "amber",
+     "size": 46,
+     "x": 320,
+     "y": 880
+    },
+    {
+     "t": "badge",
+     "at": "copies",
+     "text": "B: COPIES",
+     "color": "cyan",
+     "size": 46,
+     "x": 760,
+     "y": 880
+    },
+    {
+     "t": "chip",
+     "at": "pick",
+     "text": "pick one",
+     "color": "amber",
+     "x": 540,
+     "y": 1030,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "SNAPSHOT",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "NEITHER",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "chip",
+     "at": "commit",
+     "text": "commit",
+     "color": "violet",
+     "x": 540,
+     "y": 600,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": "snapshot",
+     "text": "A",
+     "color": "amber",
+     "x": 400,
+     "y": 760,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 2.8,
+     "text": "B",
+     "color": "amber",
+     "x": 540,
+     "y": 760,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "whole",
+     "text": "C",
+     "color": "amber",
+     "x": 680,
+     "y": 760,
+     "s": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "project",
+     "text": "WHOLE PROJECT",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 960
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "LINKS, NOT COPIES",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "commit 1",
+     "color": "violet",
+     "x": 250,
+     "y": 470,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "unchanged",
+     "text": "commit 2",
+     "color": "violet",
+     "x": 790,
+     "y": 470,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": 0.3,
+     "text": "A",
+     "color": "amber",
+     "x": 150,
+     "y": 620,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.3,
+     "text": "B",
+     "color": "amber",
+     "x": 250,
+     "y": 620,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.3,
+     "text": "C",
+     "color": "amber",
+     "x": 350,
+     "y": 620,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "stored",
+     "text": "B",
+     "color": "mint",
+     "x": 790,
+     "y": 620,
+     "s": 0.9
+    },
+    {
+     "t": "chip",
+     "at": "links",
+     "text": "A, C: link",
+     "color": "cyan",
+     "x": 790,
+     "y": 780,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "already",
+     "text": "NOT STORED AGAIN",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 960
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "NAMED BY HASH",
+   "color": "amber",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "same file?",
+     "color": "white",
+     "x": 540,
+     "y": 470,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": "file",
+     "text": "file",
+     "color": "amber",
+     "x": 250,
+     "y": 680,
+     "s": 1.2
+    },
+    {
+     "t": "wire",
+     "at": "named",
+     "pts": [
+      [
+       340,
+       680
+      ],
+      [
+       620,
+       680
+      ]
+     ],
+     "color": "amber"
+    },
+    {
+     "t": "chip",
+     "at": "hash",
+     "text": "24b9da65...",
+     "color": "amber",
+     "x": 790,
+     "y": 680,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "contents",
+     "text": "HASH OF CONTENTS",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 900
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "SHA-1",
+   "color": "amber",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "x": 60,
+     "y": 440,
+     "w": 960,
+     "h": 170,
+     "lines": [
+      {
+       "t": "commit 24b9da6552252987",
+       "c": "amber"
+      },
+      {
+       "t": "       aa493b52f8696cd6d3b00373",
+       "c": "amber"
+      }
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "forty",
+     "text": "40 HEX CHARACTERS",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 720
+    },
+    {
+     "t": "chip",
+     "at": "sha",
+     "text": "SHA-1",
+     "color": "violet",
+     "x": 540,
+     "y": 860,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "commit",
+     "text": "= commit ID",
+     "color": "mint",
+     "x": 540,
+     "y": 970,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "STORED ONCE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "sq",
+     "at": 0.3,
+     "text": "A",
+     "color": "amber",
+     "x": 300,
+     "y": 560,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "content",
+     "text": "A",
+     "color": "amber",
+     "x": 780,
+     "y": 560,
+     "s": 0.9
+    },
+    {
+     "t": "chip",
+     "at": "hash",
+     "text": "same hash",
+     "color": "amber",
+     "x": 540,
+     "y": 720,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "identical",
+     "text": "identical files",
+     "color": "white",
+     "x": 540,
+     "y": 840,
+     "size": 32
+    },
+    {
+     "t": "badge",
+     "at": "once",
+     "text": "STORED ONCE",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "ONE BYTE",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "hello",
+     "color": "amber",
+     "x": 300,
+     "y": 520,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "byte",
+     "text": "hellO",
+     "color": "coral",
+     "x": 780,
+     "y": 520,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "hash",
+     "text": "24b9da...",
+     "color": "amber",
+     "x": 300,
+     "y": 660,
+     "size": 32
+    },
+    {
+     "t": "chip",
+     "at": "changes",
+     "text": "9f1c03...",
+     "color": "coral",
+     "x": 780,
+     "y": 660,
+     "size": 32
+    },
+    {
+     "t": "badge",
+     "at": "history",
+     "text": "EDIT HISTORY?",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 840
+    },
+    {
+     "t": "badge",
+     "at": "git",
+     "text": "GIT KNOWS",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "SNAPSHOTS + HASH",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "DATABASE OF SNAPSHOTS",
+     "color": "mint",
+     "size": 40,
+     "x": 540,
+     "y": 520
+    },
+    {
+     "t": "chip",
+     "at": "keyed",
+     "text": "keyed by hash",
+     "color": "amber",
+     "x": 540,
+     "y": 680,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "did",
+     "text": "did you pick diffs?",
+     "color": "amber",
+     "x": 540,
+     "y": 880,
+     "size": 36
+    },
+    {
+     "t": "cross",
+     "at": "diffs",
+     "x": 880,
+     "y": 880,
+     "color": "coral"
+    }
+   ]
+  }
+ ]
+}

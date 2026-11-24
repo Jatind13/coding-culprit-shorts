@@ -1,0 +1,400 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "n squared vs n log n",
+ "sources": [
+  "Arithmetic only: n = 1,000,000; n^2 = 10^12; log2(1,000,000) is about 20, so n log n is about 2 x 10^7; ratio 10^12 / (2 x 10^7) = 50,000. At an example speed of 10^9 simple steps per second: 10^12 steps = 1,000 s (about 17 minutes) and 2 x 10^7 steps = 0.02 s (20 ms). At n = 10: n^2 = 100, n log2 n is about 33.",
+  "The 'billion steps per second' speed is an example to make the gap concrete, shown on screen as an example."
+ ],
+ "lines": [
+  {
+   "text": "Sorting a million items. One algorithm takes n squared steps, another takes n log n. How big is the gap? Guess.",
+   "caps": "*1 MILLION ITEMS | *N² VS N LOG N | HOW BIG A *GAP?"
+  },
+  {
+   "text": "n squared is a million times a million. That's a trillion steps.",
+   "caps": "*N² | A *TRILLION STEPS"
+  },
+  {
+   "text": "n log n is a million times about twenty. That's twenty million.",
+   "caps": "*N LOG N | *20 MILLION"
+  },
+  {
+   "text": "That's fifty thousand times fewer steps.",
+   "caps": "*50,000X | *FEWER STEPS"
+  },
+  {
+   "text": "At a billion steps a second, that's twenty milliseconds versus about seventeen minutes.",
+   "caps": "*20 MS | VERSUS | *17 MINUTES"
+  },
+  {
+   "text": "But here's the catch: with ten items, the gap is tiny, so either is fine.",
+   "caps": "THE *CATCH | AT *10 ITEMS | GAP IS *TINY"
+  },
+  {
+   "text": "Big O only matters as the input grows, which is exactly when your app gets popular.",
+   "caps": "MATTERS AS INPUT *GROWS | WHEN YOU GET *POPULAR"
+  },
+  {
+   "text": "So check the growth, not the speed on your laptop. Did you guess that big?",
+   "caps": "CHECK THE *GROWTH | DID YOU GUESS *THAT BIG?"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "HOW BIG A GAP?",
+   "color": "violet",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.2,
+     "text": "1,000,000 items",
+     "color": "amber",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "text",
+     "at": "algorithm",
+     "text": "steps:",
+     "color": "dim",
+     "x": 540,
+     "y": 550,
+     "size": 34
+    },
+    {
+     "t": "badge",
+     "at": "squared",
+     "text": "n²",
+     "color": "coral",
+     "size": 46,
+     "x": 320,
+     "y": 660
+    },
+    {
+     "t": "chip",
+     "at": "another",
+     "text": "vs",
+     "color": "white",
+     "x": 540,
+     "y": 660,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "log",
+     "text": "n log n",
+     "color": "mint",
+     "size": 46,
+     "x": 760,
+     "y": 660
+    },
+    {
+     "t": "chip",
+     "at": "gap",
+     "text": "10x",
+     "color": "amber",
+     "x": 250,
+     "y": 880,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": 7.6,
+     "text": "1,000x",
+     "color": "amber",
+     "x": 540,
+     "y": 880,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "guess",
+     "text": "50,000x",
+     "color": "amber",
+     "x": 830,
+     "y": 880,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "n² = A TRILLION",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "n²",
+     "color": "coral",
+     "x": 540,
+     "y": 470,
+     "size": 40
+    },
+    {
+     "t": "chip",
+     "at": "times",
+     "text": "1M x 1M",
+     "color": "coral",
+     "x": 540,
+     "y": 600,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "trillion",
+     "text": "1,000,000,000,000",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 760
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "n log n",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "n log n",
+     "color": "mint",
+     "x": 540,
+     "y": 470,
+     "size": 40
+    },
+    {
+     "t": "chip",
+     "at": "times",
+     "text": "1M x ~20",
+     "color": "mint",
+     "x": 540,
+     "y": 600,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": 3.4,
+     "text": "20,000,000",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 760
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "50,000x FEWER",
+   "color": "amber",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "50,000x",
+     "color": "amber",
+     "size": 60,
+     "x": 540,
+     "y": 600
+    },
+    {
+     "t": "chip",
+     "at": "fewer",
+     "text": "fewer steps",
+     "color": "mint",
+     "x": 540,
+     "y": 780,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "IN REAL TIME",
+   "color": "amber",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "example: 1B steps/s",
+     "color": "white",
+     "x": 540,
+     "y": 460,
+     "size": 32
+    },
+    {
+     "t": "row",
+     "at": "twenty",
+     "label": "n log n",
+     "value": "20 ms",
+     "color": "mint",
+     "x": 200,
+     "y": 640,
+     "gap": 330
+    },
+    {
+     "t": "row",
+     "at": "versus",
+     "label": "n²",
+     "value": "~17 min",
+     "color": "coral",
+     "x": 200,
+     "y": 760,
+     "gap": 330
+    },
+    {
+     "t": "badge",
+     "at": "minutes",
+     "text": "17 MINUTES",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 940
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "AT 10 ITEMS",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "THE CATCH",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "row",
+     "at": "ten",
+     "label": "n²",
+     "value": "100",
+     "color": "coral",
+     "x": 220,
+     "y": 640,
+     "gap": 330
+    },
+    {
+     "t": "row",
+     "at": "items",
+     "label": "n log n",
+     "value": "~33",
+     "color": "mint",
+     "x": 220,
+     "y": 760,
+     "gap": 330
+    },
+    {
+     "t": "badge",
+     "at": "tiny",
+     "text": "TINY GAP",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 940
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "GROWTH MATTERS",
+   "color": "violet",
+   "items": [
+    {
+     "t": "meter",
+     "at": 0.3,
+     "label": "input size",
+     "color": "violet",
+     "x": 140,
+     "y": 520,
+     "w": 800,
+     "from": 0,
+     "to": 1,
+     "dur": 2.0,
+     "show": 0.99
+    },
+    {
+     "t": "chip",
+     "at": "grows",
+     "text": "grows",
+     "color": "violet",
+     "x": 540,
+     "y": 680,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "exactly",
+     "text": "your app gets popular",
+     "color": "amber",
+     "x": 540,
+     "y": 820,
+     "size": 32
+    },
+    {
+     "t": "badge",
+     "at": "popular",
+     "text": "BIG O MATTERS",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "CHECK GROWTH",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "CHECK THE GROWTH",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 500
+    },
+    {
+     "t": "chip",
+     "at": "laptop",
+     "text": "not your laptop",
+     "color": "coral",
+     "x": 540,
+     "y": 660,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "did",
+     "text": "did you guess that big?",
+     "color": "amber",
+     "x": 540,
+     "y": 860,
+     "size": 34
+    },
+    {
+     "t": "check",
+     "at": "big",
+     "x": 920,
+     "y": 860,
+     "color": "mint"
+    }
+   ]
+  }
+ ]
+}

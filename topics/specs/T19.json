@@ -1,0 +1,443 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Where did the money go?",
+ "sources": [
+  "PostgreSQL tutorial, 3.4 Transactions (https://www.postgresql.org/docs/current/tutorial-transactions.html, fetched 2026-11-24): a payment from Alice's account to Bob's is several UPDATE steps; 'if something goes wrong partway through the operation, none of the steps executed so far will take effect'; 'bundles multiple steps into a single, all-or-nothing operation'; BEGIN ... COMMIT; ROLLBACK cancels all updates so far (example: noticing Alice's balance went negative); updates are 'logged in permanent storage (i.e., on disk) before the transaction is reported complete'.",
+  "Illustration only: the 100 rupee transfer is an example; real payment systems add more layers than one database transaction."
+ ],
+ "lines": [
+  {
+   "text": "A hundred rupees leaves your account, the server crashes, and it never arrives. Lost, refunded, or never left?",
+   "caps": "*₹100 LEAVES | SERVER *CRASHES | LOST OR *NEVER LEFT?"
+  },
+  {
+   "text": "A transfer is two steps: subtract from you, then add to them.",
+   "caps": "*TWO STEPS | *SUBTRACT | THEN *ADD"
+  },
+  {
+   "text": "Crash between them, and without a transaction, the money simply vanishes.",
+   "caps": "*CRASH BETWEEN | MONEY *VANISHES"
+  },
+  {
+   "text": "So you wrap both steps in a transaction: begin, both updates, commit.",
+   "caps": "A *TRANSACTION | *BEGIN | *COMMIT"
+  },
+  {
+   "text": "It's all or nothing. If anything fails halfway, none of the steps take effect.",
+   "caps": "*ALL OR NOTHING | FAILS *HALFWAY | *NONE OF IT"
+  },
+  {
+   "text": "And once it's committed, it's written to disk, so even a crash can't lose it.",
+   "caps": "*COMMITTED | WRITTEN TO *DISK | SURVIVES A *CRASH"
+  },
+  {
+   "text": "Spot a problem midway, like a negative balance? Rollback cancels every update so far.",
+   "caps": "*NEGATIVE BALANCE? | *ROLLBACK | ALL *CANCELLED"
+  },
+  {
+   "text": "So with a transaction, the money never left. Did you guess right?",
+   "caps": "IT *NEVER LEFT | DID YOU GUESS *RIGHT?"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "WHERE DID IT GO?",
+   "color": "coral",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "you",
+     "kind": "user",
+     "color": "cyan",
+     "x": 200,
+     "y": 600
+    },
+    {
+     "t": "chip",
+     "at": "rupees",
+     "text": "₹100",
+     "color": "amber",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "server",
+     "label": "server",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "cross",
+     "at": "crashes",
+     "x": 540,
+     "y": 790,
+     "color": "coral"
+    },
+    {
+     "t": "node",
+     "at": "arrives",
+     "label": "friend",
+     "kind": "user",
+     "color": "cyan",
+     "x": 880,
+     "y": 600
+    },
+    {
+     "t": "chip",
+     "at": "lost",
+     "text": "LOST",
+     "color": "white",
+     "x": 250,
+     "y": 960,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "refunded",
+     "text": "REFUNDED",
+     "color": "white",
+     "x": 540,
+     "y": 960,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "left",
+     "text": "NEVER LEFT",
+     "color": "white",
+     "x": 830,
+     "y": 960,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "TWO STEPS",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "you",
+     "kind": "user",
+     "color": "cyan",
+     "x": 200,
+     "y": 600
+    },
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "friend",
+     "kind": "user",
+     "color": "cyan",
+     "x": 880,
+     "y": 600
+    },
+    {
+     "t": "badge",
+     "at": "two",
+     "text": "2 STEPS",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 960
+    },
+    {
+     "t": "chip",
+     "at": "subtract",
+     "text": "- ₹100",
+     "color": "coral",
+     "x": 200,
+     "y": 780,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "add",
+     "text": "+ ₹100",
+     "color": "mint",
+     "x": 880,
+     "y": 780,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "CRASH BETWEEN",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.2,
+     "text": "- ₹100",
+     "color": "coral",
+     "x": 250,
+     "y": 520,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": 0.5,
+     "text": "CRASH",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 660
+    },
+    {
+     "t": "chip",
+     "at": "without",
+     "text": "no transaction",
+     "color": "white",
+     "x": 540,
+     "y": 820,
+     "size": 32
+    },
+    {
+     "t": "chip",
+     "at": "money",
+     "text": "+ ₹100 never runs",
+     "color": "coral",
+     "x": 540,
+     "y": 940,
+     "size": 32
+    },
+    {
+     "t": "badge",
+     "at": "vanishes",
+     "text": "₹100 VANISHES",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 1070
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "TRANSACTION",
+   "color": "mint",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.2,
+     "typeFrom": 0.3,
+     "typeTo": 3.0,
+     "x": 60,
+     "y": 440,
+     "w": 960,
+     "h": 320,
+     "lines": [
+      {
+       "t": "BEGIN;",
+       "c": "mint"
+      },
+      {
+       "t": "UPDATE you    - 100;",
+       "c": "white"
+      },
+      {
+       "t": "UPDATE friend + 100;",
+       "c": "white"
+      },
+      {
+       "t": "COMMIT;",
+       "c": "mint"
+      }
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "transaction",
+     "text": "ONE TRANSACTION",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 900
+    },
+    {
+     "t": "chip",
+     "at": "commit",
+     "text": "commit",
+     "color": "mint",
+     "x": 540,
+     "y": 1040,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "ALL OR NOTHING",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "ALL OR NOTHING",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 480
+    },
+    {
+     "t": "chip",
+     "at": "fails",
+     "text": "fails halfway",
+     "color": "coral",
+     "x": 540,
+     "y": 660,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "none",
+     "text": "none of it happens",
+     "color": "mint",
+     "x": 540,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "check",
+     "at": "effect",
+     "x": 870,
+     "y": 800,
+     "color": "mint"
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "DURABLE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "committed",
+     "color": "mint",
+     "x": 540,
+     "y": 470,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "written",
+     "label": "disk",
+     "kind": "db",
+     "color": "violet",
+     "x": 540,
+     "y": 660
+    },
+    {
+     "t": "badge",
+     "at": "crash",
+     "text": "SURVIVES A CRASH",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 880
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "ROLLBACK",
+   "color": "amber",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "problem midway?",
+     "color": "white",
+     "x": 540,
+     "y": 470,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "negative",
+     "text": "balance: -50",
+     "color": "coral",
+     "x": 540,
+     "y": 610,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "rollback",
+     "text": "ROLLBACK",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 780
+    },
+    {
+     "t": "chip",
+     "at": "cancels",
+     "text": "all updates cancelled",
+     "color": "mint",
+     "x": 540,
+     "y": 930,
+     "size": 34
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "NEVER LEFT",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "IT NEVER LEFT",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 520
+    },
+    {
+     "t": "chip",
+     "at": "transaction",
+     "text": "with a transaction",
+     "color": "mint",
+     "x": 540,
+     "y": 680,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "did",
+     "text": "did you guess right?",
+     "color": "amber",
+     "x": 540,
+     "y": 880,
+     "size": 36
+    },
+    {
+     "t": "check",
+     "at": "right",
+     "x": 900,
+     "y": 880,
+     "color": "mint"
+    }
+   ]
+  }
+ ]
+}

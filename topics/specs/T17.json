@@ -1,0 +1,494 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Spot the bug: SQL injection",
+ "sources": [
+  "OWASP SQL Injection Prevention Cheat Sheet (https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html, fetched 2026-11-24): injection is when 'untrusted data (usually strings) becomes part of a query's SQL syntax, modifying the logic of the SQL request'; unsafe example concatenates request input into the query; primary defense: 'define the SQL structure separately from its data values, then bind those values'; 'Do not manually escape untrusted values to construct SQL queries. Use parameterized queries instead.'; HQL in Hibernate built by concatenation 'may suffer from the same injection problems'.",
+  "Illustration only: the login query and the ' OR 1=1 input are a textbook example written for this video; with this query the WHERE clause becomes always true and every row is returned."
+ ],
+ "lines": [
+  {
+   "text": "This login query has one bug that lets anyone in. You have three seconds. Spot it.",
+   "caps": "ONE *BUG | LETS *ANYONE IN | *SPOT IT"
+  },
+  {
+   "text": "Time's up. The bug is gluing the user's input straight into the SQL string.",
+   "caps": "*TIME'S UP | *GLUING INPUT | INTO THE *SQL"
+  },
+  {
+   "text": "Type a quote, then OR one equals one, and your input stops being data and becomes code.",
+   "caps": "A *QUOTE | *OR 1=1 | DATA BECOMES *CODE"
+  },
+  {
+   "text": "Now the WHERE clause is always true, so the query returns every user.",
+   "caps": "*ALWAYS TRUE | *EVERY USER"
+  },
+  {
+   "text": "The fix is a parameterized query. The SQL stays fixed, and the input is bound as plain data.",
+   "caps": "*PARAMETERIZED | SQL STAYS *FIXED | INPUT IS *DATA"
+  },
+  {
+   "text": "But here's the catch: escaping quotes by hand is not the fix.",
+   "caps": "THE *CATCH | NO *HAND ESCAPING"
+  },
+  {
+   "text": "And an ORM won't save you either, if you build its query strings with plus signs.",
+   "caps": "ORMS *TOO | NO *PLUS SIGNS"
+  },
+  {
+   "text": "So never build SQL with string glue. Did you spot it in three seconds?",
+   "caps": "NEVER *STRING GLUE | DID YOU *SPOT IT?"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "SPOT THE BUG",
+   "color": "coral",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "typeFrom": 0.2,
+     "typeTo": 2.5,
+     "x": 60,
+     "y": 440,
+     "w": 960,
+     "h": 220,
+     "lines": [
+      {
+       "t": "query = \"SELECT * FROM users",
+       "c": "white"
+      },
+      {
+       "t": "  WHERE name = '\" + name + \"'\"",
+       "c": "amber"
+      }
+     ]
+    },
+    {
+     "t": "chip",
+     "at": "bug",
+     "text": "1 bug",
+     "color": "coral",
+     "x": 540,
+     "y": 760,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "anyone",
+     "text": "anyone gets in",
+     "color": "coral",
+     "x": 540,
+     "y": 870,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "three",
+     "text": "3",
+     "color": "amber",
+     "size": 46,
+     "x": 330,
+     "y": 1010
+    },
+    {
+     "t": "badge",
+     "at": 4.4,
+     "text": "2",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 1010
+    },
+    {
+     "t": "badge",
+     "at": "spot",
+     "text": "1",
+     "color": "amber",
+     "size": 46,
+     "x": 750,
+     "y": 1010
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "STRING GLUE",
+   "color": "coral",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "x": 60,
+     "y": 440,
+     "w": 960,
+     "h": 220,
+     "lines": [
+      {
+       "t": "query = \"SELECT * FROM users",
+       "c": "white"
+      },
+      {
+       "t": "  WHERE name = '\" + name + \"'\"",
+       "c": "amber"
+      }
+     ]
+    },
+    {
+     "t": "chip",
+     "at": "gluing",
+     "text": "+ name +",
+     "color": "coral",
+     "x": 540,
+     "y": 760,
+     "size": 40
+    },
+    {
+     "t": "badge",
+     "at": "input",
+     "text": "USER INPUT",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 890
+    },
+    {
+     "t": "chip",
+     "at": "sql",
+     "text": "inside the SQL",
+     "color": "coral",
+     "x": 540,
+     "y": 1020,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "THE ATTACK",
+   "color": "coral",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.2,
+     "typeFrom": 0.3,
+     "typeTo": 2.5,
+     "x": 60,
+     "y": 440,
+     "w": 960,
+     "h": 130,
+     "lines": [
+      {
+       "t": "name: ' OR 1=1 --",
+       "c": "coral"
+      }
+     ]
+    },
+    {
+     "t": "terminal",
+     "at": "and",
+     "x": 60,
+     "y": 620,
+     "w": 960,
+     "h": 130,
+     "lines": [
+      {
+       "t": "WHERE name = '' OR 1=1 --'",
+       "c": "amber"
+      }
+     ]
+    },
+    {
+     "t": "chip",
+     "at": "stops",
+     "text": "input stops being data",
+     "color": "white",
+     "x": 540,
+     "y": 860,
+     "size": 32
+    },
+    {
+     "t": "badge",
+     "at": "code",
+     "text": "NOW IT'S CODE",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 990
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "ALWAYS TRUE",
+   "color": "coral",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "x": 60,
+     "y": 440,
+     "w": 960,
+     "h": 180,
+     "lines": [
+      {
+       "t": "WHERE name = ''",
+       "c": "white"
+      },
+      {
+       "t": "   OR 1=1",
+       "c": "coral"
+      }
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "always",
+     "text": "ALWAYS TRUE",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 740
+    },
+    {
+     "t": "chip",
+     "at": "returns",
+     "text": "alice",
+     "color": "amber",
+     "x": 260,
+     "y": 920,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "every",
+     "text": "bob",
+     "color": "amber",
+     "x": 540,
+     "y": 920,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "user",
+     "text": "carol",
+     "color": "amber",
+     "x": 820,
+     "y": 920,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "PARAMETERIZED",
+   "color": "mint",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "typeFrom": 0.2,
+     "typeTo": 2.0,
+     "x": 60,
+     "y": 440,
+     "w": 960,
+     "h": 180,
+     "lines": [
+      {
+       "t": "SELECT * FROM users",
+       "c": "white"
+      },
+      {
+       "t": "WHERE name = ?",
+       "c": "mint"
+      }
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "parameterized",
+     "text": "PARAMETERIZED",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 740
+    },
+    {
+     "t": "chip",
+     "at": "sql",
+     "text": "SQL fixed",
+     "color": "mint",
+     "x": 320,
+     "y": 880,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "input",
+     "text": "input = data",
+     "color": "amber",
+     "x": 760,
+     "y": 880,
+     "size": 36
+    },
+    {
+     "t": "check",
+     "at": "plain",
+     "x": 540,
+     "y": 1020,
+     "color": "mint"
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "NOT ESCAPING",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "THE CATCH",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 470
+    },
+    {
+     "t": "chip",
+     "at": "escaping",
+     "text": "escape quotes by hand",
+     "color": "coral",
+     "x": 540,
+     "y": 660,
+     "size": 34
+    },
+    {
+     "t": "cross",
+     "at": "hand",
+     "x": 900,
+     "y": 660,
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "fix",
+     "text": "NOT THE FIX",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "ORMS TOO",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "ORM",
+     "color": "violet",
+     "x": 540,
+     "y": 470,
+     "size": 36
+    },
+    {
+     "t": "terminal",
+     "at": "if",
+     "x": 60,
+     "y": 580,
+     "w": 960,
+     "h": 180,
+     "lines": [
+      {
+       "t": "\"from Inventory where id='\"",
+       "c": "white"
+      },
+      {
+       "t": "  + userInput + \"'\"",
+       "c": "coral"
+      }
+     ]
+    },
+    {
+     "t": "chip",
+     "at": "query",
+     "text": "query strings",
+     "color": "amber",
+     "x": 540,
+     "y": 820,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "plus",
+     "text": "SAME INJECTION",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 950
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "NO STRING GLUE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "\"...\" + input",
+     "color": "coral",
+     "x": 540,
+     "y": 480,
+     "size": 34
+    },
+    {
+     "t": "cross",
+     "at": "build",
+     "x": 860,
+     "y": 480,
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "glue",
+     "text": "USE PARAMETERS",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 660
+    },
+    {
+     "t": "chip",
+     "at": "did",
+     "text": "did you spot it?",
+     "color": "amber",
+     "x": 540,
+     "y": 860,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "seconds",
+     "text": "in 3 seconds",
+     "color": "amber",
+     "x": 540,
+     "y": 980,
+     "size": 36
+    }
+   ]
+  }
+ ]
+}

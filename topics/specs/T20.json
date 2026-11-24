@@ -1,0 +1,474 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "One thread, many users: Node.js",
+ "sources": [
+  "Node.js docs, 'Don't Block the Event Loop' (https://nodejs.org/en/learn/asynchronous-work/dont-block-the-event-loop, fetched 2026-11-24): 'Node.js runs JavaScript code in the Event Loop... and offers a Worker Pool to handle expensive tasks like file I/O'; 'one Event Loop... and a pool of k Workers'; the Event Loop fulfils 'non-blocking asynchronous requests... e.g., network I/O'; 'uses a small number of threads to handle many clients'; 'While a thread is blocked working on behalf of one client, it cannot handle requests from any other clients'; 'Node.js is fast when the work associated with each client at any given time is small'; example: an n-squared loop inside a request handler."
+ ],
+ "lines": [
+  {
+   "text": "Node.js runs your JavaScript on one thread. So how does it serve so many users? Guess.",
+   "caps": "*ONE THREAD | SO MANY *USERS? | *GUESS"
+  },
+  {
+   "text": "The trick: it never waits. When a request needs the network or a file, Node hands that off.",
+   "caps": "NEVER *WAITS | *HANDS IT OFF"
+  },
+  {
+   "text": "Network calls are non-blocking, and slow file work goes to a small worker pool.",
+   "caps": "NETWORK: *NON-BLOCKING | FILES: *WORKER POOL"
+  },
+  {
+   "text": "Meanwhile, the event loop moves straight on to the next request.",
+   "caps": "*EVENT LOOP | NEXT *REQUEST"
+  },
+  {
+   "text": "When the data is ready, its callback runs. Small pieces of work, many clients, few threads.",
+   "caps": "DATA *READY | *CALLBACK RUNS | FEW *THREADS"
+  },
+  {
+   "text": "But here's the catch: one slow callback blocks everyone.",
+   "caps": "THE *CATCH | ONE *SLOW CALLBACK | BLOCKS *EVERYONE"
+  },
+  {
+   "text": "A big loop on the main thread, and no other user gets a turn until it ends.",
+   "caps": "A *BIG LOOP | NO ONE GETS A *TURN"
+  },
+  {
+   "text": "So keep each callback small, and move heavy work off the loop. Did you guess right?",
+   "caps": "KEEP IT *SMALL | HEAVY WORK *OFF | DID YOU GUESS *RIGHT?"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "ONE THREAD",
+   "color": "violet",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "node.js",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 520
+    },
+    {
+     "t": "chip",
+     "at": "one",
+     "text": "1 thread",
+     "color": "violet",
+     "x": 540,
+     "y": 680,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "serve",
+     "text": "serves many?",
+     "color": "white",
+     "x": 540,
+     "y": 770,
+     "size": 32
+    },
+    {
+     "t": "node",
+     "at": "many",
+     "label": "user",
+     "kind": "user",
+     "color": "cyan",
+     "x": 200,
+     "y": 900
+    },
+    {
+     "t": "node",
+     "at": "users",
+     "label": "user",
+     "kind": "user",
+     "color": "cyan",
+     "x": 540,
+     "y": 900
+    },
+    {
+     "t": "node",
+     "at": 5.6,
+     "label": "user",
+     "kind": "user",
+     "color": "cyan",
+     "x": 880,
+     "y": 900
+    },
+    {
+     "t": "badge",
+     "at": "guess",
+     "text": "HOW?",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 1080
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "NEVER WAITS",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "NEVER WAITS",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "chip",
+     "at": "request",
+     "text": "request",
+     "color": "cyan",
+     "x": 250,
+     "y": 640,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "network",
+     "text": "network",
+     "color": "cyan",
+     "x": 540,
+     "y": 640,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "file",
+     "text": "file",
+     "color": "amber",
+     "x": 830,
+     "y": 640,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "hands",
+     "text": "HANDED OFF",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 840
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "WHO DOES THE WAIT",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "loop",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 480
+    },
+    {
+     "t": "chip",
+     "at": "non",
+     "text": "network: non-blocking",
+     "color": "cyan",
+     "x": 540,
+     "y": 660,
+     "size": 32
+    },
+    {
+     "t": "chip",
+     "at": "file",
+     "text": "file work",
+     "color": "amber",
+     "x": 540,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "worker",
+     "label": "worker",
+     "kind": "server",
+     "color": "amber",
+     "x": 360,
+     "y": 960
+    },
+    {
+     "t": "node",
+     "at": "pool",
+     "label": "worker",
+     "kind": "server",
+     "color": "amber",
+     "x": 720,
+     "y": 960
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "EVENT LOOP",
+   "color": "violet",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "loop",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 620
+    },
+    {
+     "t": "sq",
+     "at": "event",
+     "text": "R1",
+     "color": "cyan",
+     "x": 250,
+     "y": 620,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "next",
+     "text": "R2",
+     "color": "cyan",
+     "x": 830,
+     "y": 620,
+     "s": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "request",
+     "text": "NEXT REQUEST",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "CALLBACK",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "data ready",
+     "color": "amber",
+     "x": 540,
+     "y": 470,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "callback",
+     "text": "callback runs",
+     "color": "mint",
+     "x": 540,
+     "y": 610,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": "small",
+     "text": "cb",
+     "color": "mint",
+     "x": 300,
+     "y": 800,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "work",
+     "text": "cb",
+     "color": "mint",
+     "x": 540,
+     "y": 800,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "many",
+     "text": "cb",
+     "color": "mint",
+     "x": 780,
+     "y": 800,
+     "s": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "few",
+     "text": "FEW THREADS",
+     "color": "violet",
+     "size": 46,
+     "x": 540,
+     "y": 1000
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "THE CATCH",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "THE CATCH",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 470
+    },
+    {
+     "t": "chip",
+     "at": "slow",
+     "text": "slow callback",
+     "color": "coral",
+     "x": 540,
+     "y": 660,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "blocks",
+     "text": "BLOCKS EVERYONE",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 860
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "BIG LOOP",
+   "color": "coral",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "typeFrom": 0.2,
+     "typeTo": 1.5,
+     "x": 60,
+     "y": 440,
+     "w": 960,
+     "h": 180,
+     "lines": [
+      {
+       "t": "for (i < n)",
+       "c": "white"
+      },
+      {
+       "t": "  for (j < n) ...",
+       "c": "coral"
+      }
+     ]
+    },
+    {
+     "t": "chip",
+     "at": "main",
+     "text": "main thread",
+     "color": "violet",
+     "x": 540,
+     "y": 680,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "other",
+     "label": "user",
+     "kind": "user",
+     "color": "cyan",
+     "x": 250,
+     "y": 840
+    },
+    {
+     "t": "node",
+     "at": "user",
+     "label": "user",
+     "kind": "user",
+     "color": "cyan",
+     "x": 540,
+     "y": 840
+    },
+    {
+     "t": "node",
+     "at": "turn",
+     "label": "user",
+     "kind": "user",
+     "color": "cyan",
+     "x": 830,
+     "y": 840
+    },
+    {
+     "t": "badge",
+     "at": "ends",
+     "text": "WAITING",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 1050
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "KEEP IT SMALL",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "SMALL CALLBACKS",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 480
+    },
+    {
+     "t": "chip",
+     "at": "heavy",
+     "text": "heavy work: off the loop",
+     "color": "amber",
+     "x": 540,
+     "y": 640,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "did",
+     "text": "did you guess right?",
+     "color": "amber",
+     "x": 540,
+     "y": 840,
+     "size": 36
+    },
+    {
+     "t": "check",
+     "at": "right",
+     "x": 900,
+     "y": 840,
+     "color": "mint"
+    }
+   ]
+  }
+ ]
+}

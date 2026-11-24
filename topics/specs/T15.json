@@ -1,0 +1,575 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Why is Redis so fast",
+ "sources": [
+  "Redis docs, 'Diagnosing latency issues' (https://redis.io/docs/latest/operate/oss_and_stack/management/optimization/latency/, fetched 2026-11-24): 'Redis uses a mostly single threaded design... a single process serves all the client requests, using a technique called multiplexing'; requests are served sequentially; 'designed to not block on system calls, such as reading data from or writing data to a socket'; GET, SET, LPUSH 'are executed in constant (and very small) time'; 'when a request is slow to serve all the other clients will wait'; KEYS 'should only be used for debugging purposes'; SCAN iterates the key space incrementally.",
+  "Redis FAQ (https://redis.io/docs/latest/develop/get-started/faq/, fetched 2026-11-24): 'data served from memory, disk used for storage'; Redis is 'usually either memory or network bound'.",
+  "Illustration only: the queue squares and client nodes are drawings, not measurements."
+ ],
+ "lines": [
+  {
+   "text": "Redis serves every request on a single thread. So, is it slow or fast? Guess now.",
+   "caps": "ONE *THREAD | SLOW OR *FAST? | *GUESS NOW"
+  },
+  {
+   "text": "It's fast. All the data lives in memory, so reads never wait on a disk.",
+   "caps": "IT'S *FAST | DATA IN *MEMORY | NO *DISK WAIT"
+  },
+  {
+   "text": "One thread means requests run one by one, so they never collide.",
+   "caps": "*ONE BY ONE | NEVER *COLLIDE"
+  },
+  {
+   "text": "And it never blocks on the network. Multiplexing lets one thread watch many connections.",
+   "caps": "NEVER *BLOCKS | *MULTIPLEXING | MANY *CONNECTIONS"
+  },
+  {
+   "text": "Commands like GET and SET take tiny, constant time, so the queue keeps moving.",
+   "caps": "*GET AND SET | *CONSTANT TIME | QUEUE *MOVES"
+  },
+  {
+   "text": "But here's the catch: one slow command makes every other client wait.",
+   "caps": "THE *CATCH | ONE *SLOW COMMAND | EVERYONE *WAITS"
+  },
+  {
+   "text": "Like KEYS on a big database. Use SCAN instead, which walks the keys in small steps.",
+   "caps": "LIKE *KEYS | USE *SCAN | *SMALL STEPS"
+  },
+  {
+   "text": "So Redis is fast because every request is tiny. Did you guess right?",
+   "caps": "EVERY REQUEST *TINY | DID YOU GUESS *RIGHT?"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "ONE THREAD",
+   "color": "violet",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "redis",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 520
+    },
+    {
+     "t": "chip",
+     "at": "single",
+     "text": "1 thread",
+     "color": "violet",
+     "x": 540,
+     "y": 680,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "slow",
+     "text": "SLOW?",
+     "color": "amber",
+     "size": 46,
+     "x": 330,
+     "y": 860
+    },
+    {
+     "t": "badge",
+     "at": "fast",
+     "text": "FAST?",
+     "color": "amber",
+     "size": 46,
+     "x": 750,
+     "y": 860
+    },
+    {
+     "t": "chip",
+     "at": "guess",
+     "text": "guess now",
+     "color": "amber",
+     "x": 540,
+     "y": 1010,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "IN MEMORY",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "FAST",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "node",
+     "at": "memory",
+     "label": "memory",
+     "kind": "db",
+     "color": "violet",
+     "x": 300,
+     "y": 660
+    },
+    {
+     "t": "chip",
+     "at": "reads",
+     "text": "reads from RAM",
+     "color": "mint",
+     "x": 540,
+     "y": 880,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "never",
+     "text": "disk",
+     "color": "coral",
+     "x": 780,
+     "y": 660,
+     "size": 36
+    },
+    {
+     "t": "cross",
+     "at": "disk",
+     "x": 920,
+     "y": 660,
+     "color": "coral"
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "ONE BY ONE",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "requests",
+     "color": "cyan",
+     "x": 540,
+     "y": 470,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": "run",
+     "text": "R1",
+     "color": "amber",
+     "x": 300,
+     "y": 650,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "by",
+     "text": "R2",
+     "color": "amber",
+     "x": 460,
+     "y": 650,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 2.5,
+     "text": "R3",
+     "color": "amber",
+     "x": 620,
+     "y": 650,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 2.8,
+     "text": "R4",
+     "color": "amber",
+     "x": 780,
+     "y": 650,
+     "s": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "collide",
+     "text": "NEVER COLLIDE",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 880
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "MULTIPLEXING",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "redis",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 760
+    },
+    {
+     "t": "node",
+     "at": "blocks",
+     "label": "client",
+     "kind": "user",
+     "color": "cyan",
+     "x": 200,
+     "y": 520
+    },
+    {
+     "t": "node",
+     "at": "network",
+     "label": "client",
+     "kind": "user",
+     "color": "cyan",
+     "x": 880,
+     "y": 520
+    },
+    {
+     "t": "chip",
+     "at": "multiplexing",
+     "text": "multiplexing",
+     "color": "violet",
+     "x": 540,
+     "y": 560,
+     "size": 36
+    },
+    {
+     "t": "wire",
+     "at": "watch",
+     "pts": [
+      [
+       460,
+       730
+      ],
+      [
+       280,
+       560
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "wire",
+     "at": "watch",
+     "pts": [
+      [
+       620,
+       730
+      ],
+      [
+       800,
+       560
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "node",
+     "at": "many",
+     "label": "client",
+     "kind": "user",
+     "color": "cyan",
+     "x": 200,
+     "y": 1000
+    },
+    {
+     "t": "node",
+     "at": "connections",
+     "label": "client",
+     "kind": "user",
+     "color": "cyan",
+     "x": 880,
+     "y": 1000
+    },
+    {
+     "t": "wire",
+     "at": "connections",
+     "pts": [
+      [
+       460,
+       790
+      ],
+      [
+       280,
+       960
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "wire",
+     "at": "connections",
+     "pts": [
+      [
+       620,
+       790
+      ],
+      [
+       800,
+       960
+      ]
+     ],
+     "color": "cyan"
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "CONSTANT TIME",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "commands",
+     "color": "amber",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "row",
+     "at": "get",
+     "label": "GET",
+     "value": "O(1)",
+     "color": "mint",
+     "x": 250,
+     "y": 600,
+     "gap": 330
+    },
+    {
+     "t": "row",
+     "at": "set",
+     "label": "SET",
+     "value": "O(1)",
+     "color": "mint",
+     "x": 250,
+     "y": 720,
+     "gap": 330
+    },
+    {
+     "t": "badge",
+     "at": "constant",
+     "text": "CONSTANT TIME",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 880
+    },
+    {
+     "t": "chip",
+     "at": "queue",
+     "text": "queue keeps moving",
+     "color": "cyan",
+     "x": 540,
+     "y": 1020,
+     "size": 34
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "THE CATCH",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "THE CATCH",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 470
+    },
+    {
+     "t": "chip",
+     "at": "slow",
+     "text": "SLOW CMD",
+     "color": "coral",
+     "x": 300,
+     "y": 680,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": "command",
+     "text": "C",
+     "color": "amber",
+     "x": 560,
+     "y": 680,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "makes",
+     "text": "C",
+     "color": "amber",
+     "x": 700,
+     "y": 680,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "every",
+     "text": "C",
+     "color": "amber",
+     "x": 840,
+     "y": 680,
+     "s": 0.9
+    },
+    {
+     "t": "chip",
+     "at": "wait",
+     "text": "everyone waits",
+     "color": "coral",
+     "x": 540,
+     "y": 880,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "KEYS VS SCAN",
+   "color": "amber",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "KEYS *",
+     "color": "coral",
+     "x": 300,
+     "y": 520,
+     "size": 40
+    },
+    {
+     "t": "cross",
+     "at": "database",
+     "x": 470,
+     "y": 520,
+     "color": "coral"
+    },
+    {
+     "t": "chip",
+     "at": "big",
+     "text": "big database",
+     "color": "coral",
+     "x": 300,
+     "y": 640,
+     "size": 32
+    },
+    {
+     "t": "chip",
+     "at": "scan",
+     "text": "SCAN 0",
+     "color": "mint",
+     "x": 780,
+     "y": 520,
+     "size": 40
+    },
+    {
+     "t": "check",
+     "at": "instead",
+     "x": 960,
+     "y": 520,
+     "color": "mint"
+    },
+    {
+     "t": "sq",
+     "at": "walks",
+     "text": "10",
+     "color": "mint",
+     "x": 420,
+     "y": 780,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.2,
+     "text": "10",
+     "color": "mint",
+     "x": 540,
+     "y": 780,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 4.6,
+     "text": "10",
+     "color": "mint",
+     "x": 660,
+     "y": 780,
+     "s": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "small",
+     "text": "SMALL STEPS",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 960
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "TINY REQUESTS",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "EVERY REQUEST TINY",
+     "color": "mint",
+     "size": 42,
+     "x": 540,
+     "y": 560
+    },
+    {
+     "t": "chip",
+     "at": "fast",
+     "text": "= fast",
+     "color": "mint",
+     "x": 540,
+     "y": 720,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "did",
+     "text": "did you guess right?",
+     "color": "amber",
+     "x": 540,
+     "y": 900,
+     "size": 36
+    },
+    {
+     "t": "check",
+     "at": "right",
+     "x": 880,
+     "y": 900,
+     "color": "mint"
+    }
+   ]
+  }
+ ]
+}

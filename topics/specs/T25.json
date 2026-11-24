@@ -1,0 +1,464 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Your app crashes at 3 AM",
+ "sources": [
+  "Kubernetes docs, Pod Lifecycle (https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/, fetched 2026-11-24): restartPolicy 'The default value is Always'; 'After containers in a Pod exit, the kubelet restarts them with an exponential backoff delay (10s, 20s, 40s, …), that is capped at 300 seconds (5 minutes)'; CrashLoopBackOff 'indicates that the backoff delay mechanism is currently in effect for a given container that is in a crash loop'; liveness probes 'could catch a deadlock, where an application is running, but unable to make progress'; 'If a container fails its liveness probe more times than the configured tolerance, the kubelet restarts that container'.",
+  "Kubernetes docs, Components (https://kubernetes.io/docs/concepts/overview/components/, fetched 2026-11-24): node components 'Run on every node'; kubelet 'Ensures that Pods are running, including their containers'."
+ ],
+ "lines": [
+  {
+   "text": "Your app crashes at three in the morning. Who restarts it before anyone wakes up? Guess.",
+   "caps": "CRASH AT *3 AM | WHO *RESTARTS IT? | *GUESS"
+  },
+  {
+   "text": "In Kubernetes, an agent on every machine, the kubelet, keeps your containers running.",
+   "caps": "THE *KUBELET | ON EVERY *MACHINE | KEEPS IT *RUNNING"
+  },
+  {
+   "text": "A pod's restart policy defaults to always, so when a container exits, it's started again.",
+   "caps": "RESTART: *ALWAYS | EXITS? *STARTED AGAIN"
+  },
+  {
+   "text": "And a liveness probe catches an app that's running but stuck, and restarts it too.",
+   "caps": "*LIVENESS PROBE | RUNNING BUT *STUCK | *RESTARTED"
+  },
+  {
+   "text": "So the answer is nobody. The kubelet does it.",
+   "caps": "ANSWER: *NOBODY | THE *KUBELET"
+  },
+  {
+   "text": "But here's the catch: a restart doesn't fix a bug. Crash again, and it waits ten seconds, then twenty, then forty.",
+   "caps": "THE *CATCH | NOT A *FIX | 10, 20, *40 SECONDS"
+  },
+  {
+   "text": "Capped at five minutes. That's the CrashLoopBackOff you see in kubectl.",
+   "caps": "*5 MINUTE CAP | *CRASHLOOPBACKOFF"
+  },
+  {
+   "text": "So restarts buy you time, not a fix. Did you guess right?",
+   "caps": "BUYS *TIME | NOT A *FIX | DID YOU GUESS *RIGHT?"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "3 AM CRASH",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.2,
+     "text": "3:00 AM",
+     "color": "amber",
+     "x": 540,
+     "y": 440,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "app",
+     "label": "app",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 600
+    },
+    {
+     "t": "cross",
+     "at": "crashes",
+     "x": 700,
+     "y": 600,
+     "color": "coral"
+    },
+    {
+     "t": "chip",
+     "at": "restarts",
+     "text": "who restarts it?",
+     "color": "amber",
+     "x": 540,
+     "y": 780,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "anyone",
+     "text": "everyone asleep",
+     "color": "white",
+     "x": 540,
+     "y": 900,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "guess",
+     "text": "GUESS",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 1040
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "THE KUBELET",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "Kubernetes",
+     "color": "violet",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "agent",
+     "label": "node 1",
+     "kind": "server",
+     "color": "cyan",
+     "x": 250,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "every",
+     "label": "node 2",
+     "kind": "server",
+     "color": "cyan",
+     "x": 830,
+     "y": 640
+    },
+    {
+     "t": "chip",
+     "at": "kubelet",
+     "text": "kubelet",
+     "color": "mint",
+     "x": 250,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": 3.3,
+     "text": "kubelet",
+     "color": "mint",
+     "x": 830,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "running",
+     "text": "KEEPS IT RUNNING",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "RESTART: ALWAYS",
+   "color": "mint",
+   "items": [
+    {
+     "t": "terminal",
+     "at": 0.1,
+     "x": 60,
+     "y": 440,
+     "w": 960,
+     "h": 110,
+     "lines": [
+      {
+       "t": "restartPolicy: Always",
+       "c": "mint"
+      }
+     ]
+    },
+    {
+     "t": "badge",
+     "at": "always",
+     "text": "DEFAULT",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "container",
+     "label": "app",
+     "kind": "server",
+     "color": "violet",
+     "x": 300,
+     "y": 820
+    },
+    {
+     "t": "cross",
+     "at": "exits",
+     "x": 540,
+     "y": 820,
+     "color": "coral"
+    },
+    {
+     "t": "node",
+     "at": "started",
+     "label": "app",
+     "kind": "server",
+     "color": "mint",
+     "x": 780,
+     "y": 820
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "LIVENESS PROBE",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "liveness probe",
+     "color": "cyan",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "app",
+     "label": "app",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "chip",
+     "at": "running",
+     "text": "running",
+     "color": "mint",
+     "x": 330,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "stuck",
+     "text": "stuck",
+     "color": "coral",
+     "x": 750,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "restarts",
+     "text": "RESTARTED",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 960
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "ANSWER: NOBODY",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "NOBODY",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 520
+    },
+    {
+     "t": "chip",
+     "at": "kubelet",
+     "text": "the kubelet does it",
+     "color": "mint",
+     "x": 540,
+     "y": 700,
+     "size": 34
+    },
+    {
+     "t": "check",
+     "at": "does",
+     "x": 880,
+     "y": 700,
+     "color": "mint"
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "NOT A FIX",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "THE CATCH",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "chip",
+     "at": "restart",
+     "text": "a restart",
+     "color": "mint",
+     "x": 540,
+     "y": 610,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "bug",
+     "text": "bug still there",
+     "color": "coral",
+     "x": 540,
+     "y": 730,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "crash",
+     "text": "crash again",
+     "color": "coral",
+     "x": 540,
+     "y": 850,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "ten",
+     "text": "10 s",
+     "color": "amber",
+     "x": 250,
+     "y": 980,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "twenty",
+     "text": "20 s",
+     "color": "amber",
+     "x": 540,
+     "y": 980,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "forty",
+     "text": "40 s",
+     "color": "coral",
+     "x": 830,
+     "y": 980,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "5 MINUTE CAP",
+   "color": "amber",
+   "items": [
+    {
+     "t": "meter",
+     "at": 0.3,
+     "label": "back-off",
+     "color": "amber",
+     "x": 140,
+     "y": 520,
+     "w": 800,
+     "from": 0,
+     "to": 1,
+     "dur": 1.2,
+     "value": "5 min",
+     "show": 0.1
+    },
+    {
+     "t": "badge",
+     "at": "crashloopbackoff",
+     "text": "CRASHLOOPBACKOFF",
+     "color": "coral",
+     "size": 40,
+     "x": 540,
+     "y": 720
+    },
+    {
+     "t": "terminal",
+     "at": 1.7,
+     "x": 60,
+     "y": 860,
+     "w": 960,
+     "h": 110,
+     "lines": [
+      {
+       "t": "STATUS: CrashLoopBackOff",
+       "c": "coral"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "TIME, NOT A FIX",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "BUYS TIME",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 500
+    },
+    {
+     "t": "chip",
+     "at": "fix",
+     "text": "not a fix",
+     "color": "coral",
+     "x": 540,
+     "y": 660,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "did",
+     "text": "did you guess right?",
+     "color": "amber",
+     "x": 540,
+     "y": 860,
+     "size": 36
+    },
+    {
+     "t": "check",
+     "at": "right",
+     "x": 900,
+     "y": 860,
+     "color": "mint"
+    }
+   ]
+  }
+ ]
+}

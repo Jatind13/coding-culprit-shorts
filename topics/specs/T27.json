@@ -1,0 +1,524 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Why far away sites feel slow: CDN",
+ "sources": [
+  "Cloudflare Learning, 'What is a CDN?' (https://www.cloudflare.com/learning/cdn/what-is-a-cdn/, fetched 2026-11-24): 'A content delivery network (CDN) is a geographically distributed group of servers that caches content close to end users'; a CDN 'cuts down on origin requests and reduces bandwidth costs'.",
+  "Cloudflare Learning, 'What is caching?' (https://www.cloudflare.com/learning/cdn/what-is-caching/, fetched 2026-11-24): a CDN 'caches content (such as images, videos, or webpages) in proxy servers that are located closer to end users'; TTL is 'an indication of how long content should be cached', sent in the HTTP header; customers can manually purge content.",
+  "Illustration only: Mumbai and New York are an example; 'users may still see the old file until it expires or is purged' follows from TTL caching."
+ ],
+ "lines": [
+  {
+   "text": "Your server is in Mumbai, and a user in New York opens your site. Why is it slower for them? Guess.",
+   "caps": "SERVER IN *MUMBAI | USER IN *NEW YORK | WHY *SLOWER?"
+  },
+  {
+   "text": "Distance. Every round trip has to cross the ocean and come back.",
+   "caps": "*DISTANCE | EVERY *ROUND TRIP | ACROSS THE *OCEAN"
+  },
+  {
+   "text": "A CDN is a group of servers around the world that keep copies of your content near users.",
+   "caps": "A *CDN | SERVERS *WORLDWIDE | COPIES *NEAR USERS"
+  },
+  {
+   "text": "So the New York user gets your images and pages from a server close by.",
+   "caps": "SERVED *NEARBY | *IMAGES AND PAGES"
+  },
+  {
+   "text": "And your origin in Mumbai gets far fewer requests, which cuts bandwidth costs too.",
+   "caps": "FEWER *ORIGIN REQUESTS | LOWER *BANDWIDTH"
+  },
+  {
+   "text": "But here's the catch: copies can go stale. Each one lives for its TTL, set in the HTTP header.",
+   "caps": "THE *CATCH | COPIES GO *STALE | THE *TTL"
+  },
+  {
+   "text": "Change the file before it expires, and some users still see the old one, unless you purge it.",
+   "caps": "OLD *VERSION | UNTIL *EXPIRY | OR *PURGE"
+  },
+  {
+   "text": "So cache what rarely changes, and set the TTL on purpose. Did you guess distance?",
+   "caps": "CACHE *STATIC FILES | SET THE *TTL | DID YOU GUESS *DISTANCE?"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "WHY SLOWER?",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.2,
+     "text": "your site",
+     "color": "white",
+     "x": 540,
+     "y": 450,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "mumbai",
+     "label": "Mumbai",
+     "kind": "server",
+     "color": "violet",
+     "x": 220,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "york",
+     "label": "New York",
+     "kind": "user",
+     "color": "cyan",
+     "x": 860,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": "opens",
+     "pts": [
+      [
+       310,
+       640
+      ],
+      [
+       770,
+       640
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "badge",
+     "at": "slower",
+     "text": "SLOWER?",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 840
+    },
+    {
+     "t": "chip",
+     "at": "guess",
+     "text": "guess",
+     "color": "amber",
+     "x": 540,
+     "y": 980,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "DISTANCE",
+   "color": "amber",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "DISTANCE",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "Mumbai",
+     "kind": "server",
+     "color": "violet",
+     "x": 200,
+     "y": 680
+    },
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "New York",
+     "kind": "user",
+     "color": "cyan",
+     "x": 880,
+     "y": 680
+    },
+    {
+     "t": "dot",
+     "at": "round",
+     "pts": [
+      [
+       290,
+       680
+      ],
+      [
+       790,
+       680
+      ]
+     ],
+     "color": "amber",
+     "dur": 1.0
+    },
+    {
+     "t": "chip",
+     "at": "ocean",
+     "text": "across the ocean",
+     "color": "cyan",
+     "x": 540,
+     "y": 880,
+     "size": 36
+    },
+    {
+     "t": "dot",
+     "at": "back",
+     "pts": [
+      [
+       790,
+       680
+      ],
+      [
+       290,
+       680
+      ]
+     ],
+     "color": "amber",
+     "dur": 1.0
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "A CDN",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "CDN",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "node",
+     "at": "servers",
+     "label": "edge",
+     "kind": "server",
+     "color": "mint",
+     "x": 220,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "around",
+     "label": "edge",
+     "kind": "server",
+     "color": "mint",
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "world",
+     "label": "edge",
+     "kind": "server",
+     "color": "mint",
+     "x": 860,
+     "y": 640
+    },
+    {
+     "t": "chip",
+     "at": "copies",
+     "text": "copies of your content",
+     "color": "amber",
+     "x": 540,
+     "y": 840,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "near",
+     "text": "near users",
+     "color": "mint",
+     "x": 540,
+     "y": 960,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "SERVED NEARBY",
+   "color": "mint",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "New York",
+     "kind": "user",
+     "color": "cyan",
+     "x": 220,
+     "y": 640
+    },
+    {
+     "t": "node",
+     "at": "gets",
+     "label": "edge NY",
+     "kind": "server",
+     "color": "mint",
+     "x": 860,
+     "y": 640
+    },
+    {
+     "t": "dot",
+     "at": "images",
+     "pts": [
+      [
+       770,
+       640
+      ],
+      [
+       310,
+       640
+      ]
+     ],
+     "color": "mint",
+     "dur": 0.9
+    },
+    {
+     "t": "chip",
+     "at": "images",
+     "text": "images",
+     "color": "amber",
+     "x": 400,
+     "y": 820,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "pages",
+     "text": "pages",
+     "color": "amber",
+     "x": 680,
+     "y": 820,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "close",
+     "text": "CLOSE BY",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "FEWER ORIGIN HITS",
+   "color": "violet",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "origin",
+     "kind": "server",
+     "color": "violet",
+     "x": 540,
+     "y": 520
+    },
+    {
+     "t": "meter",
+     "at": "fewer",
+     "label": "origin requests",
+     "color": "coral",
+     "x": 140,
+     "y": 700,
+     "w": 800,
+     "from": 1,
+     "to": 0.2,
+     "dur": 1.2,
+     "value": "fewer",
+     "show": 0
+    },
+    {
+     "t": "badge",
+     "at": "bandwidth",
+     "text": "LOWER BANDWIDTH",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 900
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "COPIES GO STALE",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "THE CATCH",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "chip",
+     "at": "copies",
+     "text": "your copy",
+     "color": "amber",
+     "x": 300,
+     "y": 600,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "stale",
+     "text": "stale",
+     "color": "coral",
+     "x": 780,
+     "y": 600,
+     "size": 36
+    },
+    {
+     "t": "meter",
+     "at": "lives",
+     "label": "TTL",
+     "color": "amber",
+     "x": 140,
+     "y": 760,
+     "w": 800,
+     "from": 1,
+     "to": 0,
+     "dur": 2.5,
+     "show": 0
+    },
+    {
+     "t": "terminal",
+     "at": "set",
+     "x": 60,
+     "y": 880,
+     "w": 960,
+     "h": 110,
+     "lines": [
+      {
+       "t": "Cache-Control: max-age=86400",
+       "c": "amber"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "OLD VERSION",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "v2 deployed",
+     "color": "mint",
+     "x": 300,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "expires",
+     "text": "TTL not over",
+     "color": "amber",
+     "x": 780,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "users",
+     "label": "user",
+     "kind": "user",
+     "color": "cyan",
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "chip",
+     "at": "old",
+     "text": "sees v1",
+     "color": "coral",
+     "x": 540,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "purge",
+     "text": "PURGE",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 960
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "CACHE ON PURPOSE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "CACHE STATIC FILES",
+     "color": "mint",
+     "size": 40,
+     "x": 540,
+     "y": 480
+    },
+    {
+     "t": "chip",
+     "at": "rarely",
+     "text": "rarely changes",
+     "color": "white",
+     "x": 540,
+     "y": 610,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "ttl",
+     "text": "set the TTL",
+     "color": "amber",
+     "x": 540,
+     "y": 740,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "did",
+     "text": "did you guess distance?",
+     "color": "amber",
+     "x": 540,
+     "y": 900,
+     "size": 34
+    },
+    {
+     "t": "check",
+     "at": "distance",
+     "x": 920,
+     "y": 900,
+     "color": "mint"
+    }
+   ]
+  }
+ ]
+}

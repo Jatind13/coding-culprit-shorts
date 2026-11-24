@@ -1,0 +1,478 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "1 in a million, 1 step: HashMap",
+ "sources": [
+  "Java SE 21 HashMap API docs (https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/HashMap.html, fetched 2026-11-24): 'constant-time performance for the basic operations (get and put), assuming the hash function disperses the elements properly among the buckets'; default load factor .75; when entries exceed load factor times capacity, 'the hash table is rehashed... so that the hash table has approximately twice the number of buckets'; 'using many keys with the same hashCode() is a sure way to slow down performance of any hash table'.",
+  "Arithmetic: binary search over 1,000,000 sorted items needs about 20 comparisons (2^20 = 1,048,576)."
+ ],
+ "lines": [
+  {
+   "text": "Find one key among a million in a Java HashMap. Does it check a million items, twenty, or one? Guess.",
+   "caps": "*1 IN A MILLION | 1M, 20, OR *1? | *GUESS"
+  },
+  {
+   "text": "Usually one. The key's hash code tells it exactly which bucket to look in.",
+   "caps": "USUALLY *ONE | *HASH CODE | WHICH *BUCKET"
+  },
+  {
+   "text": "So get and put run in constant time, no matter how big the map grows.",
+   "caps": "*GET AND PUT | *CONSTANT TIME"
+  },
+  {
+   "text": "Once it's seventy five percent full, it rebuilds with about twice the buckets.",
+   "caps": "*75% FULL | *REBUILDS | *2X BUCKETS"
+  },
+  {
+   "text": "That keeps every bucket short, so lookups stay fast.",
+   "caps": "SHORT *BUCKETS | STAYS *FAST"
+  },
+  {
+   "text": "But here's the catch: that only works if the hashes spread out.",
+   "caps": "THE *CATCH | HASHES MUST *SPREAD"
+  },
+  {
+   "text": "Give many keys the same hash code, and they pile into one bucket, and every lookup slows down.",
+   "caps": "SAME *HASH CODE | ONE *BUCKET | *SLOW"
+  },
+  {
+   "text": "So write a good hash code for your keys. Did you guess one?",
+   "caps": "GOOD *HASHCODE | DID YOU GUESS *ONE?"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "1 IN A MILLION",
+   "color": "amber",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.2,
+     "text": "1,000,000 keys",
+     "color": "amber",
+     "x": 540,
+     "y": 480,
+     "size": 36
+    },
+    {
+     "t": "node",
+     "at": "java",
+     "label": "HashMap",
+     "kind": "db",
+     "color": "violet",
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "chip",
+     "at": "check",
+     "text": "how many checks?",
+     "color": "white",
+     "x": 540,
+     "y": 780,
+     "size": 34
+    },
+    {
+     "t": "chip",
+     "at": "items",
+     "text": "1,000,000",
+     "color": "white",
+     "x": 270,
+     "y": 900,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "twenty",
+     "text": "20",
+     "color": "white",
+     "x": 540,
+     "y": 900,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": 6.2,
+     "text": "1",
+     "color": "white",
+     "x": 810,
+     "y": 900,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "guess",
+     "text": "GUESS",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 1050
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "WHICH BUCKET",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "USUALLY 1",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "chip",
+     "at": "key",
+     "text": "key",
+     "color": "amber",
+     "x": 200,
+     "y": 640,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "hash",
+     "text": "hashCode()",
+     "color": "violet",
+     "x": 540,
+     "y": 640,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": "exactly",
+     "text": "",
+     "color": "cyan",
+     "x": 300,
+     "y": 860,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "exactly",
+     "text": "",
+     "color": "cyan",
+     "x": 420,
+     "y": 860,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "which",
+     "text": "",
+     "color": "cyan",
+     "x": 660,
+     "y": 860,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "which",
+     "text": "",
+     "color": "cyan",
+     "x": 780,
+     "y": 860,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "bucket",
+     "text": "key",
+     "color": "mint",
+     "x": 540,
+     "y": 860,
+     "s": 0.9
+    },
+    {
+     "t": "check",
+     "at": "look",
+     "x": 920,
+     "y": 860,
+     "color": "mint"
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "CONSTANT TIME",
+   "color": "mint",
+   "items": [
+    {
+     "t": "row",
+     "at": 0.3,
+     "label": "get(key)",
+     "value": "O(1)",
+     "color": "mint",
+     "x": 220,
+     "y": 520,
+     "gap": 330
+    },
+    {
+     "t": "row",
+     "at": "put",
+     "label": "put(key)",
+     "value": "O(1)",
+     "color": "mint",
+     "x": 220,
+     "y": 640,
+     "gap": 330
+    },
+    {
+     "t": "badge",
+     "at": "constant",
+     "text": "CONSTANT TIME",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 820
+    },
+    {
+     "t": "chip",
+     "at": "big",
+     "text": "any size",
+     "color": "amber",
+     "x": 540,
+     "y": 960,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "REBUILD AT 75%",
+   "color": "amber",
+   "items": [
+    {
+     "t": "meter",
+     "at": 0.3,
+     "label": "fullness",
+     "color": "amber",
+     "x": 140,
+     "y": 520,
+     "w": 800,
+     "from": 0,
+     "to": 0.75,
+     "dur": 1.6,
+     "value": "75%",
+     "show": 0.1
+    },
+    {
+     "t": "badge",
+     "at": "rebuilds",
+     "text": "REBUILD",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 720
+    },
+    {
+     "t": "chip",
+     "at": "twice",
+     "text": "2x buckets",
+     "color": "mint",
+     "x": 540,
+     "y": 880,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "SHORT BUCKETS",
+   "color": "mint",
+   "items": [
+    {
+     "t": "sq",
+     "at": 0.3,
+     "text": "k",
+     "color": "cyan",
+     "x": 300,
+     "y": 620,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.3,
+     "text": "k",
+     "color": "cyan",
+     "x": 540,
+     "y": 620,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": 0.3,
+     "text": "k",
+     "color": "cyan",
+     "x": 780,
+     "y": 620,
+     "s": 0.9
+    },
+    {
+     "t": "chip",
+     "at": "short",
+     "text": "short buckets",
+     "color": "mint",
+     "x": 540,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "fast",
+     "text": "STAYS FAST",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 940
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "THE CATCH",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "THE CATCH",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 470
+    },
+    {
+     "t": "chip",
+     "at": "only",
+     "text": "only if",
+     "color": "white",
+     "x": 540,
+     "y": 620,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "hashes",
+     "text": "hashes spread out",
+     "color": "coral",
+     "x": 540,
+     "y": 740,
+     "size": 34
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "SAME HASH",
+   "color": "coral",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "same hashCode",
+     "color": "coral",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "sq",
+     "at": "keys",
+     "text": "k",
+     "color": "coral",
+     "x": 540,
+     "y": 600,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "code",
+     "text": "",
+     "color": "cyan",
+     "x": 300,
+     "y": 600,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "code",
+     "text": "",
+     "color": "cyan",
+     "x": 780,
+     "y": 600,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "pile",
+     "text": "k",
+     "color": "coral",
+     "x": 540,
+     "y": 700,
+     "s": 0.9
+    },
+    {
+     "t": "sq",
+     "at": "into",
+     "text": "k",
+     "color": "coral",
+     "x": 540,
+     "y": 800,
+     "s": 0.9
+    },
+    {
+     "t": "badge",
+     "at": "slows",
+     "text": "SLOW LOOKUPS",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 980
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "GOOD HASHCODE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "GOOD HASHCODE",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 520
+    },
+    {
+     "t": "chip",
+     "at": "did",
+     "text": "did you guess 1?",
+     "color": "amber",
+     "x": 540,
+     "y": 720,
+     "size": 36
+    },
+    {
+     "t": "check",
+     "at": "one",
+     "x": 880,
+     "y": 720,
+     "color": "mint"
+    }
+   ]
+  }
+ ]
+}

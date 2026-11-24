@@ -262,5 +262,159 @@
    "caching",
    "softwareengineering"
   ]
+ },
+ "T15": {
+  "title": "Why Is Redis So Fast? (It Uses One Thread)",
+  "summary": "Redis serves every request on a single thread, and it's still fast: data lives in memory, requests run one by one, and multiplexing watches many connections. The catch: one slow command like KEYS makes everyone wait.",
+  "tags": [
+   "redis",
+   "systemdesign",
+   "backend",
+   "database",
+   "softwareengineering"
+  ]
+ },
+ "T16": {
+  "title": "Deadlock: Two Transactions, Who Wins?",
+  "summary": "Each transaction holds the row the other needs, so both wait forever. PostgreSQL detects the cycle and aborts one, and you can't predict which. Fix: lock rows in the same order, and retry.",
+  "tags": [
+   "deadlock",
+   "database",
+   "postgresql",
+   "concurrency",
+   "backend"
+  ]
+ },
+ "T17": {
+  "title": "Spot the Bug in 3 Seconds: SQL Injection",
+  "summary": "Gluing user input into a SQL string lets ' OR 1=1 turn data into code. The fix is a parameterized query, not hand escaping, and ORMs are not safe if you concatenate there too.",
+  "tags": [
+   "sqlinjection",
+   "websecurity",
+   "sql",
+   "backend",
+   "programming"
+  ]
+ },
+ "T18": {
+  "title": "Git Doesn't Store Diffs. Here's What It Stores",
+  "summary": "Every commit is a snapshot, unchanged files are links to what Git already has, and everything is named by a hash of its contents. Change one byte and Git knows.",
+  "tags": [
+   "git",
+   "github",
+   "programming",
+   "developer",
+   "softwareengineering"
+  ]
+ },
+ "T19": {
+  "title": "₹100 Left Your Account and Never Arrived. Where Is It?",
+  "summary": "A transfer is two steps. Crash between them without a transaction and the money vanishes. With BEGIN and COMMIT it's all or nothing, and committed data survives a crash.",
+  "tags": [
+   "acid",
+   "database",
+   "transactions",
+   "backend",
+   "softwareengineering"
+  ]
+ },
+ "T20": {
+  "title": "How Node.js Serves So Many Users on One Thread",
+  "summary": "Node never waits: network calls are non-blocking and slow file work goes to a worker pool, while the event loop moves on. The catch: one slow callback blocks everyone.",
+  "tags": [
+   "nodejs",
+   "javascript",
+   "eventloop",
+   "backend",
+   "webdevelopment"
+  ]
+ },
+ "T21": {
+  "title": "Café Wi-Fi: Can a Stranger Read Your Password?",
+  "summary": "Over HTTP, yes. Over HTTPS, the TLS handshake checks the certificate and creates session keys, so captured packets look like nonsense. HTTPS protects the trip, not how the site stores it.",
+  "tags": [
+   "https",
+   "websecurity",
+   "tls",
+   "cybersecurity",
+   "networking"
+  ]
+ },
+ "T22": {
+  "title": "Find 1 Key in a Million in 1 Step: Java HashMap",
+  "summary": "The hash code points straight to a bucket, so get and put are constant time. The map rebuilds at 75% full. The catch: keys with the same hash code pile into one bucket.",
+  "tags": [
+   "java",
+   "hashmap",
+   "datastructures",
+   "programming",
+   "softwareengineering"
+  ]
+ },
+ "T23": {
+  "title": "You Press Enter. How Many Round Trips Before the Page?",
+  "summary": "DNS, then a TCP handshake (one round trip), then TLS 1.3 (one more): two round trips before the browser can even send GET, three with TLS 1.2. Distance makes every trip cost.",
+  "tags": [
+   "networking",
+   "webdevelopment",
+   "dns",
+   "http",
+   "softwareengineering"
+  ]
+ },
+ "T24": {
+  "title": "Round Robin vs Least Connections: Which Server Gets It?",
+  "summary": "Round robin takes turns and ignores load. Least connections sends the request to the server with the fewest active connections. Neither helps with a dead server, so keep health checks on.",
+  "tags": [
+   "loadbalancing",
+   "nginx",
+   "systemdesign",
+   "devops",
+   "backend"
+  ]
+ },
+ "T25": {
+  "title": "Your App Crashes at 3 AM. Who Restarts It?",
+  "summary": "In Kubernetes, the kubelet restarts containers (restartPolicy Always) and liveness probes catch stuck apps. The catch: restarts back off 10s, 20s, 40s up to 5 minutes. That's CrashLoopBackOff.",
+  "tags": [
+   "kubernetes",
+   "devops",
+   "docker",
+   "cloud",
+   "softwareengineering"
+  ]
+ },
+ "T26": {
+  "title": "n² vs n log n at 1 Million Items: How Big Is the Gap?",
+  "summary": "A trillion steps versus twenty million, 50,000 times fewer. At an example billion steps per second, that's 17 minutes versus 20 ms. At 10 items the gap is tiny.",
+  "tags": [
+   "bigo",
+   "algorithms",
+   "dsa",
+   "programming",
+   "codinginterview"
+  ]
+ },
+ "T27": {
+  "title": "Why Your Site Is Slow Far Away (and How a CDN Fixes It)",
+  "summary": "Every round trip crosses the distance. A CDN keeps copies of your content near users and cuts origin requests. The catch: copies go stale until the TTL expires or you purge.",
+  "tags": [
+   "cdn",
+   "webperformance",
+   "caching",
+   "systemdesign",
+   "webdevelopment"
+  ]
+ },
+ "T28": {
+  "title": "How Search Finds One Word in a Billion Documents",
+  "summary": "It doesn't read them at search time. An inverted index maps each word to the documents that contain it, built ahead of time. The price: every new document must be indexed first.",
+  "tags": [
+   "search",
+   "invertedindex",
+   "datastructures",
+   "systemdesign",
+   "softwareengineering"
+  ]
  }
 }

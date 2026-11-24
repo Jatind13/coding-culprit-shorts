@@ -1,0 +1,594 @@
+{
+ "handle": "@CodingCulprit",
+ "voice": "am_michael",
+ "speed": 1.03,
+ "lead": 0.35,
+ "outro": 1.0,
+ "gap": 0.26,
+ "music": "bed",
+ "title": "Deadlock: who wins?",
+ "sources": [
+  "PostgreSQL docs, 13.3.4 Deadlocks (https://www.postgresql.org/docs/current/explicit-locking.html, fetched 2026-11-24): deadlocks are when 'two (or more) transactions each hold locks that the other wants'; row-level example with two account rows; 'PostgreSQL automatically detects deadlock situations and resolves them by aborting one of the transactions involved'; 'Exactly which transaction will be aborted is difficult to predict and should not be relied upon'; best defense: 'acquire locks on multiple objects in a consistent order'; 'deadlocks can be handled on-the-fly by retrying transactions that abort due to deadlocks'.",
+  "Illustration only: rows A and B stand in for the docs' accounts 11111 and 22222."
+ ],
+ "lines": [
+  {
+   "text": "Two transactions each lock one row, then each wants the other's row. Who wins: the first, the second, or nobody?",
+   "caps": "EACH LOCKS *ONE ROW | WANTS *THE OTHER | WHO *WINS?"
+  },
+  {
+   "text": "Transaction one locks row A, and transaction two locks row B.",
+   "caps": "T1 LOCKS *A | T2 LOCKS *B"
+  },
+  {
+   "text": "Now one asks for B, and two asks for A. Both wait, forever.",
+   "caps": "T1 WANTS *B | T2 WANTS *A | *FOREVER"
+  },
+  {
+   "text": "That's a deadlock: each one holds what the other needs.",
+   "caps": "A *DEADLOCK | EACH *HOLDS | WHAT THE OTHER *NEEDS"
+  },
+  {
+   "text": "Answer: nobody wins cleanly. PostgreSQL spots the cycle and aborts one of them.",
+   "caps": "*NOBODY WINS | SPOTS THE *CYCLE | *ABORTS ONE"
+  },
+  {
+   "text": "But here's the catch: you can't predict which one gets killed.",
+   "caps": "THE *CATCH | *WHICH ONE? | *UNPREDICTABLE"
+  },
+  {
+   "text": "The fix is boring: always lock rows in the same order, A before B, everywhere.",
+   "caps": "SAME *ORDER | *A BEFORE B | *EVERYWHERE"
+  },
+  {
+   "text": "And retry the one that gets aborted. Did you guess nobody?",
+   "caps": "*RETRY | THE *ABORTED ONE | DID YOU GUESS *NOBODY?"
+  }
+ ],
+ "shots": [
+  {
+   "line": 0,
+   "title": "WHO WINS?",
+   "color": "coral",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "T1",
+     "kind": "user",
+     "color": "cyan",
+     "x": 220,
+     "y": 560
+    },
+    {
+     "t": "node",
+     "at": "transactions",
+     "label": "T2",
+     "kind": "user",
+     "color": "violet",
+     "x": 860,
+     "y": 560
+    },
+    {
+     "t": "record",
+     "at": "lock",
+     "label": "row A",
+     "color": "amber",
+     "x": 540,
+     "y": 480
+    },
+    {
+     "t": "record",
+     "at": "row",
+     "label": "row B",
+     "color": "amber",
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "wire",
+     "at": "wants",
+     "pts": [
+      [
+       300,
+       580
+      ],
+      [
+       420,
+       640
+      ]
+     ],
+     "color": "coral"
+    },
+    {
+     "t": "wire",
+     "at": "wants",
+     "pts": [
+      [
+       780,
+       580
+      ],
+      [
+       660,
+       480
+      ]
+     ],
+     "color": "coral"
+    },
+    {
+     "t": "badge",
+     "at": "who",
+     "text": "WHO WINS?",
+     "color": "amber",
+     "size": 46,
+     "x": 540,
+     "y": 820
+    },
+    {
+     "t": "chip",
+     "at": "first",
+     "text": "T1",
+     "color": "white",
+     "x": 250,
+     "y": 960,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "second",
+     "text": "T2",
+     "color": "white",
+     "x": 540,
+     "y": 960,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "nobody",
+     "text": "NOBODY",
+     "color": "white",
+     "x": 830,
+     "y": 960,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 1,
+   "title": "T1 LOCKS A",
+   "color": "cyan",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "T1",
+     "kind": "user",
+     "color": "cyan",
+     "x": 200,
+     "y": 600
+    },
+    {
+     "t": "record",
+     "at": "row",
+     "label": "row A",
+     "color": "amber",
+     "x": 540,
+     "y": 500
+    },
+    {
+     "t": "wire",
+     "at": 1.7,
+     "pts": [
+      [
+       290,
+       590
+      ],
+      [
+       420,
+       510
+      ]
+     ],
+     "color": "cyan"
+    },
+    {
+     "t": "node",
+     "at": "two",
+     "label": "T2",
+     "kind": "user",
+     "color": "violet",
+     "x": 880,
+     "y": 600
+    },
+    {
+     "t": "wire",
+     "at": 3.3,
+     "pts": [
+      [
+       790,
+       610
+      ],
+      [
+       660,
+       710
+      ]
+     ],
+     "color": "violet"
+    },
+    {
+     "t": "record",
+     "at": 3.5,
+     "label": "row B",
+     "color": "amber",
+     "x": 540,
+     "y": 720
+    }
+   ]
+  },
+  {
+   "line": 2,
+   "title": "BOTH WAIT",
+   "color": "coral",
+   "items": [
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "T1",
+     "kind": "user",
+     "color": "cyan",
+     "x": 200,
+     "y": 600
+    },
+    {
+     "t": "node",
+     "at": 0.2,
+     "label": "T2",
+     "kind": "user",
+     "color": "violet",
+     "x": 880,
+     "y": 600
+    },
+    {
+     "t": "record",
+     "at": 0.2,
+     "label": "row A",
+     "color": "amber",
+     "x": 540,
+     "y": 500
+    },
+    {
+     "t": "record",
+     "at": 0.2,
+     "label": "row B",
+     "color": "amber",
+     "x": 540,
+     "y": 720
+    },
+    {
+     "t": "wire",
+     "at": "asks",
+     "pts": [
+      [
+       290,
+       610
+      ],
+      [
+       420,
+       710
+      ]
+     ],
+     "color": "coral"
+    },
+    {
+     "t": "wire",
+     "at": 2.0,
+     "pts": [
+      [
+       790,
+       590
+      ],
+      [
+       660,
+       510
+      ]
+     ],
+     "color": "coral"
+    },
+    {
+     "t": "chip",
+     "at": "b",
+     "text": "T1 waits for B",
+     "color": "cyan",
+     "x": 540,
+     "y": 880,
+     "size": 32
+    },
+    {
+     "t": "chip",
+     "at": 2.6,
+     "text": "T2 waits for A",
+     "color": "violet",
+     "x": 540,
+     "y": 980,
+     "size": 32
+    },
+    {
+     "t": "badge",
+     "at": "forever",
+     "text": "FOREVER",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 1100
+    }
+   ]
+  },
+  {
+   "line": 3,
+   "title": "DEADLOCK",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "DEADLOCK",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 470
+    },
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "T1",
+     "kind": "user",
+     "color": "cyan",
+     "x": 300,
+     "y": 700
+    },
+    {
+     "t": "node",
+     "at": 0.3,
+     "label": "T2",
+     "kind": "user",
+     "color": "violet",
+     "x": 780,
+     "y": 700
+    },
+    {
+     "t": "wire",
+     "at": "each",
+     "pts": [
+      [
+       390,
+       670
+      ],
+      [
+       690,
+       670
+      ]
+     ],
+     "color": "coral"
+    },
+    {
+     "t": "wire",
+     "at": "holds",
+     "pts": [
+      [
+       690,
+       730
+      ],
+      [
+       390,
+       730
+      ]
+     ],
+     "color": "coral"
+    },
+    {
+     "t": "chip",
+     "at": "holds",
+     "text": "holds A, needs B",
+     "color": "cyan",
+     "x": 540,
+     "y": 900,
+     "size": 32
+    },
+    {
+     "t": "chip",
+     "at": "needs",
+     "text": "holds B, needs A",
+     "color": "violet",
+     "x": 540,
+     "y": 1010,
+     "size": 32
+    }
+   ]
+  },
+  {
+   "line": 4,
+   "title": "ABORT ONE",
+   "color": "mint",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "NOBODY WINS CLEANLY",
+     "color": "amber",
+     "size": 40,
+     "x": 540,
+     "y": 460
+    },
+    {
+     "t": "node",
+     "at": "postgresql",
+     "label": "postgres",
+     "kind": "db",
+     "color": "violet",
+     "x": 540,
+     "y": 640
+    },
+    {
+     "t": "chip",
+     "at": "cycle",
+     "text": "cycle found",
+     "color": "amber",
+     "x": 540,
+     "y": 800,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "aborts",
+     "text": "one aborted",
+     "color": "coral",
+     "x": 320,
+     "y": 960,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "them",
+     "text": "other commits",
+     "color": "mint",
+     "x": 760,
+     "y": 960,
+     "size": 36
+    }
+   ]
+  },
+  {
+   "line": 5,
+   "title": "WHICH ONE?",
+   "color": "coral",
+   "items": [
+    {
+     "t": "badge",
+     "at": 0.3,
+     "text": "THE CATCH",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 470
+    },
+    {
+     "t": "chip",
+     "at": "predict",
+     "text": "T1?",
+     "color": "cyan",
+     "x": 380,
+     "y": 680,
+     "size": 40
+    },
+    {
+     "t": "chip",
+     "at": "which",
+     "text": "T2?",
+     "color": "violet",
+     "x": 700,
+     "y": 680,
+     "size": 40
+    },
+    {
+     "t": "badge",
+     "at": "killed",
+     "text": "UNPREDICTABLE",
+     "color": "coral",
+     "size": 46,
+     "x": 540,
+     "y": 880
+    }
+   ]
+  },
+  {
+   "line": 6,
+   "title": "SAME ORDER",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "always",
+     "color": "mint",
+     "x": 540,
+     "y": 460,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "lock",
+     "text": "T1: A then B",
+     "color": "cyan",
+     "x": 540,
+     "y": 600,
+     "size": 36
+    },
+    {
+     "t": "chip",
+     "at": "same",
+     "text": "T2: A then B",
+     "color": "violet",
+     "x": 540,
+     "y": 720,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "before",
+     "text": "A BEFORE B",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 880
+    },
+    {
+     "t": "check",
+     "at": "everywhere",
+     "x": 860,
+     "y": 880,
+     "color": "mint"
+    }
+   ]
+  },
+  {
+   "line": 7,
+   "title": "RETRY",
+   "color": "mint",
+   "items": [
+    {
+     "t": "chip",
+     "at": 0.3,
+     "text": "aborted",
+     "color": "coral",
+     "x": 540,
+     "y": 500,
+     "size": 36
+    },
+    {
+     "t": "badge",
+     "at": "retry",
+     "text": "RETRY IT",
+     "color": "mint",
+     "size": 46,
+     "x": 540,
+     "y": 660
+    },
+    {
+     "t": "chip",
+     "at": "did",
+     "text": "did you guess nobody?",
+     "color": "amber",
+     "x": 540,
+     "y": 860,
+     "size": 34
+    },
+    {
+     "t": "check",
+     "at": "nobody",
+     "x": 900,
+     "y": 860,
+     "color": "mint"
+    }
+   ]
+  }
+ ]
+}
